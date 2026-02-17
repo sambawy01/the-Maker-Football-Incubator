@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
-import founderImg from "figma:asset/c8647ce1da679d8a509858a3f4fbb65cc5c762be.png";
+const founderImg = "https://i.ibb.co/fVZT5FCD/2c4779bd-eb40-4305-bfac-2363462551fb.jpg";
 
 export const Founder = () => {
   return (

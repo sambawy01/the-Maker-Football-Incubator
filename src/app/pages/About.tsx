@@ -1,7 +1,7 @@
 import React from "react";
 import { Target, Eye, Shield, Linkedin, Globe, Briefcase, Award, Users } from "lucide-react";
 import { Button } from "../components/ui/Button";
-import founderImg from "figma:asset/c8647ce1da679d8a509858a3f4fbb65cc5c762be.png";
+const founderImg = "https://i.ibb.co/fVZT5FCD/2c4779bd-eb40-4305-bfac-2363462551fb.jpg";
 import aboutHeroImg from "../../assets/about-hero.jpg";
 
 // NEW COMPONENT: WhoWeAre
