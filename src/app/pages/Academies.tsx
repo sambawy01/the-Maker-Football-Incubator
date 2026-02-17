@@ -32,7 +32,7 @@ export const Academies = () => {
       {/* Hero */}
       <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
         <img 
-            src="https://images.unsplash.com/photo-1717584146940-118a65525da8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxib3lzJTIwYW5kJTIwZ2lybHMlMjBmb290YmFsbCUyMHRyYWluaW5nJTIwaGFwcHl8ZW58MXx8fHwxNzcxMzM3NDI2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://i.ibb.co/FqJgSqQP/GIO-6038.jpg"
             alt="Happy kids training"
             className="absolute inset-0 w-full h-full object-cover"
         />
