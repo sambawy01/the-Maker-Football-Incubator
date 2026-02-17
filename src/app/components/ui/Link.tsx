@@ -1,41 +1,24 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink, NavLink as RouterNavLink } from "react-router-dom";
 
 export const Link = ({ to, children, className, ...props }: any) => {
-  const navigate = useNavigate();
   return (
-    <a
-      href={to}
-      className={className}
-      onClick={(e) => {
-        e.preventDefault();
-        navigate(to);
-      }}
-      {...props}
-    >
+    <RouterLink to={to} className={className} {...props}>
       {children}
-    </a>
+    </RouterLink>
   );
 };
 
 export const NavLink = ({ to, children, className, ...props }: any) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isActive = location.pathname === to;
-
-  const classNameResult = typeof className === "function" ? className({ isActive }) : className;
-
   return (
-    <a
-      href={to}
-      className={classNameResult}
-      onClick={(e) => {
-        e.preventDefault();
-        navigate(to);
-      }}
+    <RouterNavLink
+      to={to}
+      className={({ isActive }) =>
+        typeof className === "function" ? className({ isActive }) : className
+      }
       {...props}
     >
       {children}
-    </a>
+    </RouterNavLink>
   );
 };
