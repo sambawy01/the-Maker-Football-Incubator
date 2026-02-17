@@ -1,3 +1,4 @@
+import heroImg from "../../assets/hero-team.jpg";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/Button";
 import { Play } from "lucide-react";
@@ -32,7 +33,7 @@ export const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb290YmFsbCUyMHRyYWluaW5nJTIwZ29sZGVuJTIwaG91cnxlbnwxfHx8fDE3NzEzMzY5NjF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          src={heroImg}
           alt="Training at Golden Hour"
           className="w-full h-full object-cover"
         />
