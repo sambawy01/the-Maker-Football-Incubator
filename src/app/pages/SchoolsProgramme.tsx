@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../components/ui/Button";
+import { Link } from "../components/ui/Link";
 
 export const SchoolsProgramme = () => {
   return (
@@ -22,7 +23,7 @@ export const SchoolsProgramme = () => {
                         <h3 className="font-bold text-[#16A34A] mb-2">Emerald Education Partnership</h3>
                         <p className="text-sm text-[#0F172A]/80">A strategic partnership giving us access to thousands of students nationwide.</p>
                     </div>
-                    <Button>Request a Consultation</Button>
+                    <Link to="/scouts"><Button>Request a Consultation</Button></Link>
                 </div>
                  <div className="bg-gray-100 rounded-xl h-[400px] flex items-center justify-center text-gray-400">
                     <img src="https://i.ibb.co/xKg9957Q/IMG-6942.jpg" alt="Schools Programme" className="w-full h-full object-cover rounded-lg" />
