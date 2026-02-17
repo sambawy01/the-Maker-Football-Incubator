@@ -59,8 +59,8 @@ export const DreamLeague = () => {
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
-                        <div className="h-48 bg-gray-200 rounded-lg"></div>
-                        <div className="h-48 bg-gray-200 rounded-lg"></div>
+                        <div className="h-48 rounded-lg overflow-hidden"><img src="https://i.ibb.co/SX1Kp6QD/GIO-6552.jpg" alt="Tournament" className="w-full h-full object-cover" /></div>
+                        <div className="h-48 rounded-lg overflow-hidden"><img src="https://i.ibb.co/hF6ZLKb9/GIO-6614.jpg" alt="Tournament" className="w-full h-full object-cover" /></div>
                     </div>
                 </div>
 
