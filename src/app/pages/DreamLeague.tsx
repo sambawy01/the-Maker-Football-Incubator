@@ -9,7 +9,7 @@ export const DreamLeague = () => {
         {/* Hero */}
         <section className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]">
             <img 
-                src="https://images.unsplash.com/photo-1526234577630-77b606b3421b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHNvY2NlciUyMHBsYXllcnMlMjBjZWxlYnJhdGluZyUyMHRvdXJuYW1lbnQlMjB3aW58ZW58MXx8fHwxNzcxMzM2OTYyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://i.ibb.co/hF6ZLKb9/GIO-6614.jpg"
                 alt="Tournament Celebration"
                 className="absolute inset-0 w-full h-full object-cover opacity-40"
             />
