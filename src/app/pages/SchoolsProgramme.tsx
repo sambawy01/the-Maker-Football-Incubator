@@ -25,7 +25,7 @@ export const SchoolsProgramme = () => {
                     <Button>Request a Consultation</Button>
                 </div>
                  <div className="bg-gray-100 rounded-xl h-[400px] flex items-center justify-center text-gray-400">
-                    Training Photo Placeholder
+                    <img src="https://i.ibb.co/xKg9957Q/IMG-6942.jpg" alt="Schools Programme" className="w-full h-full object-cover rounded-lg" />
                 </div>
             </div>
         </section>
