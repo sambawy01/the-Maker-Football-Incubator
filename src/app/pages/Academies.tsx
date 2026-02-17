@@ -1,6 +1,7 @@
 import React from "react";
 import { Check, MapPin, Calendar, Star } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { Link } from "../components/ui/Link";
 
 const academies = [
   {
@@ -137,7 +138,7 @@ export const Academies = () => {
              <div className="max-w-4xl mx-auto px-4">
                  <h3 className="text-2xl font-bold mb-4">Also Introducing: The Maker Schools Programme</h3>
                  <p className="text-gray-400 mb-8">We bring our methodology to schools across Egypt.</p>
-                 <Button variant="outline-white">Learn About Schools Programme</Button>
+                 <Link to="/schools"><Button variant="outline-white">Learn About Schools Programme</Button></Link>
              </div>
        </section>
     </div>
