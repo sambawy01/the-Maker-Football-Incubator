@@ -11,6 +11,7 @@ const newsItems = [
     color: "bg-[#D97706]",
     image: "https://i.ibb.co/v6rbyq0F/Screenshot-2026-02-17-at-9-51-04-PM.png",
     excerpt: "A strategic move that opens a direct pathway for The Maker’s scholars to European football."
+    link: "https://www.kingfut.com/2025/06/07/mido-joins-enosis-neon-paralimniou-in-scouting-and-recruitment-role/"
   },
   {
     id: 2,
@@ -50,7 +51,7 @@ export const News = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Featured Item (First) */}
-            <div className="lg:col-span-2 group cursor-pointer">
+            <a href={newsItems[0].link} target="_blank" rel="noopener noreferrer" className="lg:col-span-2 group cursor-pointer block">
                 <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-sm">
                     <img src={newsItems[0].image} alt={newsItems[0].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-90" />
