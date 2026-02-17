@@ -1,6 +1,7 @@
 import heroImg from "../../assets/hero-team.jpg";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/Button";
+import { Link } from "./ui/Link";
 import { Play } from "lucide-react";
 
 export const Hero = () => {
@@ -54,8 +55,9 @@ export const Hero = () => {
           </p>
           
           <div className="flex flex-wrap gap-4">
-            <Button variant="primary" size="lg">
+            <Link to="/programme"><Button variant="primary" size="lg">
               DISCOVER OUR PROGRAMME
+            </Button></Link>
             </Button>
             <Button variant="outline-white" size="lg" className="group">
               <Play size={20} className="mr-2 fill-current" /> WATCH OUR STORY
