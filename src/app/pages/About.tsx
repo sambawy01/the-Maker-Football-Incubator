@@ -132,7 +132,7 @@ const Timeline = () => {
 const Team = () => {
   const leaders = [
     { name: "Ahmed Hossam ‘Mido’", role: "Founder & Director • Sporting Director, Enosis Paralimni", img: founderImg },
-    { name: "Yosra Elleithy", role: "People & Culture Director • Podcast Co-Host", img: "https://i.ibb.co/Q76W5Tfx/Screenshot-2026-02-17-at-8-48-17-PM.png" },
+    { name: "Yosra Elleithy", role: "People & Culture Director • Podcast Co-Host", img: "https://i.ibb.co/0p0D2p4L/PHOTO-2026-02-17-21-16-35.jpg" },
     { name: "Tamer Wasfy", role: "Managing Director", img: "https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG1hbiUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzcxMjk4Nzc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" },
   ];
 
