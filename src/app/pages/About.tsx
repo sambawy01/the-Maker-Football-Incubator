@@ -2,6 +2,7 @@ import React from "react";
 import { Target, Eye, Shield, Linkedin, Globe, Briefcase, Award, Users } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import founderImg from "figma:asset/c8647ce1da679d8a509858a3f4fbb65cc5c762be.png";
+import aboutHeroImg from "../../assets/about-hero.jpg";
 
 // NEW COMPONENT: WhoWeAre
 const WhoWeAre = () => {
@@ -174,7 +175,7 @@ export const About = () => {
       <section className="relative h-[600px] w-full flex items-end">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1618536516485-006eb4d1e9bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYXJnZSUyMGdyb3VwJTIweW91bmclMjBmb290YmFsbCUyMHBsYXllcnMlMjB0ZWFtJTIwcGhvdG8lMjBwaXRjaCUyMHN0YWRpdW18ZW58MXx8fHwxNzcxMzM2OTYxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+            src={aboutHeroImg} 
             alt="The Maker Cohort" 
             className="w-full h-full object-cover"
           />
