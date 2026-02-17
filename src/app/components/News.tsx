@@ -9,7 +9,7 @@ const newsItems = [
     date: "12 Oct 2025",
     category: "Partnership",
     color: "bg-[#D97706]",
-    image: "https://images.unsplash.com/photo-1522770179533-24471fcdba45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250cmFjdCUyMHNpZ25pbmclMjBmb290YmFsbHxlbnwxfHx8fDE3NzEzNDI2MjR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: "https://i.ibb.co/v6rbyq0F/Screenshot-2026-02-17-at-9-51-04-PM.png",
     excerpt: "A strategic move that opens a direct pathway for The Maker’s scholars to European football."
   },
   {
