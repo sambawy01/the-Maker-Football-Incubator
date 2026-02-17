@@ -6,7 +6,8 @@ export const FirstTeam = () => {
     <div className="pt-24 min-h-screen bg-gray-50">
         {/* Hero */}
         <section className="relative h-[500px] flex items-center justify-center bg-[#0F172A] overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] to-transparent z-10"></div>
+            <img src="https://i.ibb.co/xqd8CmDp/GIO-5938.jpg" alt="First Team" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/50 to-transparent z-10"></div>
             <div className="relative z-20 text-center px-4">
                 <span className="text-[#D97706] font-bold tracking-widest uppercase mb-4 block">A New Era Begins</span>
                 <h1 className="text-white text-6xl font-bold mb-4">The Maker First Team</h1>
