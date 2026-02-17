@@ -3,7 +3,7 @@ import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { Logo } from "./ui/Logo";
 import { Button } from "./ui/Button";
 import { cn } from "../../lib/utils"; 
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { NavLink } from "./ui/Link";
 
 // --- Types ---

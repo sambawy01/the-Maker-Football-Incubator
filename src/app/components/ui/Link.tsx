@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Link = ({ to, children, className, ...props }: any) => {
   const navigate = useNavigate();
