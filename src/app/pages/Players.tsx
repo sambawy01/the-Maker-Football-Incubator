@@ -31,7 +31,7 @@ export const Players = () => {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]">
         <img 
-            src="https://images.unsplash.com/photo-1752614654887-0b8d59c076b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2NjZXIlMjBwbGF5ZXJzJTIwYWN0aW9uJTIwc2hvdCUyMGNvbXBvc2l0ZXxlbnwxfHx8fDE3NzEzMzc0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://i.ibb.co/bM7F1wGm/GIO-6493.jpg"
             alt="Players Hero"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
