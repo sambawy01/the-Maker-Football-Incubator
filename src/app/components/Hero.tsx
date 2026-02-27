@@ -18,7 +18,7 @@ export const Hero = () => {
     // Simple count-up animation simulation
     const interval = setInterval(() => {
       setCounts(prev => ({
-        scholars: Math.min(prev.scholars + 5, 150),
+        scholars: Math.min(prev.scholars + 4, 110),
         cities: Math.min(prev.cities + 1, 16),
         trials: Math.min(prev.trials + 2000, 100000),
         pillars: Math.min(prev.pillars + 1, 4),
@@ -51,7 +51,7 @@ export const Hero = () => {
             WE BUILD FUTURES.
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-light">
-            Egypt’s first homegrown football incubator. Scouting talent from 16 cities. Preparing the next generation for European football through partnerships with clubs in Cyprus and Portugal.
+            Egypt's first homegrown football incubator. Scouting talent from 16 cities. A talent-first incubator system offering full scholarships to high-potential players regardless of financial background.
           </p>
           
           <div className="flex flex-wrap gap-4">
