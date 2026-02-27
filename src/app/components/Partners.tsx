@@ -44,19 +44,20 @@ export const Partners = () => {
                 <div className="text-[#D97706] font-bold text-xs uppercase tracking-[0.2em] mb-6">Gold Sponsor</div>
                 <div className="flex justify-center">
                      <div className="h-16 grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100 flex items-center justify-center">
-                         <span className="text-3xl font-bold text-[#D97706]">Pasta Regina</span>
+                         <span className="text-3xl font-bold text-[#D97706]">Regina Pasta</span>
                     </div>
                 </div>
             </div>
 
             <div className="w-24 h-px bg-gray-100 mx-auto"></div>
 
-            {/* Official Partners */}
+            {/* Education Sponsor */}
             <div className="text-center">
-                <div className="text-gray-400 font-bold text-xs uppercase tracking-[0.2em] mb-6">Official Partners</div>
-                <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-center">
-                    <span className="text-xl font-bold text-gray-400">Americana Foods</span>
-                    <span className="text-xl font-bold text-gray-400">Emerald Education</span>
+                <div className="text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-6">Education Sponsor</div>
+                <div className="flex justify-center">
+                     <div className="h-16 grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100 flex items-center justify-center">
+                         <span className="text-3xl font-bold text-blue-600">Nagwa Classes</span>
+                    </div>
                 </div>
             </div>
 
