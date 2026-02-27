@@ -5,23 +5,23 @@ import { Link } from "./ui/Link";
 export const Pillars = () => {
   const pillars = [
     {
-      title: "Football Skills",
-      desc: "Advanced technical and tactical training inspired by European methodologies.",
+      title: "Technical & Tactical",
+      desc: "Structured daily training focused on technical excellence, tactical intelligence, and modern game understanding.",
       icon: "⚽",
     },
     {
-      title: "Education",
-      desc: "English language courses + comprehensive academic curriculum.",
+      title: "Comprehensive Education",
+      desc: "Structured e-learning through Nagwa Classes, English language, and academic support sessions.",
       icon: "📚",
     },
     {
-      title: "Mental Strength",
-      desc: "1-on-1 and group psychology sessions led by specialists.",
+      title: "Psychology Sessions",
+      desc: "Individual and group sessions building confidence, resilience, and decision-making under pressure.",
       icon: "🧠",
     },
     {
-      title: "Physical Development",
-      desc: "Personalized nutrition plans + quarterly medical screenings.",
+      title: "Personalized Nutrition",
+      desc: "Custom meal plans by sports nutritionists with body composition tracking and medical screenings.",
       icon: "💪",
     },
   ];
