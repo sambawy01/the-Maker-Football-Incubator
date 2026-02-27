@@ -19,8 +19,8 @@ const academies = [
     ages: "4 - 14 Years"
   },
   {
-    name: "6 of October",
-    location: "Palm Hills Club",
+    name: "New Administrative Capital",
+    location: "Sports Complex",
     image: "https://images.unsplash.com/photo-1647108694450-67be2c64ba3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWxpb3BvbGlzJTIwY2Fpcm8lMjBzdHJlZXQlMjBzY2VuZXxlbnwxfHx8fDE3NzEzMzc0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     days: "Mon, Wed, Sat",
     ages: "5 - 16 Years"
