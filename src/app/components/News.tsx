@@ -66,7 +66,7 @@ export const News = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
             {/* Side Items */}
             <div className="flex flex-col gap-8">
