@@ -6,33 +6,33 @@ import { Button } from "../components/ui/Button";
 const pillars = [
   {
     id: "01",
-    title: "Football Skills Development",
-    desc: "Our Ajax-inspired philosophy is adapted for individual technical mastery and tactical intelligence.",
-    points: ["Technical mastery & ball control", "Tactical intelligence & positional play", "Position-specific training programmes", "Match simulation & competitive play", "Video analysis (Technical & Performance)"],
+    title: "Technical & Tactical Football Development",
+    desc: "Structured daily training sessions focused on technical excellence, tactical intelligence, and modern game understanding aligned with international standards.",
+    points: ["Ball mastery & technical execution", "Tactical awareness & game understanding", "Position-specific development", "Decision-making in match scenarios", "Speed of play & football intelligence", "Team principles & game models"],
     img: "https://images.unsplash.com/photo-1569242595722-23f071ac6991?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb290YmFsbCUyMHRyYWluaW5nJTIwc2Vzc2lvbiUyMGRyaWxsJTIwY29uZXN8ZW58MXx8fHwxNzcxMzM2OTYxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     layout: "left"
   },
   {
     id: "02",
-    title: "Academic Excellence & Language",
-    desc: "We believe an educated player is a better player. Fluency in English and strong academics are mandatory.",
-    points: ["English language courses for international readiness", "Comprehensive academic curriculum", "Cultural preparation for Europe", "Life skills workshops"],
+    title: "Comprehensive Education Program",
+    desc: "Academic support ensuring players continue their education alongside football, preparing them for life beyond the sport.",
+    points: ["Structured e-learning through Nagwa Classes", "On-campus academic support sessions", "English language learning integrated into the program", "Time management & study discipline", "Age-appropriate learning pathways"],
     img: "https://images.unsplash.com/photo-1654366698665-e6d611a9aaa9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGluJTIwY2xhc3Nyb29tJTIwc3R1ZHlpbmd8ZW58MXx8fHwxNzcxMzM2OTYxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     layout: "right"
   },
   {
     id: "03",
-    title: "Mental Resilience & Wellbeing",
-    desc: "Led by specialist psychologists, we build the character required for the pressures of professional football.",
-    points: ["Sports psychology (1-on-1 & group)", "Mental resilience & stress management", "Emotional intelligence training", "Family support programme"],
+    title: "Psychology Sessions (Individual & Group)",
+    desc: "Specialist psychologists work with each player individually and in groups to build the mental strength required for professional football careers.",
+    points: ["Building confidence & self-belief", "Decision-making under pressure", "Resilience & emotional regulation", "CBT techniques for performance anxiety", "Career guidance & goal-setting sessions", "Family integration & support"],
     img: "https://images.unsplash.com/photo-1757773866965-014fa57ad096?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBwc3ljaG9sb2d5JTIwc2Vzc2lvbiUyMGZvb3RiYWxsJTIwcGxheWVyfGVufDF8fHx8MTc3MTMzNjk2Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     layout: "left"
   },
   {
     id: "04",
-    title: "Physical Conditioning & Nutrition",
-    desc: "Data-driven physical development ensuring our players can compete with European athletes.",
-    points: ["Personalized nutrition programme", "Quarterly medical check-ups", "Growth monitoring & injury prevention", "Football technology integration"],
+    title: "Personalized Nutrition Program",
+    desc: "Custom meal plans designed by sports nutritionists to fuel peak performance, support growth, and build healthy habits for a professional career.",
+    points: ["Custom meal plans by sports nutritionists", "Hydration strategies & recovery nutrition", "Body composition tracking", "Education on nutrition fundamentals", "Quarterly medical screenings & growth monitoring"],
     img: "https://images.unsplash.com/photo-1666183701139-2dd760d462df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb290YmFsbCUyMHBsYXllciUyMGd5bSUyMHdvcmtvdXQlMjBmaXRuZXNzJTIwdGVzdGluZ3xlbnwxfHx8fDE3NzEzMzY5NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     layout: "right"
   }
