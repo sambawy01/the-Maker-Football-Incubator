@@ -58,7 +58,6 @@ export const Hero = () => {
             <Link to="/programme"><Button variant="primary" size="lg">
               DISCOVER OUR PROGRAMME
             </Button></Link>
-            </Button>
             <Button variant="outline-white" size="lg" className="group">
               <Play size={20} className="mr-2 fill-current" /> WATCH OUR STORY
             </Button>
