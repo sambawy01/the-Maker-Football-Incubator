@@ -10,7 +10,7 @@ const newsItems = [
     category: "Partnership",
     color: "bg-[#D97706]",
     image: "https://i.ibb.co/v6rbyq0F/Screenshot-2026-02-17-at-9-51-04-PM.png",
-    excerpt: "A strategic move that opens a direct pathway for The Maker’s scholars to European football."
+    excerpt: "A strategic move that opens a direct pathway for The Maker’s scholars to European football.",
     link: "https://www.kingfut.com/2025/06/07/mido-joins-enosis-neon-paralimniou-in-scouting-and-recruitment-role/"
   },
   {
