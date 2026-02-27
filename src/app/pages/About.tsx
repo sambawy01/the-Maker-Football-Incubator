@@ -13,9 +13,9 @@ const WhoWeAre = () => {
                      <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
                         Who We Are
                     </span>
-                    <h2 className="text-[#0F172A] text-4xl font-bold mb-6">An Innovative, Pure Egyptian Football Training Programme.</h2>
+                    <h2 className="text-[#0F172A] text-4xl font-bold mb-6">An Elite Egyptian Football Development Platform.</h2>
                     <p className="text-gray-500 text-lg leading-relaxed mb-8">
-                        The Maker is founded by legendary footballer Ahmed Hossam (Mido) and designed to uncover and nurture Egypt’s future football stars. Unlike traditional training programmes, The Maker scouts talented players from across Egypt and provides them with full scholarships, giving them the tools and support needed for a successful future in football. Built on Mido’s extensive knowledge from his international career and exposure to diverse football cultures, The Maker focuses on developing not only highly skilled athletes but also well-rounded individuals, empowering them to chase their biggest dreams.
+                        The Maker is an elite Egyptian football development platform founded by legendary international footballer Ahmed Hossam "Mido", created to identify, develop, and elevate Egypt's most promising football talent. Unlike traditional football academies that rely on pay-to-play models, The Maker operates a talent-first incubator system, scouting players from across Egypt and offering full scholarships to high-potential players regardless of their financial background. Built on Mido's extensive experience across elite European and international football environments, The Maker combines modern football methodology, mental conditioning, education, and lifestyle management to create players who are prepared for professional football and long-term career sustainability.
                     </p>
                     <div className="flex gap-4 items-center">
                          <div className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-gray-100 text-center">
@@ -24,7 +24,7 @@ const WhoWeAre = () => {
                          </div>
                          <div className="text-gray-300">→</div>
                          <div className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-gray-100 text-center">
-                            <div className="font-bold text-[#16A34A] text-xl">150+</div>
+                            <div className="font-bold text-[#16A34A] text-xl">110</div>
                             <div className="text-xs text-gray-400 uppercase">Scholars</div>
                          </div>
                          <div className="text-gray-300">→</div>
@@ -203,8 +203,8 @@ export const About = () => {
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
                 {[
-                    { icon: Target, title: "MISSION", text: "To develop the whole person — not just the player — preparing Egyptian talent for professional careers in Europe through comprehensive football, education, mental health, and physical development programmes." },
-                    { icon: Eye, title: "VISION", text: "To build a sustainable player development model that starts locally and reaches the global stage, producing players competing in European leagues and establishing Egypt as a recognized talent pipeline." },
+                    { icon: Target, title: "MISSION", text: "To develop elite football talent through a holistic program that integrates technical performance, mental strength, education, and lifestyle discipline, enabling players to compete at the highest levels of professional football." },
+                    { icon: Eye, title: "VISION", text: "To become the leading football incubator in Egypt and Africa, and a recognized global source of well-developed football talent for regional and international markets." },
                     { icon: Shield, title: "VALUES", text: "Development over results. Individual care. Egyptian pride. Honesty. Family. Holistic growth." }
                 ].map((item, i) => (
                     <div key={i} className="text-center px-4">
@@ -218,7 +218,7 @@ export const About = () => {
             </div>
 
             <div className="border-t border-white/10 pt-12 flex flex-wrap justify-center gap-8 md:gap-16 text-center">
-                {["100M+ Population", "150+ Scholars", "16 Cities", "100,000+ Trials", "365K+ Followers", "2 European Partners"].map((stat, i) => (
+                {["100M+ Population", "110 Scholars", "16 Cities", "100,000+ Trials", "365K+ Followers", "2 European Partners"].map((stat, i) => (
                     <span key={i} className="text-[#D97706] font-mono text-lg md:text-xl font-bold">
                         {stat}
                     </span>
