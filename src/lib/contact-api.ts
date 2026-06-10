@@ -100,3 +100,36 @@ export function submitScoutApp(payload: ScoutAppPayload) {
 export function submitCampApplication(payload: CampApplicationPayload) {
   return postJson("/camp-application", payload);
 }
+
+export interface AcademyApplicationPayload {
+  /** Parent/guardian name. */
+  parentName: string;
+  /** Parent/guardian email. */
+  parentEmail: string;
+  /** Parent/guardian phone (tel). */
+  parentPhone: string;
+  /** Player full name. */
+  playerName: string;
+  /** Player date of birth, ISO date (YYYY-MM-DD). */
+  playerDob: string;
+  /** Egyptian governorate name from EGYPTIAN_GOVERNORATES. */
+  playerGovernorate: string;
+  /** Optional player position. */
+  position?: string;
+  /** Optional current club / school team. */
+  currentClub?: string;
+  /** Optional https footage link. */
+  footageUrl?: string;
+  /** Why the family wants The Maker (required, 50-2000 chars). */
+  whyMaker: string;
+  /** Optional free-form message. */
+  message?: string;
+  /** GDPR-style consent — required true. */
+  consent: boolean;
+  /** Honeypot — must be empty. */
+  website?: string;
+}
+
+export function submitAcademyApplication(payload: AcademyApplicationPayload) {
+  return postJson("/academy-application", payload);
+}
