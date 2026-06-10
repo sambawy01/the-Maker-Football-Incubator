@@ -1,9 +1,20 @@
 import React from "react";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const FirstTeam = () => {
   return (
     <div className="pt-24 min-h-screen bg-gray-50">
+        <SEO
+          path="/first-team"
+          title="First Team — The Maker"
+          description="The Maker First Team — our debut in Egypt's 4th Division. The next step in the journey from scholarship to professional football."
+          jsonLd={breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "First Team", path: "/first-team" },
+          ])}
+        />
         {/* Hero */}
         <section className="relative h-[500px] flex items-center justify-center bg-[#0F172A] overflow-hidden">
             <img src="https://i.ibb.co/xqd8CmDp/GIO-5938.jpg" alt="First Team" className="absolute inset-0 w-full h-full object-cover" />

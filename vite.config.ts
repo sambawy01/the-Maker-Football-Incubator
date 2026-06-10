@@ -16,4 +16,15 @@ export default defineConfig({
     },
   },
   assetsInclude: ['**/*.svg', '**/*.csv'],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'recharts': ['recharts'],
+          'helmet': ['react-helmet-async'],
+        },
+      },
+    },
+  },
 })

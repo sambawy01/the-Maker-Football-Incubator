@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Check, ArrowRight, Activity, Heart, Brain, Monitor, Globe, BookOpen } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 // Existing Pillars (Keep but check content)
 const pillars = [
@@ -200,6 +202,15 @@ const Schedule = () => {
 export const Programme = () => {
   return (
     <div className="animate-fade-in-up">
+      <SEO
+        path="/programme"
+        title="The Programme — The Maker Football Incubator"
+        description="Four pillars: technical football, education, psychology, and lifestyle. The Maker's comprehensive incubator develops every dimension of a young player's potential — on the pitch and off it."
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Programme", path: "/programme" },
+        ])}
+      />
       {/* Hero */}
       <section className="flex flex-col lg:flex-row h-auto lg:h-[550px]">
         <div className="w-full lg:w-[55%] bg-[#0F172A] p-8 lg:p-20 flex flex-col justify-center">

@@ -1,15 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#16A34A" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Design Premium Football Academy Website</title>
-    </head>
+    <title>The Maker Football Incubator | Egypt's Premium Youth Football Academy</title>
+    <meta
+      name="description"
+      content="Egypt's first homegrown football incubator. A talent-first scholarship academy preparing youth players for European football, founded by Ahmed 'Mido' Hossam."
+    />
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <link rel="canonical" href="https://sambawy01.github.io/the-Maker-Football-Incubator/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="The Maker Football Incubator" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Maker Football Incubator" />
+    <meta
+      property="og:description"
+      content="Egypt's first homegrown football incubator. Scholarships, European partnerships, and the next generation of talent."
+    />
+    <meta
+      property="og:image"
+      content="https://sambawy01.github.io/the-Maker-Football-Incubator/og-default.svg"
+    />
+    <meta
+      property="og:url"
+      content="https://sambawy01.github.io/the-Maker-Football-Incubator/"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Maker Football Incubator" />
+    <meta
+      name="twitter:description"
+      content="Egypt's first homegrown football incubator. Scholarships, European partnerships, and the next generation of talent."
+    />
+    <meta
+      name="twitter:image"
+      content="https://sambawy01.github.io/the-Maker-Football-Incubator/og-default.svg"
+    />
+
+    <!-- Performance hints for image CDN -->
+    <link rel="dns-prefetch" href="//images.unsplash.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="//i.ibb.co" />
+    <link rel="preconnect" href="https://i.ibb.co" crossorigin />
+
+    <!--
+      GitHub Pages SPA redirect shim (Rafgraph). Pairs with public/404.html.
+      When a deep link hits the GH Pages 404, 404.html rewrites it as a query
+      string and redirects to "/". This script restores the original URL via
+      history.replaceState before React loads, so React Router sees the real
+      pathname.
+      Reference: https://github.com/rafgraph/spa-github-pages
+    -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            "",
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      })(window.location);
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

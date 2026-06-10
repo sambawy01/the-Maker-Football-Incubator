@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Logo } from "./ui/Logo";
 import { Button } from "./ui/Button";
-import { cn } from "../../lib/utils"; 
+import { cn } from "../../lib/utils";
 import { useLocation } from "react-router-dom";
 import { NavLink } from "./ui/Link";
+import { useFocusTrap } from "../../lib/useFocusTrap";
+
+const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A]";
 
 // --- Types ---
 type DropdownItem = {
@@ -24,9 +27,9 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { type: 'link', label: 'Home', href: '/' },
   { type: 'link', label: 'About', href: '/about' },
-  { 
-    type: 'dropdown', 
-    label: 'Our Offerings', 
+  {
+    type: 'dropdown',
+    label: 'Our Offerings',
     id: 'offerings',
     items: [
       { label: 'Programme', href: '/programme' },
@@ -35,9 +38,9 @@ const NAV_ITEMS: NavItem[] = [
     ]
   },
   { type: 'link', label: 'Players', href: '/players' },
-  { 
-    type: 'dropdown', 
-    label: 'Competitions', 
+  {
+    type: 'dropdown',
+    label: 'Competitions',
     id: 'competitions',
     items: [
       { label: 'Tournaments', href: '/tournaments' },
@@ -45,9 +48,9 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Camps', href: '/camps' },
     ]
   },
-  { 
-    type: 'dropdown', 
-    label: 'Media', 
+  {
+    type: 'dropdown',
+    label: 'Media',
     id: 'media',
     items: [
       { label: 'Podcast', href: '/podcast' },
@@ -59,20 +62,25 @@ const NAV_ITEMS: NavItem[] = [
 
 // --- Sub-components ---
 
-const DesktopDropdown = ({ 
-  label, 
-  items, 
-  isOpen, 
-  onToggle, 
-  onClose 
-}: { 
-  label: string; 
-  items: DropdownItem[]; 
-  isOpen: boolean; 
+const DesktopDropdown = ({
+  label,
+  items,
+  id,
+  isOpen,
+  onToggle,
+  onClose
+}: {
+  label: string;
+  items: DropdownItem[];
+  id: string;
+  isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuId = `dropdown-menu-${id}`;
 
   // Close if clicking outside THIS specific dropdown
   useEffect(() => {
@@ -83,46 +91,140 @@ const DesktopDropdown = ({
         onClose();
       }
     };
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onClose]);
 
+  // Helper to get focusable menu items in DOM order
+  const getMenuItems = (): HTMLElement[] => {
+    if (!menuRef.current) return [];
+    return Array.from(
+      menuRef.current.querySelectorAll<HTMLElement>('[role="menuitem"]')
+    );
+  };
+
+  // Trigger keyboard handler: ArrowDown opens & moves to first item;
+  // ArrowUp opens & moves to last; Escape closes.
+  const handleTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (!isOpen) onToggle();
+      // Defer focus until menu is rendered/open
+      window.requestAnimationFrame(() => {
+        const items = getMenuItems();
+        items[0]?.focus();
+      });
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (!isOpen) onToggle();
+      window.requestAnimationFrame(() => {
+        const items = getMenuItems();
+        items[items.length - 1]?.focus();
+      });
+    } else if (event.key === "Escape" && isOpen) {
+      event.preventDefault();
+      onClose();
+      triggerRef.current?.focus();
+    }
+  };
+
+  // Menu items keyboard navigation
+  const handleMenuKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const items = getMenuItems();
+    if (items.length === 0) return;
+    const activeIndex = items.indexOf(document.activeElement as HTMLElement);
+
+    switch (event.key) {
+      case "ArrowDown": {
+        event.preventDefault();
+        const next = activeIndex < 0 ? 0 : (activeIndex + 1) % items.length;
+        items[next].focus();
+        break;
+      }
+      case "ArrowUp": {
+        event.preventDefault();
+        const prev = activeIndex <= 0 ? items.length - 1 : activeIndex - 1;
+        items[prev].focus();
+        break;
+      }
+      case "Home": {
+        event.preventDefault();
+        items[0].focus();
+        break;
+      }
+      case "End": {
+        event.preventDefault();
+        items[items.length - 1].focus();
+        break;
+      }
+      case "Escape": {
+        event.preventDefault();
+        onClose();
+        triggerRef.current?.focus();
+        break;
+      }
+      case "Tab": {
+        // Closing on Tab so focus moves naturally to the next nav item.
+        onClose();
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="relative" ref={dropdownRef}>
-      <button 
+      <button
+        ref={triggerRef}
         type="button"
         onClick={() => {
           onToggle();
         }}
+        onKeyDown={handleTriggerKeyDown}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        aria-controls={menuId}
         className={cn(
           "text-white font-medium text-xs tracking-[0.5px] hover:text-[#16A34A] transition-colors flex items-center gap-1 uppercase py-4 cursor-pointer outline-none select-none",
+          FOCUS_RING,
           isOpen && "text-[#16A34A]"
         )}
       >
-        {label} 
-        <ChevronDown 
-          size={12} 
-          className={cn("transition-transform duration-200", isOpen ? "rotate-180" : "")} 
+        {label}
+        <ChevronDown
+          size={12}
+          className={cn("transition-transform duration-200", isOpen ? "rotate-180" : "")}
         />
       </button>
 
       {/* Dropdown Menu */}
-      <div 
+      <div
+        ref={menuRef}
+        id={menuId}
+        role="menu"
+        aria-label={label}
+        onKeyDown={handleMenuKeyDown}
         className={cn(
           "absolute top-full left-0 w-64 bg-[#1E293B] rounded-lg shadow-xl border border-white/5 origin-top-left z-[9999]",
           "transition-all duration-200 ease-out",
-          isOpen 
-            ? "opacity-100 visible translate-y-0 scale-100" 
+          isOpen
+            ? "opacity-100 visible translate-y-0 scale-100"
             : "opacity-0 invisible translate-y-2 scale-95 pointer-events-none"
         )}
       >
         <div className="py-2">
           {items.map((item) => (
-            <NavLink 
+            <NavLink
               key={item.href}
-              to={item.href} 
-              className="block px-4 py-3 text-white text-sm hover:text-[#16A34A] hover:bg-white/5 transition-colors"
+              to={item.href}
+              role="menuitem"
+              tabIndex={isOpen ? 0 : -1}
+              className={cn(
+                "block px-4 py-3 text-white text-sm hover:text-[#16A34A] hover:bg-white/5 transition-colors",
+                FOCUS_RING
+              )}
               onClick={() => onClose()} // Close when a link is clicked
             >
               {item.label}
@@ -139,6 +241,11 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdownId, setActiveDropdownId] = useState<string | null>(null);
   const location = useLocation();
+  const mobileTriggerRef = useRef<HTMLButtonElement>(null);
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+
+  // Trap focus inside the mobile drawer while it's open
+  useFocusTrap(mobileDrawerRef, isMobileMenuOpen);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -153,18 +260,47 @@ export const Navbar = () => {
     setActiveDropdownId(null);
   }, [location]);
 
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isMobileMenuOpen]);
+
+  // Escape key closes the mobile drawer and returns focus to the trigger
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        mobileTriggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
+
   return (
     <div>
+      {/* Skip to main content link (visually hidden until focused) */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#16A34A] focus:text-white focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[72px]",
           isScrolled
             ? "bg-[#0F172A] shadow-lg"
-            : "bg-[#0F172A]/95 backdrop-blur-md" 
+            : "bg-[#0F172A]/95 backdrop-blur-md"
         )}
       >
         <div className="w-full max-w-[1440px] mx-auto px-4 md:px-8 h-full flex items-center justify-between">
-          
+
           {/* Logo Section */}
           <div className="flex-shrink-0 relative z-[51]">
             <NavLink to="/">
@@ -177,11 +313,12 @@ export const Navbar = () => {
             {NAV_ITEMS.map((item) => {
               if (item.type === 'link') {
                 return (
-                  <NavLink 
+                  <NavLink
                     key={item.label}
-                    to={item.href} 
+                    to={item.href}
                     className={({isActive}: any) => cn(
-                      "text-white font-medium text-xs tracking-[0.5px] hover:text-[#16A34A] transition-colors relative group uppercase", 
+                      "text-white font-medium text-xs tracking-[0.5px] hover:text-[#16A34A] transition-colors relative group uppercase",
+                      FOCUS_RING,
                       isActive && "text-[#16A34A]"
                     )}
                   >
@@ -190,10 +327,11 @@ export const Navbar = () => {
                 );
               } else {
                 return (
-                  <DesktopDropdown 
+                  <DesktopDropdown
                     key={item.label}
                     label={item.label}
                     items={item.items || []}
+                    id={item.id!}
                     isOpen={activeDropdownId === item.id}
                     onToggle={() => setActiveDropdownId(current => current === item.id ? null : item.id!)}
                     onClose={() => setActiveDropdownId(null)}
@@ -205,13 +343,7 @@ export const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0 relative z-[51]">
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white text-xs hover:bg-white/20 transition-colors border border-white/20">
-              <Globe size={14} />
-              <span>EN</span>
-              <span className="opacity-50">|</span>
-              <span className="font-arabic">عربي</span>
-            </button>
-            <NavLink to="/contact">
+            <NavLink to="/contact" className={cn("rounded-md", FOCUS_RING)}>
               <Button variant="primary" size="sm" className="rounded-md">
                 APPLY NOW
               </Button>
@@ -220,7 +352,15 @@ export const Navbar = () => {
 
           {/* Mobile Toggle */}
           <button
-            className="xl:hidden text-white z-[60] relative"
+            ref={mobileTriggerRef}
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu-drawer"
+            className={cn(
+              "xl:hidden text-white z-[60] relative rounded-md",
+              FOCUS_RING
+            )}
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu size={24} />
@@ -230,16 +370,21 @@ export const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {/* Backdrop */}
-      <div 
+      <div
         className={cn(
           "fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm transition-opacity duration-300",
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
         onClick={() => setIsMobileMenuOpen(false)}
       />
-      
+
       {/* Drawer */}
-      <div 
+      <div
+        id="mobile-menu-drawer"
+        ref={mobileDrawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Main menu"
         className={cn(
           "fixed inset-y-0 right-0 w-[300px] bg-[#0F172A] z-[61] shadow-2xl flex flex-col p-6 overflow-y-auto border-l border-white/10 transition-transform duration-300 ease-in-out",
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -248,20 +393,31 @@ export const Navbar = () => {
         <div className="flex justify-between items-center mb-8">
           <Logo />
           <button
-            className="text-white hover:text-[#16A34A] transition-colors"
-            onClick={() => setIsMobileMenuOpen(false)}
+            type="button"
+            aria-label="Close menu"
+            className={cn(
+              "text-white hover:text-[#16A34A] transition-colors rounded-md",
+              FOCUS_RING
+            )}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              mobileTriggerRef.current?.focus();
+            }}
           >
             <X size={24} />
           </button>
         </div>
-        
+
         <div className="flex flex-col gap-4">
           {NAV_ITEMS.map((item, idx) => (
             <div key={idx} className="flex flex-col">
               {item.type === 'link' ? (
-                <NavLink 
-                  to={item.href} 
-                  className="text-white text-lg font-bold hover:text-[#16A34A] uppercase"
+                <NavLink
+                  to={item.href}
+                  className={cn(
+                    "text-white text-lg font-bold hover:text-[#16A34A] uppercase rounded-md",
+                    FOCUS_RING
+                  )}
                 >
                   {item.label}
                 </NavLink>
@@ -271,10 +427,13 @@ export const Navbar = () => {
                     {item.label}
                   </div>
                   {item.items?.map(subItem => (
-                    <NavLink 
+                    <NavLink
                       key={subItem.href}
-                      to={subItem.href} 
-                      className="text-gray-300 text-base ml-4 hover:text-white transition-colors py-1"
+                      to={subItem.href}
+                      className={cn(
+                        "text-gray-300 text-base ml-4 hover:text-white transition-colors py-1 rounded-md",
+                        FOCUS_RING
+                      )}
                     >
                       {subItem.label}
                     </NavLink>
@@ -283,9 +442,9 @@ export const Navbar = () => {
               )}
             </div>
           ))}
-          
+
           <div className="h-px w-full bg-white/10 my-4" />
-          <NavLink to="/contact" className="w-full">
+          <NavLink to="/contact" className={cn("w-full rounded-md", FOCUS_RING)}>
             <Button className="w-full">APPLY NOW</Button>
           </NavLink>
         </div>

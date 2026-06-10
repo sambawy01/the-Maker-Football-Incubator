@@ -1,11 +1,38 @@
 import React from "react";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { eventJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
 
 // Renamed from DreamLeague to Tournaments to match the prompt
 export const DreamLeague = () => {
   return (
     <div className="pt-24 min-h-screen bg-gray-50">
-        
+        <SEO
+          path="/tournaments"
+          title="Tournaments — The Maker"
+          description="The Maker Schools Tournament and Ramadan Tournament — bringing competition, discovery, and community together across Egyptian football."
+          jsonLd={[
+            eventJsonLd({
+              name: "The Maker Schools Tournament",
+              description:
+                "The first major school football event of its kind in Egypt — 60+ schools, 160 teams, 1,600 players, in partnership with Emerald Education and the Ministry of Education.",
+              locationName: "Cairo, Egypt",
+              url: "https://sambawy01.github.io/the-Maker-Football-Incubator/tournaments",
+            }),
+            eventJsonLd({
+              name: "The Maker Ramadan Tournament",
+              description:
+                "Annual Ramadan tournament drawing strong participation, media coverage, and football icons — including founder Mido leading his own team.",
+              locationName: "Cairo, Egypt",
+              url: "https://sambawy01.github.io/the-Maker-Football-Incubator/tournaments",
+            }),
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Tournaments", path: "/tournaments" },
+            ]),
+          ]}
+        />
+
         {/* Hero */}
         <section className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]">
             <img 

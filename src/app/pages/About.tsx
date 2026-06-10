@@ -1,8 +1,17 @@
 import React from "react";
 import { Target, Eye, Shield, Linkedin, Globe, Briefcase, Award, Users } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { founderJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
 const founderImg = "https://i.ibb.co/fVZT5FCD/2c4779bd-eb40-4305-bfac-2363462551fb.jpg";
-import aboutHeroImg from "../../assets/about-hero.jpg";
+import about400 from "../../assets/about-hero-400.jpg";
+import about800 from "../../assets/about-hero-800.jpg";
+import about1280 from "../../assets/about-hero-1280.jpg";
+import about1920 from "../../assets/about-hero-1920.jpg";
+import about400Webp from "../../assets/about-hero-400.webp";
+import about800Webp from "../../assets/about-hero-800.webp";
+import about1280Webp from "../../assets/about-hero-1280.webp";
+import about1920Webp from "../../assets/about-hero-1920.webp";
 
 // NEW COMPONENT: WhoWeAre
 const WhoWeAre = () => {
@@ -131,9 +140,9 @@ const Timeline = () => {
 
 const Team = () => {
   const leaders = [
-    { name: "Ahmed Hossam ‘Mido’", role: "Founder & Director • Sporting Director, Enosis Paralimni", img: founderImg },
-    { name: "Yosra Elleithy", role: "People & Culture Director • Podcast Co-Host", img: "https://i.ibb.co/0p0D2p4L/PHOTO-2026-02-17-21-16-35.jpg" },
-    { name: "Tamer Wasfy", role: "Managing Director", img: "https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG1hbiUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzcxMjk4Nzc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" },
+    { name: "Ahmed Hossam ‘Mido’", role: "Founder & Director • Sporting Director, Enosis Paralimni", img: founderImg, linkedin: "https://www.linkedin.com/company/themakerfootball/" },
+    { name: "Yosra Elleithy", role: "People & Culture Director • Podcast Co-Host", img: "https://i.ibb.co/0p0D2p4L/PHOTO-2026-02-17-21-16-35.jpg", linkedin: "https://www.linkedin.com/company/themakerfootball/" },
+    { name: "Tamer Wasfy", role: "Managing Director", img: "https://images.unsplash.com/photo-1723537742563-15c3d351dbf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG1hbiUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzcxMjk4Nzc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral", linkedin: "https://www.linkedin.com/company/themakerfootball/" },
   ];
 
   return (
@@ -157,7 +166,13 @@ const Team = () => {
               <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">
                 Bringing decades of experience in elite football and business management.
               </p>
-              <a href="#" className="inline-flex items-center text-gray-400 hover:text-[#0077B5] transition-colors">
+              <a
+                href={leader.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${leader.name} on LinkedIn`}
+                className="inline-flex items-center text-gray-400 hover:text-[#0077B5] transition-colors"
+              >
                 <Linkedin size={20} />
               </a>
             </div>
@@ -171,14 +186,40 @@ const Team = () => {
 export const About = () => {
   return (
     <div className="animate-fade-in-up">
+      <SEO
+        path="/about"
+        title="About — The Maker Football Incubator"
+        description="Founded by Ahmed 'Mido' Hossam, The Maker is Egypt's first talent-first football incubator — built to identify, develop, and elevate the country's most promising young players."
+        jsonLd={[
+          founderJsonLd(),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="relative h-[600px] w-full flex items-end">
         <div className="absolute inset-0">
-          <img 
-            src={aboutHeroImg} 
-            alt="The Maker Cohort" 
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={`${about400Webp} 400w, ${about800Webp} 800w, ${about1280Webp} 1280w, ${about1920Webp} 1920w`}
+              sizes="100vw"
+            />
+            <img
+              src={about1920}
+              srcSet={`${about400} 400w, ${about800} 800w, ${about1280} 1280w, ${about1920} 1920w`}
+              sizes="100vw"
+              alt="The Maker Cohort"
+              width={1920}
+              height={1281}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
         </div>
         

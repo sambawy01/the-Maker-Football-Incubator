@@ -1,9 +1,43 @@
 import React from "react";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { eventJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const Camps = () => {
   return (
     <div className="pt-24 min-h-screen bg-[#0F172A] text-white">
+      <SEO
+        path="/camps"
+        title="Camps — The Maker"
+        description="Seasonal intensive football camps combining professional training, talent identification, and European exposure through The Maker's partner clubs."
+        jsonLd={[
+          eventJsonLd({
+            name: "Sahel Summer Camp",
+            description:
+              "Seasonal intensive football camp on Egypt's North Coast. High-level training plus talent identification and scouting for The Maker incubator.",
+            locationName: "North Coast (Sahel), Egypt",
+            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
+          }),
+          eventJsonLd({
+            name: "Winter Training Camp",
+            description:
+              "Intensive winter programme focused on technical development and competitive matches during the school break.",
+            locationName: "Cairo, Egypt",
+            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
+          }),
+          eventJsonLd({
+            name: "International Camp",
+            description:
+              "European exposure through partnerships with Enosis Paralimni (Cyprus) and SC Farense (Portugal).",
+            locationName: "Cyprus / Portugal",
+            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Camps", path: "/camps" },
+          ]),
+        ]}
+      />
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <h1 className="text-5xl font-bold mb-6">THE MAKER CAMPS</h1>
         <p className="text-xl text-gray-400 mb-12">Seasonal intensive football programs combining professional training, talent identification, and brand expansion.</p>
