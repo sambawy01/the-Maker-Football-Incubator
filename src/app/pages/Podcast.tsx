@@ -1,9 +1,20 @@
 import React from "react";
 import { Play } from "lucide-react";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const Podcast = () => {
   return (
     <div className="pt-24 min-h-screen bg-[#1E293B]">
+        <SEO
+          path="/podcast"
+          title="Podcast — The Maker"
+          description="Authentic stories from the heart of Egyptian football. The Maker Podcast, hosted by Mido and Yousra El Leithy."
+          jsonLd={breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Podcast", path: "/podcast" },
+          ])}
+        />
         <section className="max-w-7xl mx-auto px-4 py-12 text-white">
             <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
                 <div className="w-full md:w-1/2">

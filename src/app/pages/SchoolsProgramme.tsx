@@ -1,10 +1,21 @@
 import React from "react";
 import { Button } from "../components/ui/Button";
 import { Link } from "../components/ui/Link";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const SchoolsProgramme = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+        <SEO
+          path="/schools"
+          title="Schools Programme — The Maker"
+          description="Bringing The Maker's football methodology into Egypt's classrooms and playgrounds — a nationwide schools programme for grassroots football development."
+          jsonLd={breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Schools Programme", path: "/schools" },
+          ])}
+        />
         <section className="bg-[#0F172A] text-white py-20">
             <div className="max-w-7xl mx-auto px-4 text-center">
                 <h1 className="text-5xl font-bold mb-6">The Maker Schools Programme</h1>

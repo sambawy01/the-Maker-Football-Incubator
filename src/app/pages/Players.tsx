@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "../components/ui/Link";
 import { Search, MapPin, Filter } from "lucide-react";
-import { Button } from "../components/ui/Button";
-
-// Mock Data
-const players = Array.from({ length: 12 }).map((_, i) => ({
-  id: i + 1,
-  name: i % 2 === 0 ? "Youssef Ibrahim" : "Omar Fayed",
-  position: i % 3 === 0 ? "Goalkeeper" : i % 3 === 1 ? "Defender" : "Midfielder",
-  ageGroup: i % 2 === 0 ? "U-16" : "U-18",
-  gov: i % 4 === 0 ? "Cairo" : "Alexandria",
-  image: `https://source.unsplash.com/random/400x500?football,player&sig=${i}`
-}));
+import { players } from "../../lib/players";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const Players = () => {
   const [filterAge, setFilterAge] = useState("All");
@@ -21,18 +13,28 @@ export const Players = () => {
   const filteredPlayers = players.filter(p => {
     return (
       (filterAge === "All" || p.ageGroup === filterAge) &&
-      (filterPos === "All" || p.position === filterPos) &&
+      (filterPos === "All" || p.positionCategory === filterPos) &&
       (p.name.toLowerCase().includes(search.toLowerCase()))
     );
   });
 
   return (
     <div className="animate-fade-in-up">
+      <SEO
+        path="/players"
+        title="Our Scholars — The Maker Football Incubator"
+        description="Meet the young athletes selected from 14+ Egyptian governorates, training daily at The Maker to achieve their European football dream."
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Players", path: "/players" },
+        ])}
+      />
       {/* Hero */}
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]">
-        <img 
+        <img
             src="https://i.ibb.co/bM7F1wGm/GIO-6493.jpg"
-            alt="Players Hero"
+            alt=""
+            aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
         <div className="relative z-10 text-center px-4">
@@ -58,8 +60,6 @@ export const Players = () => {
                         onChange={(e) => setFilterAge(e.target.value)}
                     >
                         <option value="All">All Age Groups</option>
-                        <option value="U-10">U-10</option>
-                        <option value="U-12">U-12</option>
                         <option value="U-14">U-14</option>
                         <option value="U-16">U-16</option>
                         <option value="U-18">U-18</option>
@@ -96,8 +96,8 @@ export const Players = () => {
 
       {/* Grid */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 min-h-[600px]">
-        <div className="flex justify-between items-center mb-8">
-            <div className="text-gray-500 text-sm">
+        <div className="flex justify-between items-center mb-8" aria-live="polite" aria-atomic="true">
+            <div className="text-gray-600 text-sm">
                 Showing <span className="font-bold text-[#0F172A]">{filteredPlayers.length}</span> Scholars
             </div>
         </div>
@@ -108,10 +108,11 @@ export const Players = () => {
                     <Link to={`/players/${p.id}`} key={p.id} className="block group">
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative top-0 hover:-top-1 h-full flex flex-col">
                             <div className="h-[320px] overflow-hidden bg-gray-200 relative">
-                                <img 
-                                    src={p.image} 
+                                <img
+                                    src={p.thumbnail}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
-                                    alt={p.name}
+                                    alt={`${p.name}, ${p.position} from ${p.gov}`}
+                                    loading="lazy"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                                 
@@ -142,7 +143,7 @@ export const Players = () => {
                 ))}
             </div>
         ) : (
-            <div className="text-center py-20 text-gray-500">
+            <div className="text-center py-20 text-gray-600" aria-live="polite" aria-atomic="true" role="status">
                 No players found matching your criteria.
             </div>
         )}
@@ -152,46 +153,19 @@ export const Players = () => {
       <section className="bg-[#F8FAFC] py-24 border-t border-gray-200">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
             <div className="text-center mb-16">
-                <h2 className="text-[#0F172A] text-4xl font-bold mb-4">Where Are They Now?</h2>
-                <p className="text-gray-500 max-w-2xl mx-auto">
-                    Tracking the journey of our graduates as they take their first steps into professional football in Europe and Egypt.
-                </p>
+                <h2 className="text-[#0F172A] text-4xl font-bold mb-4">Where Our Alumni Are Now</h2>
             </div>
-            
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 p-8 md:p-12 flex flex-col md:flex-row gap-12 items-center">
-                <div className="w-full md:w-1/2">
-                    <div className="bg-indigo-50 rounded-xl aspect-video flex items-center justify-center text-indigo-300 font-bold text-xl border-2 border-dashed border-indigo-100">
-                        Interactive World Map Visualization
-                    </div>
-                </div>
-                <div className="w-full md:w-1/2">
-                    <h3 className="text-2xl font-bold text-[#0F172A] mb-6">Global Pathways</h3>
-                    <div className="space-y-6">
-                        <div className="flex gap-4 items-start">
-                            <div className="w-12 h-12 rounded-full bg-gray-200 flex-shrink-0"></div>
-                            <div>
-                                <h4 className="font-bold text-[#0F172A]">Karim Zaki</h4>
-                                <p className="text-sm text-gray-500 mb-1">Trial at <span className="text-[#16A34A] font-semibold">Rio Ave FC (Portugal)</span></p>
-                                <p className="text-xs text-gray-400 italic">"The preparation I received at The Maker made the transition seamless."</p>
-                            </div>
-                        </div>
-                        <div className="flex gap-4 items-start">
-                            <div className="w-12 h-12 rounded-full bg-gray-200 flex-shrink-0"></div>
-                            <div>
-                                <h4 className="font-bold text-[#0F172A]">Mohamed Ali</h4>
-                                <p className="text-sm text-gray-500 mb-1">Signed with <span className="text-[#16A34A] font-semibold">Zamalek SC U-18</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="mt-8 pt-8 border-t border-gray-100">
-                        <div className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">For Scouts</div>
-                        <div className="flex gap-4">
-                            <Button variant="primary">Download Catalogue</Button>
-                            <Button variant="outline-white" className="border-gray-300 text-gray-600 hover:bg-gray-50">Contact Dept</Button>
-                        </div>
-                    </div>
-                </div>
+
+            <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-10 md:p-12 text-center">
+                <span className="inline-block text-[#D97706] font-bold text-xs tracking-widest uppercase bg-[#D97706]/10 px-3 py-1 rounded-full mb-6">
+                    Alumni Map — Coming Soon
+                </span>
+                <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                    We're documenting the journeys of our scholars across European clubs. Check back soon.
+                </p>
+                <Link to="/contact" className="inline-flex items-center gap-2 bg-[#16A34A] hover:bg-[#15803D] text-white font-bold px-6 py-3 rounded-lg transition-colors">
+                    Get notified when we launch the alumni map
+                </Link>
             </div>
         </div>
       </section>

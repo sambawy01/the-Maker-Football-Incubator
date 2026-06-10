@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { NavLink } from "./ui/Link";
 const founderImg = "https://i.ibb.co/fVZT5FCD/2c4779bd-eb40-4305-bfac-2363462551fb.jpg";
 
 export const Founder = () => {
@@ -34,10 +35,10 @@ export const Founder = () => {
               Former Ajax, Roma & Tottenham • Founder, The Maker
             </div>
             
-            <a href="#" className="inline-flex items-center text-[#16A34A] hover:text-white transition-colors group">
-              Read Mido’s Full Story 
+            <NavLink to="/about" className="inline-flex items-center text-[#16A34A] hover:text-white transition-colors group">
+              Read Mido’s Full Story
               <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

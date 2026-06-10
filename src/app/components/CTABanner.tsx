@@ -7,7 +7,8 @@ export const CTABanner = () => {
     <section className="relative w-full h-[400px] flex items-center justify-center overflow-hidden bg-[#16A34A]">
       <img
         src="https://images.unsplash.com/photo-1556814282-3e284a7a8220?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZXJpYWwlMjB2aWV3JTIwb2YlMjBmb290YmFsbCUyMHBpdGNoJTIwc3RhZGl1bSUyMGxpZ2h0c3xlbnwxfHx8fDE3NzEzNDI2MjR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-        alt="Stadium Aerial"
+        alt=""
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40"
       />
       
@@ -30,11 +31,11 @@ export const CTABanner = () => {
             </Link>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-8 text-white/70 text-sm font-medium">
-             <Link to="/scouts" className="hover:text-white transition-colors underline decoration-white/30 hover:decoration-white">
+        <div className="flex flex-col sm:flex-row justify-center gap-8 text-white text-sm font-medium">
+             <Link to="/scouts" className="hover:text-white transition-colors underline decoration-white/60 hover:decoration-white">
                 For scouts and agents: Contact our scouting department →
              </Link>
-             <Link to="/contact" className="hover:text-white transition-colors underline decoration-white/30 hover:decoration-white">
+             <Link to="/contact" className="hover:text-white transition-colors underline decoration-white/60 hover:decoration-white">
                 For sponsors: Partnership opportunities →
              </Link>
         </div>

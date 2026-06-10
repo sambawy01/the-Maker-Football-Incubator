@@ -6,6 +6,13 @@ import { PlayerCarousel } from "../components/PlayerCarousel";
 import { Partners } from "../components/Partners";
 import { News } from "../components/News";
 import { CTABanner } from "../components/CTABanner";
+import { SEO } from "../components/SEO";
+import { NavLink } from "../components/ui/Link";
+import {
+  organizationJsonLd,
+  webSiteJsonLd,
+  breadcrumbJsonLd,
+} from "../../lib/jsonld";
 import { MapPin, Globe, ArrowRight, Activity, BookOpen, Brain, Heart, Mic, Trophy, Users } from "lucide-react";
 
 // New Component: European Pathway
@@ -83,9 +90,9 @@ const EuropeanPathway = () => {
                 </div>
 
                 <div className="text-center">
-                    <a href="#" className="inline-flex items-center text-[#16A34A] hover:text-white transition-colors font-bold uppercase tracking-wider text-sm border-b border-[#16A34A] pb-1">
+                    <NavLink to="/about" className="inline-flex items-center text-[#16A34A] hover:text-white transition-colors font-bold uppercase tracking-wider text-sm border-b border-[#16A34A] pb-1">
                         Learn About Our European Network <ArrowRight size={16} className="ml-2" />
-                    </a>
+                    </NavLink>
                 </div>
             </div>
         </section>
@@ -136,6 +143,16 @@ const OfferingsOverview = () => {
 export const Home = () => {
   return (
     <div className="animate-fade-in-up">
+      <SEO
+        path="/"
+        title="The Maker Football Incubator | Egypt's Premium Youth Football Academy"
+        description="Egypt's first homegrown football incubator. A talent-first scholarship academy preparing youth players for European football, founded by Ahmed 'Mido' Hossam."
+        jsonLd={[
+          organizationJsonLd,
+          webSiteJsonLd,
+          breadcrumbJsonLd([{ name: "Home", path: "/" }]),
+        ]}
+      />
       <Hero />
       <Founder />
       <Pillars />

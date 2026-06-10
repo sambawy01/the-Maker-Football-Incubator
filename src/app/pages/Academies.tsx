@@ -2,6 +2,8 @@ import React from "react";
 import { Check, MapPin, Calendar, Star } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { Link } from "../components/ui/Link";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 const academies = [
   {
@@ -30,6 +32,15 @@ const academies = [
 export const Academies = () => {
   return (
     <div className="animate-fade-in-up">
+      <SEO
+        path="/academies"
+        title="Academies — The Maker Football Incubator"
+        description="The Maker operates academies across New Cairo, Maadi, and the New Administrative Capital — entry points for the next generation of Egyptian football talent."
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Academies", path: "/academies" },
+        ])}
+      />
       {/* Hero */}
       <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
         <img 

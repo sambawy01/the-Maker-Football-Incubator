@@ -1,0 +1,55 @@
+# The Maker Football Incubator
+
+> Egypt's first homegrown football incubator. A talent-first scholarship academy preparing youth players for European football, founded by Ahmed "Mido" Hossam.
+
+The Maker is an elite Egyptian football development platform that scouts players from across Egypt's governorates and offers full scholarships to high-potential players regardless of financial background. The programme combines technical football, education, psychology, and lifestyle management to prepare players for professional careers — with formal partnerships to Enosis Paralimni FC (Cyprus) and SC Farense (Portugal) providing direct European exposure.
+
+## Founder
+
+**Ahmed "Mido" Hossam** — Former Egyptian international footballer. Career across Tottenham Hotspur, Roma, Marseille, Ajax, and the Egypt national team. Built The Maker to give Egyptian youth the kind of development pathway he had to leave the country to find.
+- Founder bio: https://sambawy01.github.io/the-Maker-Football-Incubator/about
+
+## Four Pillars of the Programme
+
+1. **Technical & Tactical Football Development** — daily training to international standards, ball mastery, position-specific work, modern game models.
+2. **Comprehensive Education Programme** — academic support via Nagwa Classes, English-language integration, study discipline.
+3. **Psychology (Individual & Group)** — mental conditioning, identity work, performance psychology.
+4. **Lifestyle & Career Management** — nutrition, recovery, media training, agent and contract literacy.
+
+## Key Routes
+
+| Section            | URL                                                                                       |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| Home               | https://sambawy01.github.io/the-Maker-Football-Incubator/                                 |
+| About              | https://sambawy01.github.io/the-Maker-Football-Incubator/about                            |
+| Programme          | https://sambawy01.github.io/the-Maker-Football-Incubator/programme                        |
+| Scholar Players    | https://sambawy01.github.io/the-Maker-Football-Incubator/players                          |
+| Academies          | https://sambawy01.github.io/the-Maker-Football-Incubator/academies                        |
+| For Scouts         | https://sambawy01.github.io/the-Maker-Football-Incubator/scouts                           |
+| Tournaments        | https://sambawy01.github.io/the-Maker-Football-Incubator/tournaments                      |
+| Camps              | https://sambawy01.github.io/the-Maker-Football-Incubator/camps                            |
+| First Team         | https://sambawy01.github.io/the-Maker-Football-Incubator/first-team                       |
+| Podcast            | https://sambawy01.github.io/the-Maker-Football-Incubator/podcast                          |
+| Schools Programme  | https://sambawy01.github.io/the-Maker-Football-Incubator/schools                          |
+| News               | https://sambawy01.github.io/the-Maker-Football-Incubator/news                             |
+| Contact            | https://sambawy01.github.io/the-Maker-Football-Incubator/contact                          |
+| Privacy            | https://sambawy01.github.io/the-Maker-Football-Incubator/privacy                          |
+| Terms              | https://sambawy01.github.io/the-Maker-Football-Incubator/terms                            |
+
+## European Partnerships
+
+- **Enosis Paralimni FC (Cyprus)** — first-team and academy pathway.
+- **SC Farense (Portugal)** — development and exposure agreement.
+
+## Coverage
+
+- Scholars currently active across 14+ Egyptian governorates including Cairo, Alexandria, Giza, Aswan, Luxor, Mansoura, Tanta, Ismailia, Port Said, Suez, and Sharm El-Sheikh.
+- Age groups: U-14, U-16, U-18.
+
+## Contact
+
+- Email: info@themaker.eg
+- Press: press@themaker.eg
+- Address: Street 90, New Cairo, Cairo, Egypt
+- Contact form: https://sambawy01.github.io/the-Maker-Football-Incubator/contact
+- Scout/agent enquiries: https://sambawy01.github.io/the-Maker-Football-Incubator/scouts

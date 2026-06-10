@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "./ui/Link";
+import { Link, NavLink } from "./ui/Link";
 import { Logo } from "./ui/Logo";
-import { Instagram, Facebook, Linkedin, Youtube, Twitter, MapPin, Mail, Phone, Globe } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Youtube, Music2, MapPin, Mail, Phone } from "lucide-react";
+
+const SOCIAL_LINKS = [
+  { Icon: Instagram, href: "https://www.instagram.com/themaker.eg/", label: "Follow on Instagram" },
+  { Icon: Facebook, href: "https://www.facebook.com/themaker.eg/", label: "Follow on Facebook" },
+  { Icon: Youtube, href: "https://www.youtube.com/channel/UCcN8N56wyeXMpQhYohTHUGQ", label: "Subscribe on YouTube" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/company/the-maker-eg", label: "Connect on LinkedIn" },
+  { Icon: Music2, href: "https://www.tiktok.com/@themaker.eg", label: "Follow on TikTok" },
+];
 
 export const Footer = () => {
   return (
@@ -18,8 +26,15 @@ export const Footer = () => {
               Egypt’s Football Incubator.<br/>Make Your Mark.
             </p>
             <div className="flex gap-3 mb-4">
-                {[Instagram, Facebook, Youtube, Linkedin, Twitter].map((Icon, i) => (
-                    <a key={i} href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#16A34A] transition-colors">
+                {SOCIAL_LINKS.map(({ Icon, href, label }) => (
+                    <a
+                        key={href}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#16A34A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A]"
+                    >
                         <Icon size={14} />
                     </a>
                 ))}
@@ -75,7 +90,7 @@ export const Footer = () => {
                 </li>
                 <li className="flex gap-3">
                     <Phone size={16} className="text-[#16A34A] shrink-0" />
-                    +20 100 000 0000
+                    +20 109 404 5658
                 </li>
                 <li className="flex gap-3">
                     <MapPin size={16} className="text-[#16A34A] shrink-0" />
@@ -98,11 +113,8 @@ export const Footer = () => {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
             <div>&copy; 2026 The Maker Football Incubator. All rights reserved.</div>
             <div className="flex gap-6">
-                <a href="#" className="hover:text-white">Privacy Policy</a>
-                <a href="#" className="hover:text-white">Terms of Service</a>
-                <button className="flex items-center gap-1 hover:text-white">
-                    <Globe size={12} /> EN | عربي
-                </button>
+                <NavLink to="/privacy" className="hover:text-white">Privacy Policy</NavLink>
+                <NavLink to="/terms" className="hover:text-white">Terms of Service</NavLink>
             </div>
         </div>
       </div>

@@ -1,12 +1,23 @@
 import React from "react";
 import { News } from "../components/News";
 import { Button } from "../components/ui/Button";
+import { SEO } from "../components/SEO";
+import { breadcrumbJsonLd } from "../../lib/jsonld";
 
 export const NewsPage = () => {
     // Reusing the News component layout for now, but in a real app would be a full listing with pagination
     // Extending it here to look like a full page
   return (
     <div className="pt-24 bg-white min-h-screen">
+        <SEO
+          path="/news"
+          title="News & Media — The Maker"
+          description="Latest updates, match reports, scholar announcements, and stories from The Maker Football Incubator."
+          jsonLd={breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "News", path: "/news" },
+          ])}
+        />
         <div className="bg-[#0F172A] py-20 text-center text-white">
             <h1 className="text-5xl font-bold mb-4">News & Media</h1>
             <p className="text-xl text-gray-400">Latest updates, match reports, and announcements.</p>
