@@ -1,14 +1,14 @@
 import React from "react";
 import { Link, NavLink } from "./ui/Link";
 import { Logo } from "./ui/Logo";
-import { Instagram, Facebook, Linkedin, Youtube, Twitter, MapPin, Mail, Phone } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Youtube, Music2, MapPin, Mail, Phone } from "lucide-react";
 
 const SOCIAL_LINKS = [
-  { Icon: Instagram, href: "https://www.instagram.com/themakerfootball/", label: "Follow on Instagram" },
-  { Icon: Facebook, href: "https://www.facebook.com/themakerfootball", label: "Follow on Facebook" },
-  { Icon: Youtube, href: "https://www.youtube.com/@themakerfootball", label: "Follow on YouTube" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/company/themakerfootball/", label: "Follow on LinkedIn" },
-  { Icon: Twitter, href: "https://x.com/themakerfb", label: "Follow on X" },
+  { Icon: Instagram, href: "https://www.instagram.com/themaker.eg/", label: "Follow on Instagram" },
+  { Icon: Facebook, href: "https://www.facebook.com/themaker.eg/", label: "Follow on Facebook" },
+  { Icon: Youtube, href: "https://www.youtube.com/channel/UCcN8N56wyeXMpQhYohTHUGQ", label: "Subscribe on YouTube" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/company/the-maker-eg", label: "Connect on LinkedIn" },
+  { Icon: Music2, href: "https://www.tiktok.com/@themaker.eg", label: "Follow on TikTok" },
 ];
 
 export const Footer = () => {
