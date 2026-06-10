@@ -28,8 +28,10 @@ export const organizationJsonLd: JsonLd = {
   },
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Street 90, New Cairo",
+    streetAddress: "Ezbet Fahmy, El Basatin",
     addressLocality: "Cairo",
+    addressRegion: "Cairo Governorate",
+    postalCode: "11431",
     addressCountry: "EG",
   },
   areaServed: {
@@ -37,8 +39,11 @@ export const organizationJsonLd: JsonLd = {
     name: "Egypt",
   },
   sameAs: [
-    "https://www.instagram.com/themaker.eg",
-    "https://www.linkedin.com/company/themaker-football-incubator",
+    "https://www.instagram.com/themaker.eg/",
+    "https://www.facebook.com/themaker.eg/",
+    "https://www.youtube.com/channel/UCcN8N56wyeXMpQhYohTHUGQ",
+    "https://www.linkedin.com/company/the-maker-eg",
+    "https://www.tiktok.com/@themaker.eg",
   ],
 };
 
@@ -155,8 +160,10 @@ export const localBusinessJsonLd: JsonLd = {
   email: "admissions@themaker.eg",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Street 90, New Cairo",
+    streetAddress: "Ezbet Fahmy, El Basatin",
     addressLocality: "Cairo",
+    addressRegion: "Cairo Governorate",
+    postalCode: "11431",
     addressCountry: "EG",
   },
   areaServed: {
