@@ -24,6 +24,33 @@ export interface ScoutAppPayload {
   website?: string;
 }
 
+export interface CampApplicationPayload {
+  /** Parent/guardian name. */
+  parentName: string;
+  /** Parent/guardian email. */
+  parentEmail: string;
+  /** Parent/guardian phone (tel). */
+  parentPhone: string;
+  /** Player full name. */
+  playerName: string;
+  /** Player date of birth, ISO date (YYYY-MM-DD). */
+  playerDob: string;
+  /** U-10 / U-12 / U-14 / U-16 / U-18. */
+  playerAgeGroup: string;
+  /** Camp id from src/lib/camps.ts, or "not-sure". */
+  preferredCamp: string;
+  /** Optional position. */
+  position?: string;
+  /** Optional medical notes for coaches. */
+  medicalNotes?: string;
+  /** Optional message. */
+  message?: string;
+  /** GDPR-style consent — required true. */
+  consent: boolean;
+  /** Honeypot — must be empty. */
+  website?: string;
+}
+
 async function postJson<T extends object>(path: string, payload: T): Promise<unknown> {
   let res: Response;
   try {
@@ -68,4 +95,8 @@ export function submitContact(payload: ContactPayload) {
 
 export function submitScoutApp(payload: ScoutAppPayload) {
   return postJson("/scout-application", payload);
+}
+
+export function submitCampApplication(payload: CampApplicationPayload) {
+  return postJson("/camp-application", payload);
 }

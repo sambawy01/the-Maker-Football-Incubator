@@ -1,65 +1,70 @@
 import React from "react";
-import { Button } from "../components/ui/Button";
 import { SEO } from "../components/SEO";
-import { eventJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
+import { breadcrumbJsonLd, eventJsonLd, faqPageJsonLd } from "../../lib/jsonld";
+import { camps } from "../../lib/camps";
+import { CampsHero } from "./camps/CampsHero";
+import { CampsStatsStrip } from "./camps/CampsStatsStrip";
+import { HowCampsWork } from "./camps/HowCampsWork";
+import { FeaturedCamps } from "./camps/FeaturedCamps";
+import { DailySchedule } from "./camps/DailySchedule";
+import { CoachNetwork } from "./camps/CoachNetwork";
+import { WhyMakerCamps } from "./camps/WhyMakerCamps";
+import { RegistrationForm } from "./camps/RegistrationForm";
+import { CampsFAQ, FAQS } from "./camps/CampsFAQ";
+import { FinalCTA } from "./camps/FinalCTA";
 
-export const Camps = () => {
+/**
+ * /camps — landing page for parents enrolling young players in seasonal
+ * football camps run by the Maker Football Incubator.
+ *
+ * Composition root. Each section is a small self-contained component in
+ * ./camps/ owning its own copy, layout, and a11y semantics. Camp catalogue
+ * comes from src/lib/camps.ts so the JSON-LD emission below and the
+ * FeaturedCamps grid stay in lock-step.
+ */
+export const Camps: React.FC = () => {
   return (
-    <div className="pt-24 min-h-screen bg-[#0F172A] text-white">
+    <div className="pt-20 min-h-screen bg-white text-[#0F172A]">
       <SEO
         path="/camps"
-        title="Camps — The Maker"
-        description="Seasonal intensive football camps combining professional training, talent identification, and European exposure through The Maker's partner clubs."
+        title="Football Camps in Egypt — The Maker Football Incubator"
+        description="Elite football camps for Egyptian youth (U-10 to U-18). Winter, summer, and international training programmes led by Mido's coaching staff at our Cairo HQ. Apply now."
         jsonLd={[
-          eventJsonLd({
-            name: "Sahel Summer Camp",
-            description:
-              "Seasonal intensive football camp on Egypt's North Coast. High-level training plus talent identification and scouting for The Maker incubator.",
-            locationName: "North Coast (Sahel), Egypt",
-            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
-          }),
-          eventJsonLd({
-            name: "Winter Training Camp",
-            description:
-              "Intensive winter programme focused on technical development and competitive matches during the school break.",
-            locationName: "Cairo, Egypt",
-            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
-          }),
-          eventJsonLd({
-            name: "International Camp",
-            description:
-              "European exposure through partnerships with Enosis Paralimni (Cyprus) and SC Farense (Portugal).",
-            locationName: "Cyprus / Portugal",
-            url: "https://sambawy01.github.io/the-Maker-Football-Incubator/camps",
-          }),
+          ...camps.map((c) =>
+            eventJsonLd({
+              name: c.name,
+              description: c.tagline,
+              startDate: c.startDate,
+              endDate: c.endDate,
+              locationName: c.location,
+              // International Showcase runs across Cairo + Cyprus; default
+              // EG would mislead Cyprus-based event aggregators. Every
+              // other camp is Egypt-only.
+              addressCountry:
+                c.id === "international-2027" ? "CY" : "EG",
+              url: `https://sambawy01.github.io/the-Maker-Football-Incubator/camps#${c.id}`,
+            }),
+          ),
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: "Camps", path: "/camps" },
           ]),
+          faqPageJsonLd(FAQS),
         ]}
       />
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl font-bold mb-6">THE MAKER CAMPS</h1>
-        <p className="text-xl text-gray-400 mb-12">Seasonal intensive football programs combining professional training, talent identification, and brand expansion.</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                <h3 className="text-2xl font-bold mb-2">Sahel Summer Camp</h3>
-                <p className="text-gray-400 mb-4">Seasonal intensive football camp on the North Coast. Combines high-level training with talent identification and scouting for The Maker incubator.</p>
-                <Button className="w-full">Register Now</Button>
-            </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden">
-                <div className="absolute top-2 right-2 bg-[#D97706] text-white text-xs px-2 py-1 rounded">Coming Soon</div>
-                <h3 className="text-2xl font-bold mb-2">Winter Training Camp</h3>
-                <p className="text-gray-400 mb-4">Intensive winter programme focused on technical development and competitive matches during the school break.</p>
-            </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden">
-                <div className="absolute top-2 right-2 bg-[#D97706] text-white text-xs px-2 py-1 rounded">Coming Soon</div>
-                <h3 className="text-2xl font-bold mb-2">International Camp</h3>
-                <p className="text-gray-400 mb-4">European exposure through partnerships with Enosis Paralimni (Cyprus) and SC Farense (Portugal).</p>
-            </div>
-        </div>
-      </div>
+      <CampsHero />
+      <CampsStatsStrip />
+      <HowCampsWork />
+      <FeaturedCamps />
+      <DailySchedule />
+      <CoachNetwork />
+      <WhyMakerCamps />
+      <RegistrationForm />
+      <CampsFAQ />
+      <FinalCTA />
     </div>
   );
 };
+
+export default Camps;

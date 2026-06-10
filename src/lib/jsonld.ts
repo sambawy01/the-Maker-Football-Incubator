@@ -116,6 +116,8 @@ export interface EventInput {
   endDate?: string;
   locationName?: string;
   locationAddress?: string;
+  /** ISO 3166-1 alpha-2 country code. Defaults to "EG" when omitted. */
+  addressCountry?: string;
   url?: string;
   image?: string;
   status?: "EventScheduled" | "EventPostponed" | "EventCancelled" | "EventMovedOnline";
@@ -138,12 +140,37 @@ export function eventJsonLd(event: EventInput): JsonLd {
       address: {
         "@type": "PostalAddress",
         streetAddress: event.locationAddress,
-        addressCountry: "EG",
+        addressCountry: event.addressCountry ?? "EG",
       },
     },
     image: event.image ?? defaultOgImage,
     url: event.url,
     organizer: { "@id": ORG_ID },
+  };
+}
+
+export interface FaqEntry {
+  q: string;
+  a: string;
+}
+
+/**
+ * FAQPage schema — pass an ordered list of question/answer pairs that
+ * mirror the visible FAQ on the page. Google guidance: only include
+ * questions that are visibly answered on the page, no marketing copy.
+ */
+export function faqPageJsonLd(faqs: FaqEntry[]): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
+    })),
   };
 }
 
