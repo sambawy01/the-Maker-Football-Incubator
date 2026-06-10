@@ -2,6 +2,11 @@
 // One source of truth for both the FeaturedCamps grid and the SEO/JSON-LD
 // emission on the /camps page. Adding a new camp here will surface it in
 // both places without code changes.
+//
+// Reminder: if you add or rename a camp id below, also update
+// ALLOWED_PREFERRED_CAMPS in supabase/functions/server/validators.tsx.
+// Server is Deno, frontend is Vite — they can't share a module, so the
+// allow-list is duplicated by design.
 
 export type CampSeason =
   | "Winter"

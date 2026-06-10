@@ -1,6 +1,6 @@
 import React from "react";
 import { SEO } from "../components/SEO";
-import { breadcrumbJsonLd, eventJsonLd } from "../../lib/jsonld";
+import { breadcrumbJsonLd, eventJsonLd, faqPageJsonLd } from "../../lib/jsonld";
 import { camps } from "../../lib/camps";
 import { CampsHero } from "./camps/CampsHero";
 import { CampsStatsStrip } from "./camps/CampsStatsStrip";
@@ -10,7 +10,7 @@ import { DailySchedule } from "./camps/DailySchedule";
 import { CoachNetwork } from "./camps/CoachNetwork";
 import { WhyMakerCamps } from "./camps/WhyMakerCamps";
 import { RegistrationForm } from "./camps/RegistrationForm";
-import { CampsFAQ } from "./camps/CampsFAQ";
+import { CampsFAQ, FAQS } from "./camps/CampsFAQ";
 import { FinalCTA } from "./camps/FinalCTA";
 
 /**
@@ -37,6 +37,11 @@ export const Camps: React.FC = () => {
               startDate: c.startDate,
               endDate: c.endDate,
               locationName: c.location,
+              // International Showcase runs across Cairo + Cyprus; default
+              // EG would mislead Cyprus-based event aggregators. Every
+              // other camp is Egypt-only.
+              addressCountry:
+                c.id === "international-2027" ? "CY" : "EG",
               url: `https://sambawy01.github.io/the-Maker-Football-Incubator/camps#${c.id}`,
             }),
           ),
@@ -44,6 +49,7 @@ export const Camps: React.FC = () => {
             { name: "Home", path: "/" },
             { name: "Camps", path: "/camps" },
           ]),
+          faqPageJsonLd(FAQS),
         ]}
       />
 

@@ -6,7 +6,9 @@ interface FAQ {
   a: string;
 }
 
-const FAQS: FAQ[] = [
+// Exported so Camps.tsx can feed the same Q&A list into faqPageJsonLd —
+// the visible FAQ and the schema.org FAQPage stay in lock-step.
+export const FAQS: FAQ[] = [
   {
     q: "What's included in the camp fee?",
     a: "Training kit, daily meals, recovery and sports science, insurance, end-of-camp report, and a closing tournament. Sleep-away camps (Sahel, Cyprus) also include accommodation and transfers. Full quote shared at confirmation — no hidden extras.",

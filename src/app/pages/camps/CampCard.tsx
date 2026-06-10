@@ -16,9 +16,11 @@ interface CampCardProps {
 
 // Season pill colour mapping. We keep them on-brand (green/slate) rather
 // than chasing a rainbow palette — readability beats decoration here.
+// All variants must clear WCAG AA 4.5:1 contrast. White-on-tinted-green
+// fails (see A11y audit) — use brand green TEXT on a green tint instead.
 const SEASON_PILL: Record<Camp["season"], string> = {
   Winter: "bg-[#16A34A]/10 text-[#15803D] border-[#15803D]/30",
-  Summer: "bg-[#15803D]/15 text-white border-[#15803D]/60",
+  Summer: "bg-[#15803D]/10 text-[#15803D] border-[#15803D]/30",
   International: "bg-[#0F172A] text-white border-[#0F172A]/60",
   "Year-Round": "bg-gray-100 text-[#0F172A] border-gray-200",
 };
@@ -32,12 +34,16 @@ const SEASON_PILL: Record<Camp["season"], string> = {
  * when `camp.highlight` is set.
  */
 export const CampCard: React.FC<CampCardProps> = ({ camp }) => {
-  const spotsPct = Math.max(
+  // Honest availability metaphor: bar shrinks as spots fill. The visible
+  // text, ARIA values, and bar width all use spotsRemaining/totalSpots so
+  // sighted + AT users get the same story. Brand-green fill regardless of
+  // capacity — no red scarcity tells, no inverted "look how full" reads.
+  const remainingPct = Math.max(
     0,
     Math.min(100, Math.round((camp.spotsRemaining / camp.totalSpots) * 100)),
   );
-  // Scarcity colouring — red when under 25% spots left.
-  const scarce = spotsPct <= 25;
+  // Low-availability signal — still useful, but neutral slate, not red.
+  const scarce = remainingPct <= 25;
 
   return (
     <article
@@ -89,15 +95,19 @@ export const CampCard: React.FC<CampCardProps> = ({ camp }) => {
           </li>
         </ul>
 
-        {/* Spots remaining — real progressbar role */}
+        {/* Spots remaining — real progressbar role.
+            Canonical metaphor across visual + ARIA + label: AVAILABILITY.
+            Bar shrinks as the camp fills. aria-valuenow = spotsRemaining,
+            so a screen reader hears "18 of 48" the same way a sighted
+            user reads "18 of 48 spots remaining". */}
         <div className="mb-5">
           <div className="flex items-center justify-between text-xs font-medium text-gray-700 mb-1.5">
             <span className="inline-flex items-center gap-1.5">
               <Users size={12} aria-hidden={true} />
-              {camp.spotsRemaining} of {camp.totalSpots} spots left
+              {camp.spotsRemaining} of {camp.totalSpots} spots remaining
             </span>
             {scarce && (
-              <span className="text-red-600 font-bold uppercase tracking-wider">
+              <span className="inline-block px-1.5 py-0.5 rounded-full bg-slate-900/5 text-slate-900 border border-slate-900/20 font-bold uppercase tracking-wider text-[10px]">
                 Filling fast
               </span>
             )}
@@ -105,14 +115,14 @@ export const CampCard: React.FC<CampCardProps> = ({ camp }) => {
           <div
             className="h-2 rounded-full bg-gray-100 overflow-hidden"
             role="progressbar"
-            aria-valuenow={camp.totalSpots - camp.spotsRemaining}
+            aria-valuenow={camp.spotsRemaining}
             aria-valuemin={0}
             aria-valuemax={camp.totalSpots}
             aria-label={`${camp.spotsRemaining} of ${camp.totalSpots} spots remaining`}
           >
             <div
-              className={`h-full rounded-full transition-all ${scarce ? "bg-red-500" : "bg-[#16A34A]"}`}
-              style={{ width: `${100 - spotsPct}%` }}
+              className="h-full rounded-full transition-all bg-[#15803D]"
+              style={{ width: `${remainingPct}%` }}
             />
           </div>
         </div>

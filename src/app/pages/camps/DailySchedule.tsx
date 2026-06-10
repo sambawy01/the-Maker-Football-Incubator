@@ -116,13 +116,17 @@ export const DailySchedule: React.FC = () => {
                   <Icon size={20} />
                 </div>
                 <div className="flex-1 min-w-0">
+                  {/* Slot titles are list-item labels, not document
+                      sections — keep them as semantic paragraphs so AT
+                      outlines don't get a wall of sibling h3s under the
+                      single section h2. */}
                   <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mb-1">
                     <span className="font-mono text-[#16A34A] font-bold text-sm md:text-base">
                       {slot.time}
                     </span>
-                    <h3 className="text-white font-bold text-base md:text-lg leading-tight">
+                    <p className="text-white font-bold text-base md:text-lg leading-tight">
                       {slot.title}
-                    </h3>
+                    </p>
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                     {slot.description}

@@ -86,6 +86,11 @@ function isAllowedCampAgeGroup(s: string): s is CampAgeGroup {
 // Preferred camp ids are the slugs from src/lib/camps.ts plus "not-sure".
 // Kept here as a literal allow-list so the server is self-contained and
 // doesn't import the frontend.
+//
+// Reminder: if you add or rename a camp id in src/lib/camps.ts, also
+// update this allow-list. The two lists CANNOT share a module (server is
+// Deno, frontend is Vite) — they're duplicated by design and we just
+// keep them in lock-step manually.
 export const ALLOWED_PREFERRED_CAMPS = [
   "winter-2026",
   "summer-elite-2027",
@@ -122,6 +127,19 @@ function isPastIsoDate(s: string): boolean {
   const t = Date.parse(s);
   if (Number.isNaN(t)) return false;
   return t <= Date.now();
+}
+
+/**
+ * Strict calendar-date round-trip — rejects values that pass the regex but
+ * are not real dates (e.g. "2010-13-05" parses to a March date, "2010-02-30"
+ * to a March date). We round-trip through `new Date().toISOString()` and
+ * confirm the YYYY-MM-DD prefix matches the input verbatim.
+ */
+function isRealCalendarDate(s: string): boolean {
+  if (!ISO_DATE_RE.test(s)) return false;
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return false;
+  return d.toISOString().startsWith(s);
 }
 
 export interface CampApplicationInput {
@@ -288,9 +306,22 @@ export function validateCampApplication(
     errors.playerName = "Player name must be 2-100 characters.";
   }
 
+  // DOB validation runs in layers so the most specific error wins:
+  //   1. format (YYYY-MM-DD)
+  //   2. real calendar date (catches 2010-13-05, 2010-02-30)
+  //   3. not in the future (DOBs are always past)
   const playerDob = trimStr(b.playerDob);
-  if (!isPastIsoDate(playerDob)) {
+  if (!ISO_DATE_RE.test(playerDob)) {
     errors.playerDob = "Valid date of birth required (YYYY-MM-DD).";
+  } else if (!isRealCalendarDate(playerDob)) {
+    errors.playerDob = "Please enter a valid date.";
+  } else {
+    const today = new Date().toISOString().slice(0, 10);
+    if (playerDob > today) {
+      errors.playerDob = "Date of birth cannot be in the future.";
+    } else if (!isPastIsoDate(playerDob)) {
+      errors.playerDob = "Valid date of birth required (YYYY-MM-DD).";
+    }
   }
 
   const playerAgeGroup = trimStr(b.playerAgeGroup);

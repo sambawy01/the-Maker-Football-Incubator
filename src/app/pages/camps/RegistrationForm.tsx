@@ -27,6 +27,15 @@ const PREFERRED_CAMP_OPTIONS = [
   { value: "not-sure", label: "Not sure yet" },
 ];
 
+// DOB bounds for the date input. `dobMax` is today (can't be born in the
+// future); `dobMin` is 25 years back (sane lower bound for youth camps).
+// Computed once per module load — re-rendering the form doesn't need to
+// recompute these.
+const DOB_MAX = new Date().toISOString().slice(0, 10);
+const DOB_MIN = new Date(Date.now() - 25 * 365 * 24 * 3600_000)
+  .toISOString()
+  .slice(0, 10);
+
 type CampForm = {
   parentName: string;
   parentEmail: string;
@@ -309,23 +318,24 @@ export const RegistrationForm: React.FC = () => {
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
-                {/* Honeypot — visually hidden, off-screen, not tab-stoppable. */}
-                <div
+                {/* Honeypot — input itself is aria-hidden + tabIndex=-1 so
+                    AT skips it entirely (the wrapping-div aria-hidden trick
+                    is bypassed by SR form-field rotors). Kept in the DOM
+                    via off-screen positioning, NOT display:none, so bots
+                    still find and (helpfully) fill it. No visible label —
+                    aria-label on the input itself is enough for the rare
+                    AT that surfaces it anyway. */}
+                <input
+                  id="camp-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  defaultValue=""
                   aria-hidden="true"
+                  aria-label="Do not fill"
                   className="absolute left-[-9999px] top-auto w-[1px] h-[1px] overflow-hidden"
-                >
-                  <label htmlFor="camp-website">
-                    Leave this field empty
-                  </label>
-                  <input
-                    id="camp-website"
-                    name="website"
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    defaultValue=""
-                  />
-                </div>
+                />
 
                 {/* Parent name + email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -525,6 +535,8 @@ export const RegistrationForm: React.FC = () => {
                       name="playerDob"
                       type="date"
                       required
+                      min={DOB_MIN}
+                      max={DOB_MAX}
                       value={form.playerDob}
                       onChange={handleChange}
                       onBlur={handleBlur}

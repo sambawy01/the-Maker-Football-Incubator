@@ -1,11 +1,33 @@
 import React from "react";
-import { User, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 interface Coach {
   name: string;
   role: string;
   credential: string;
   bio: string;
+}
+
+/**
+ * Compute monogram initials from a coach's name. Strips honorifics ("Dr.",
+ * "Mr.", "Mrs.") AND any quoted nickname segment ("'Mido'", "'Mido'", or
+ * "(Mido)"), then takes the first letter of the first and last remaining
+ * tokens — so "Ahmed 'Mido' Hossam" → "AH", "Hossam Hassan" → "HH",
+ * "Dr. Yasmin Adel" → "YA". Falls back to a single initial when only one
+ * token remains.
+ */
+function monogram(name: string): string {
+  const cleaned = name
+    .replace(/\([^)]*\)/g, " ") // drop "(Mido)" etc.
+    .replace(/['"`'']([^'"`'']+)['"`'']/g, " ") // drop "'Mido'" / "'Mido'"
+    .replace(/\b(Dr|Mr|Mrs|Ms|Prof)\.?\s+/gi, " ")
+    .trim();
+  const tokens = cleaned.split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return "?";
+  if (tokens.length === 1) return tokens[0]!.charAt(0).toUpperCase();
+  return (
+    tokens[0]!.charAt(0) + tokens[tokens.length - 1]!.charAt(0)
+  ).toUpperCase();
 }
 
 const COACHES: Coach[] = [
@@ -30,10 +52,11 @@ const COACHES: Coach[] = [
 ];
 
 /**
- * CoachNetwork — staff credentials block. We render abstract avatar tiles
- * (User icon inside a brand-green circle) because we don't have rights-
- * cleared photos of every coach. When real photography lands, swap the
- * placeholder for an <img> with proper alt text.
+ * CoachNetwork — staff credentials block. We render monogram avatars
+ * (initials inside a brand-green circle) because we don't have rights-
+ * cleared photos of every coach. Initials read as an intentional design
+ * choice; identical User icons read as "we forgot to add photos". When
+ * real photography lands, swap the monogram for an <img> with alt text.
  */
 export const CoachNetwork: React.FC = () => {
   return (
@@ -64,12 +87,13 @@ export const CoachNetwork: React.FC = () => {
               key={coach.name}
               className="bg-[#F8FAFC] rounded-2xl border border-gray-100 p-6 md:p-8 transition-all hover:border-[#16A34A]/40 hover:-translate-y-1 hover:shadow-lg"
             >
-              {/* Avatar tile — abstract placeholder, replaceable with photo. */}
+              {/* Monogram avatar — placeholder until real photography lands.
+                  aria-hidden because the coach's name follows in the h3. */}
               <div
                 aria-hidden="true"
-                className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#16A34A]/10 text-[#16A34A] mb-5"
+                className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#15803D] text-white font-bold text-2xl tracking-tight mb-5"
               >
-                <User size={32} />
+                {monogram(coach.name)}
               </div>
               <h3 className="text-[#0F172A] text-xl font-bold mb-1">
                 {coach.name}
