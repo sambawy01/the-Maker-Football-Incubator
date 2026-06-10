@@ -1,0 +1,182 @@
+/* ============================================================================
+   Sitewide motion + tech-modernity primitives.
+
+   Companion CSS for `src/app/components/ui/motion/*`. Every animation defined
+   here is suppressed by the `prefers-reduced-motion: reduce` universal guard
+   in theme.css (animation-duration -> 0.01ms, transition-duration -> 0.01ms),
+   so we deliberately do NOT redeclare that guard here.
+   ========================================================================= */
+
+/* ---- Marquee (MarqueeStrip) -------------------------------------------- */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Translate -50% so the duplicated second group seamlessly continues. */
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-strip {
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: var(--marquee-gap, 2rem);
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+  will-change: transform;
+}
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap, 2rem);
+  flex-shrink: 0;
+}
+
+.marquee-pause-on-hover:hover .marquee-track,
+.marquee-pause-on-hover:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---- Gradient mesh drift (GradientMesh) -------------------------------- */
+
+@keyframes mesh-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-2%, 1.5%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.mesh-drift {
+  animation: mesh-drift 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Mobile perf: drop the infinite mesh+gradient animations on small viewports.
+   On phones these stack with `gradient-shift` and a blurred glass bar,
+   pressuring the GPU and tanking LCP. The visual hit is negligible since the
+   mesh is decorative and the animation amplitude is tiny. */
+@media (max-width: 767px) {
+  .mesh-drift {
+    animation: none;
+  }
+  .text-gradient-brand {
+    animation: none;
+  }
+}
+
+/* ---- Animated brand-gradient text -------------------------------------- */
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-gradient-brand {
+  background-image: linear-gradient(
+    90deg,
+    #15803d 0%,
+    #16a34a 35%,
+    #22c55e 65%,
+    #15803d 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+/* ---- Glass morphism utilities ----------------------------------------- */
+/* Mirror MotionCard's glass styles for cases where you want the look
+   without the motion wrapper. */
+
+.glass-light {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
+}
+
+.glass-dark {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Tech-grid background pattern ------------------------------------- */
+/* Subtle dot grid evoking schematics / engineering. Pair with GradientMesh
+   for layered depth, or use alone on flat surfaces. */
+
+.tech-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(15, 23, 42, 0.12) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+.tech-grid-dark {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+/* ---- Brand-green glow accent ------------------------------------------- */
+/* Use as a hover / focus accent on primary surfaces. */
+
+.brand-glow {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.brand-glow:hover,
+.brand-glow:focus-visible {
+  box-shadow:
+    0 0 0 1px rgba(22, 163, 74, 0.4),
+    0 8px 32px rgba(22, 163, 74, 0.25);
+}
+
+/* ---- Animated underline (AnimatedUnderline) --------------------------- */
+
+.animated-underline {
+  background-image: linear-gradient(
+    var(--au-color, #16a34a),
+    var(--au-color, #16a34a)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% var(--au-thickness, 2px);
+  transition: background-size 0.35s ease;
+  padding-bottom: 2px;
+}
+
+.animated-underline:hover,
+.animated-underline:focus-within {
+  background-size: 100% var(--au-thickness, 2px);
+}

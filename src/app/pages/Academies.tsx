@@ -1,5 +1,6 @@
 import React from "react";
 import { SEO } from "../components/SEO";
+import { ScrollProgress } from "../components/ui/motion";
 import {
   breadcrumbJsonLd,
   faqPageJsonLd,
@@ -29,6 +30,7 @@ import { FinalCTA } from "./academies/FinalCTA";
 export const Academies: React.FC = () => {
   return (
     <div className="pt-20 min-h-screen bg-white text-[#0F172A]">
+      <ScrollProgress />
       <SEO
         path="/academies"
         title="The Maker Football Academy — Egypt's Premier Youth Football Programme"

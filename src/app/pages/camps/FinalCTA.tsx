@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../../components/ui/Button";
 import { Clock, RotateCcw, MessageSquare } from "lucide-react";
+import { GradientMesh, MagneticButton } from "../../components/ui/motion";
 
 export const FinalCTA: React.FC = () => {
   return (
@@ -12,6 +13,8 @@ export const FinalCTA: React.FC = () => {
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-br from-[#15803D]/10 via-transparent to-transparent"
       />
+      {/* Tech-modernity ambience layered above the static accent. */}
+      <GradientMesh variant="green" animate opacity={0.4} />
       <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
         <h2
           id="camps-final-cta-heading"
@@ -24,15 +27,17 @@ export const FinalCTA: React.FC = () => {
           staff — no marketing chatbot, no auto-reply.
         </p>
 
-        <Button
-          as="a"
-          href="#register"
-          variant="primary"
-          size="lg"
-          aria-label="Jump to the camp application form"
-        >
-          Apply for a Camp
-        </Button>
+        <MagneticButton>
+          <Button
+            as="a"
+            href="#register"
+            variant="primary"
+            size="lg"
+            aria-label="Jump to the camp application form"
+          >
+            Apply for a Camp
+          </Button>
+        </MagneticButton>
 
         <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-gray-300">
           <li className="inline-flex items-center gap-2">

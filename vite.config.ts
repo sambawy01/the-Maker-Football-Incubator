@@ -23,6 +23,7 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'recharts': ['recharts'],
           'helmet': ['react-helmet-async'],
+          'framer-motion': ['framer-motion'],
         },
       },
     },

@@ -1,5 +1,6 @@
 import React from "react";
 import { SEO } from "../components/SEO";
+import { ScrollProgress } from "../components/ui/motion";
 import { breadcrumbJsonLd } from "../../lib/jsonld";
 import { ScoutsHero } from "./scouts/ScoutsHero";
 import { StatsStrip } from "./scouts/StatsStrip";
@@ -24,6 +25,7 @@ import { FinalCTA } from "./scouts/FinalCTA";
 export const Scouts: React.FC = () => {
   return (
     <div className="pt-20 min-h-screen bg-white text-[#0F172A]">
+      <ScrollProgress />
       <SEO
         path="/scouts"
         title="Scout Access — Egypt's Next European-Bound Talent"

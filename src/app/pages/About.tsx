@@ -1,7 +1,31 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Target, Eye, Shield, Linkedin, Globe, Briefcase, Award, Users } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { SEO } from "../components/SEO";
+import {
+  MotionSection,
+  MotionCard,
+  MotionStat,
+  GradientMesh,
+  GrainOverlay,
+  MagneticButton,
+} from "../components/ui/motion";
+
+// Lazy-mount ScrollProgress so framer-motion's useScroll/useSpring don't ship
+// in About's initial JS graph.
+const ScrollProgress = React.lazy(() =>
+  import("../components/ui/motion/ScrollProgress").then((m) => ({
+    default: m.ScrollProgress,
+  }))
+);
+import {
+  fadeUp,
+  stagger,
+  slideInLeft,
+  slideInRight,
+  useReducedMotion,
+} from "../../lib/motion";
 import { founderJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
 const founderImg = "https://i.ibb.co/fVZT5FCD/2c4779bd-eb40-4305-bfac-2363462551fb.jpg";
 import about400 from "../../assets/about-hero-400.jpg";
@@ -15,45 +39,81 @@ import about1920Webp from "../../assets/about-hero-1920.webp";
 
 // NEW COMPONENT: WhoWeAre
 const WhoWeAre = () => {
+    const reduced = useReducedMotion();
     return (
-        <section className="py-24 bg-white">
+        <MotionSection ariaLabelledby="who-we-are-heading" className="py-24 bg-white">
             <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-16 items-center">
                 <div className="w-full md:w-1/2">
-                     <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+                     <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
                         Who We Are
                     </span>
-                    <h2 className="text-[#0F172A] text-4xl font-bold mb-6">An Elite Egyptian Football Development Platform.</h2>
-                    <p className="text-gray-500 text-lg leading-relaxed mb-8">
+                    <h2 id="who-we-are-heading" className="text-[#0F172A] text-4xl font-bold mb-6">An Elite Egyptian Football Development Platform.</h2>
+                    <p className="text-slate-600 text-lg leading-relaxed mb-8">
                         The Maker is an elite Egyptian football development platform founded by legendary international footballer Ahmed Hossam "Mido", created to identify, develop, and elevate Egypt's most promising football talent. Unlike traditional football academies that rely on pay-to-play models, The Maker operates a talent-first incubator system, scouting players from across Egypt and offering full scholarships to high-potential players regardless of their financial background. Built on Mido's extensive experience across elite European and international football environments, The Maker combines modern football methodology, mental conditioning, education, and lifestyle management to create players who are prepared for professional football and long-term career sustainability.
                     </p>
-                    <div className="flex gap-4 items-center">
-                         <div className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-gray-100 text-center">
-                            <div className="font-bold text-[#0F172A] text-xl">30</div>
-                            <div className="text-xs text-gray-400 uppercase">Started</div>
-                         </div>
-                         <div className="text-gray-300">→</div>
-                         <div className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-gray-100 text-center">
-                            <div className="font-bold text-[#16A34A] text-xl">110</div>
-                            <div className="text-xs text-gray-400 uppercase">Scholars</div>
-                         </div>
-                         <div className="text-gray-300">→</div>
-                         <div className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-gray-100 text-center">
-                            <div className="font-bold text-[#D97706] text-xl">16</div>
-                            <div className="text-xs text-gray-400 uppercase">Cities</div>
-                         </div>
-                    </div>
+                    <motion.div
+                      className="flex gap-4 items-center"
+                      variants={stagger}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.4 }}
+                    >
+                         <motion.div variants={fadeUp} className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-slate-100 text-center">
+                            <MotionStat
+                              value={30}
+                              label="Started"
+                              className="font-bold text-[#0F172A] text-xl"
+                              labelClassName="text-xs text-slate-500 uppercase"
+                            />
+                         </motion.div>
+                         <div className="text-slate-300" aria-hidden="true">→</div>
+                         <motion.div variants={fadeUp} className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-slate-100 text-center">
+                            <MotionStat
+                              value={110}
+                              label="Scholars"
+                              className="font-bold text-[#0F172A] text-xl"
+                              labelClassName="text-xs text-slate-500 uppercase"
+                            />
+                         </motion.div>
+                         <div className="text-slate-300" aria-hidden="true">→</div>
+                         <motion.div variants={fadeUp} className="bg-[#F8FAFC] px-6 py-4 rounded-lg border border-slate-100 text-center">
+                            <MotionStat
+                              value={16}
+                              label="Cities"
+                              className="font-bold text-[#0F172A] text-xl"
+                              labelClassName="text-xs text-slate-500 uppercase"
+                            />
+                         </motion.div>
+                    </motion.div>
                 </div>
                 <div className="w-full md:w-1/2">
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                         <img 
-                            src={founderImg}
-                            alt="Mido with players"
-                            className="w-full h-full object-cover"
-                         />
+                         {reduced ? (
+                            <img
+                              src={founderImg}
+                              alt="Mido with players"
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                         ) : (
+                            <motion.img
+                              src={founderImg}
+                              alt="Mido with players"
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                              decoding="async"
+                              initial={{ y: 24, opacity: 0 }}
+                              whileInView={{ y: 0, opacity: 1 }}
+                              viewport={{ once: true, amount: 0.2 }}
+                              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            />
+                         )}
+                         <GrainOverlay opacity={0.04} />
                     </div>
                 </div>
             </div>
-        </section>
+        </MotionSection>
     )
 }
 
@@ -67,30 +127,42 @@ const CSRVision = () => {
     ]
 
     return (
-        <section className="py-24 bg-white border-t border-gray-100">
+        <MotionSection ariaLabelledby="csr-heading" className="py-24 bg-white border-t border-slate-100">
              <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                 <div className="flex flex-col md:flex-row gap-12">
                     <div className="w-full md:w-1/3">
-                        <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+                        <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
                             Our Impact
                         </span>
-                        <h2 className="text-[#0F172A] text-4xl font-bold mb-6">Building More Than Players. Building a Nation.</h2>
-                        <Button className="mt-4">Partner With Us →</Button>
+                        <h2 id="csr-heading" className="text-[#0F172A] text-4xl font-bold mb-6">Building More Than Players. Building a Nation.</h2>
+                        <MagneticButton>
+                          <Button as="a" href="/partners" className="mt-4">Partner With Us →</Button>
+                        </MagneticButton>
                     </div>
-                    <div className="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <motion.div
+                      className="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6"
+                      variants={stagger}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.2 }}
+                    >
                         {impacts.map((item, i) => (
-                            <div key={i} className="bg-white border-l-4 border-[#16A34A] p-6 shadow-sm rounded-r-xl hover:shadow-md transition-shadow">
+                            <MotionCard
+                              key={i}
+                              variants={fadeUp}
+                              className="bg-white border-l-4 border-[#16A34A] p-6 shadow-sm rounded-r-xl"
+                            >
                                 <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-[#16A34A] mb-4">
                                     <item.icon size={24} />
                                 </div>
                                 <h3 className="text-[#0F172A] font-bold text-lg mb-2">{item.title}</h3>
-                                <p className="text-gray-500 text-sm">{item.text}</p>
-                            </div>
+                                <p className="text-slate-600 text-sm">{item.text}</p>
+                            </MotionCard>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
              </div>
-        </section>
+        </MotionSection>
     )
 }
 
@@ -105,36 +177,46 @@ const Timeline = () => {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <MotionSection ariaLabelledby="journey-heading" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#16A34A 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
       <div className="max-w-[1000px] mx-auto px-4 relative">
-        <h2 className="text-[#0F172A] text-4xl font-bold text-center mb-16">Our Journey</h2>
-        
-        <div className="relative">
+        <h2 id="journey-heading" className="text-[#0F172A] text-4xl font-bold text-center mb-16">Our Journey</h2>
+
+        <motion.div
+          className="relative"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {/* Center Line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#16A34A]/20"></div>
 
           {milestones.map((m, i) => (
-            <div key={i} className={`flex items-center justify-between mb-16 w-full ${m.side === "right" ? "flex-row-reverse" : ""}`}>
+            <motion.div
+              key={i}
+              variants={m.side === "right" ? slideInRight : slideInLeft}
+              className={`flex items-center justify-between mb-16 w-full ${m.side === "right" ? "flex-row-reverse" : ""}`}
+            >
               {/* Content Side */}
               <div className={`w-[45%] ${m.side === "right" ? "text-right" : "text-left"}`}>
-                <div className="text-[#D97706] text-4xl font-bold font-mono mb-2">{m.year}</div>
+                <div className="text-[#15803D] text-4xl font-bold font-mono mb-2">{m.year}</div>
                 <h3 className="text-[#0F172A] text-xl font-bold mb-2">{m.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{m.desc}</p>
+                <p className="text-slate-600 text-sm leading-relaxed">{m.desc}</p>
               </div>
 
               {/* Center Dot */}
               <div className="w-[10%] flex justify-center relative z-10">
-                <div className="w-4 h-4 bg-[#D97706] rounded-full ring-4 ring-white shadow-md"></div>
+                <div className="w-4 h-4 bg-[#16A34A] rounded-full ring-4 ring-white shadow-md"></div>
               </div>
 
               {/* Empty Side */}
               <div className="w-[45%]"></div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </MotionSection>
   );
 };
 
@@ -146,24 +228,34 @@ const Team = () => {
   ];
 
   return (
-    <section className="py-24 bg-[#F8FAFC]">
+    <MotionSection ariaLabelledby="leadership-heading" className="py-24 bg-[#F8FAFC]">
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="text-center mb-16">
             <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-2">
             Leadership
             </span>
-            <h2 className="text-[#0F172A] text-4xl font-bold">The Team Behind The Team</h2>
+            <h2 id="leadership-heading" className="text-[#0F172A] text-4xl font-bold">The Team Behind The Team</h2>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {leaders.map((leader, i) => (
-            <div key={i} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all group text-center">
+            <MotionCard
+              key={i}
+              variants={fadeUp}
+              className="bg-white p-6 rounded-xl shadow-sm group text-center"
+            >
               <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6 border-4 border-transparent group-hover:border-[#16A34A] transition-colors">
-                <img src={leader.img} alt={leader.name} className="w-full h-full object-cover" />
+                <img src={leader.img} alt={leader.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <h3 className="text-[#0F172A] text-xl font-bold mb-1">{leader.name}</h3>
               <div className="text-[#16A34A] font-medium text-sm mb-4 h-10 flex items-center justify-center">{leader.role}</div>
-              <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">
+              <p className="text-slate-600 text-sm mb-6 max-w-xs mx-auto">
                 Bringing decades of experience in elite football and business management.
               </p>
               <a
@@ -171,21 +263,24 @@ const Team = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${leader.name} on LinkedIn`}
-                className="inline-flex items-center text-gray-400 hover:text-[#0077B5] transition-colors"
+                className="inline-flex items-center text-slate-500 hover:text-[#0077B5] transition-colors"
               >
                 <Linkedin size={20} />
               </a>
-            </div>
+            </MotionCard>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </MotionSection>
   );
 };
 
 export const About = () => {
   return (
     <div className="animate-fade-in-up">
+      <React.Suspense fallback={null}>
+        <ScrollProgress />
+      </React.Suspense>
       <SEO
         path="/about"
         title="About — The Maker Football Incubator"
@@ -199,7 +294,7 @@ export const About = () => {
         ]}
       />
       {/* Hero */}
-      <section className="relative h-[600px] w-full flex items-end">
+      <section className="relative h-[600px] w-full flex items-end overflow-hidden" aria-labelledby="about-hero-heading">
         <div className="absolute inset-0">
           <picture>
             <source
@@ -221,17 +316,24 @@ export const About = () => {
             />
           </picture>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
+          <GradientMesh variant="green-slate" opacity={0.35} />
+          <GrainOverlay opacity={0.05} />
         </div>
-        
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 md:px-8 pb-16">
-          <div className="text-white/60 text-sm mb-4">Home &gt; About</div>
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+
+        <motion.div
+          className="relative z-10 w-full max-w-[1440px] mx-auto px-4 md:px-8 pb-16"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={fadeUp} className="text-white/70 text-sm mb-4">Home &gt; About</motion.div>
+          <motion.span variants={fadeUp} className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-2">
             About The Maker
-          </span>
-          <h1 className="text-white text-4xl md:text-5xl font-bold max-w-2xl leading-tight">
+          </motion.span>
+          <motion.h1 variants={fadeUp} id="about-hero-heading" className="text-white text-4xl md:text-5xl font-bold max-w-2xl leading-tight">
             Building Egypt’s Football Future.<br/>From the Ground Up.
-          </h1>
-        </div>
+          </motion.h1>
+        </motion.div>
       </section>
 
       <WhoWeAre />
@@ -240,31 +342,51 @@ export const About = () => {
       <CSRVision />
 
       {/* Mission Vision Values */}
-      <section className="bg-[#0F172A] py-24 text-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+      <section className="relative bg-[#0F172A] py-24 text-white overflow-hidden" aria-labelledby="mvv-heading">
+        <GradientMesh variant="slate" opacity={0.4} />
+        <GrainOverlay opacity={0.05} />
+        <h2 id="mvv-heading" className="sr-only">Mission, Vision and Values</h2>
+        <div className="relative z-10 max-w-[1440px] mx-auto px-4 md:px-8">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20"
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
                 {[
                     { icon: Target, title: "MISSION", text: "To develop elite football talent through a holistic program that integrates technical performance, mental strength, education, and lifestyle discipline, enabling players to compete at the highest levels of professional football." },
                     { icon: Eye, title: "VISION", text: "To become the leading football incubator in Egypt and Africa, and a recognized global source of well-developed football talent for regional and international markets." },
                     { icon: Shield, title: "VALUES", text: "Development over results. Individual care. Egyptian pride. Honesty. Family. Holistic growth." }
                 ].map((item, i) => (
-                    <div key={i} className="text-center px-4">
+                    <MotionCard
+                      key={i}
+                      variants={fadeUp}
+                      glass="dark"
+                      className="text-center px-6 py-10 rounded-2xl"
+                    >
                         <div className="w-16 h-16 rounded-full bg-[#16A34A]/20 flex items-center justify-center mx-auto mb-6 text-[#16A34A]">
                             <item.icon size={32} />
                         </div>
                         <h3 className="text-xl font-bold mb-4">{item.title}</h3>
-                        <p className="text-gray-400 leading-relaxed">{item.text}</p>
-                    </div>
+                        <p className="text-slate-200 leading-relaxed">{item.text}</p>
+                    </MotionCard>
                 ))}
-            </div>
+            </motion.div>
 
-            <div className="border-t border-white/10 pt-12 flex flex-wrap justify-center gap-8 md:gap-16 text-center">
+            <motion.div
+              className="border-t border-white/10 pt-12 flex flex-wrap justify-center gap-8 md:gap-16 text-center"
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
                 {["100M+ Population", "110 Scholars", "16 Cities", "100,000+ Trials", "365K+ Followers", "2 European Partners"].map((stat, i) => (
-                    <span key={i} className="text-[#D97706] font-mono text-lg md:text-xl font-bold">
+                    <motion.span key={i} variants={fadeUp} className="text-[#16A34A] font-mono text-lg md:text-xl font-bold">
                         {stat}
-                    </span>
+                    </motion.span>
                 ))}
-            </div>
+            </motion.div>
         </div>
       </section>
     </div>

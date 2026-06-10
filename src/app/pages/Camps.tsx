@@ -1,5 +1,6 @@
 import React from "react";
 import { SEO } from "../components/SEO";
+import { ScrollProgress } from "../components/ui/motion";
 import { breadcrumbJsonLd, eventJsonLd, faqPageJsonLd } from "../../lib/jsonld";
 import { camps } from "../../lib/camps";
 import { CampsHero } from "./camps/CampsHero";
@@ -25,6 +26,7 @@ import { FinalCTA } from "./camps/FinalCTA";
 export const Camps: React.FC = () => {
   return (
     <div className="pt-20 min-h-screen bg-white text-[#0F172A]">
+      <ScrollProgress />
       <SEO
         path="/camps"
         title="Football Camps in Egypt — The Maker Football Incubator"

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Link, NavLink } from "../components/ui/Link";
 import {
   Radar,
@@ -14,10 +15,17 @@ import { Button } from "../components/ui/Button";
 import { getPlayerById, players } from "../../lib/players";
 import { SEO } from "../components/SEO";
 import { athleteJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
+import {
+  MotionSection,
+  GradientMesh,
+  GrainOverlay,
+} from "@/app/components/ui/motion";
+import { fadeUp, fadeUpSm, stagger, scaleIn, useReducedMotion } from "@/lib/motion";
 
 export const PlayerProfile = () => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("overview");
+  const reduced = useReducedMotion();
 
   const player = getPlayerById(id);
 
@@ -31,7 +39,7 @@ export const PlayerProfile = () => {
           noIndex
         />
         <div className="text-center max-w-md">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+          <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
             404 — Scholar Not Found
           </span>
           <h1 className="text-[#0F172A] text-3xl md:text-4xl font-bold mb-4">
@@ -71,19 +79,28 @@ export const PlayerProfile = () => {
         ]}
       />
       {/* Hero Section */}
-      <section className="relative h-[500px] w-full">
+      <section aria-labelledby="player-name-heading" className="relative h-[500px] w-full overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src={player.images[0]} 
-            alt={player.name}
+          <motion.img
+            initial={reduced ? false : { opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            src={player.images[0]}
+            alt={`${player.name}, ${player.position} from ${player.gov}`}
             className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/80 to-transparent" />
+          <GradientMesh variant="slate" opacity={0.3} />
+          <GrainOverlay opacity={0.04} />
         </div>
-        
+
         <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 md:px-8 h-full flex items-end pb-12">
-            <div>
+            <motion.div
+              initial={reduced ? false : "hidden"}
+              animate="visible"
+              variants={fadeUp}
+            >
                 <div className="flex items-center gap-2 text-white/90 text-sm mb-4">
                     <Link to="/" className="hover:text-white">Home</Link>
                     <ChevronRight size={14} />
@@ -91,13 +108,13 @@ export const PlayerProfile = () => {
                     <ChevronRight size={14} />
                     <span className="text-white">{player.name}</span>
                 </div>
-                <h1 className="text-white text-5xl md:text-7xl font-bold mb-2">{player.name}</h1>
+                <h1 id="player-name-heading" className="text-white text-5xl md:text-7xl font-bold mb-2">{player.name}</h1>
                 <div className="flex items-center gap-4">
                     <span className="text-[#16A34A] text-2xl md:text-3xl font-bold">{player.position}</span>
                     <span className="text-white/20 text-3xl">|</span>
                     <span className="text-white text-2xl md:text-3xl font-mono">#{player.number}</span>
                 </div>
-            </div>
+            </motion.div>
         </div>
       </section>
 
@@ -113,12 +130,12 @@ export const PlayerProfile = () => {
                             className="w-full h-full object-cover"
                         />
                         <div className="absolute bottom-4 left-4">
-                            <span className="bg-[#D97706] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                            <span className="bg-[#15803D] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                                 SCHOLAR SINCE {player.joined}
                             </span>
                         </div>
                     </div>
-                    
+
                     <div className="p-6 space-y-6">
                         <div className="grid grid-cols-2 gap-y-6">
                             <div>
@@ -162,14 +179,16 @@ export const PlayerProfile = () => {
             {/* Main Content */}
             <div className="w-full lg:w-[70%]">
                 {/* Tabs */}
-                <div className="flex border-b border-gray-200 mb-8 overflow-x-auto">
+                <div className="flex border-b border-gray-200 mb-8 overflow-x-auto" role="tablist">
                     {["overview", "stats", "gallery", "video"].map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
+                            role="tab"
+                            aria-selected={activeTab === tab}
                             className={`px-8 py-4 font-bold text-sm uppercase tracking-wider border-b-2 transition-colors whitespace-nowrap ${
-                                activeTab === tab 
-                                ? "border-[#16A34A] text-[#16A34A]" 
+                                activeTab === tab
+                                ? "border-[#16A34A] text-[#16A34A]"
                                 : "border-transparent text-gray-600 hover:text-gray-800"
                             }`}
                         >
@@ -181,14 +200,19 @@ export const PlayerProfile = () => {
                 {/* Tab Content */}
                 <div className="min-h-[400px]">
                     {activeTab === "overview" && (
-                        <div className="space-y-8 animate-fade-in-up">
-                            <div>
+                        <motion.div
+                            initial={reduced ? false : "hidden"}
+                            animate="visible"
+                            variants={stagger}
+                            className="space-y-8"
+                        >
+                            <motion.div variants={fadeUp}>
                                 <h3 className="text-2xl font-bold text-[#0F172A] mb-4">Player Bio</h3>
                                 <p className="text-gray-600 leading-relaxed text-lg">
                                     {player.bio}
                                 </p>
-                            </div>
-                            <div className="bg-[#F0FDF4] p-6 rounded-xl border border-[#16A34A]/20">
+                            </motion.div>
+                            <motion.div variants={fadeUp} className="bg-[#F0FDF4] p-6 rounded-xl border border-[#16A34A]/20">
                                 <h3 className="text-[#16A34A] font-bold text-lg mb-2 flex items-center gap-2">
                                     <span className="w-2 h-2 rounded-full bg-[#16A34A]"></span>
                                     Coaching Staff Notes
@@ -196,12 +220,16 @@ export const PlayerProfile = () => {
                                 <p className="text-[#0F172A]/80 italic">
                                     "{player.coachNotes}"
                                 </p>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     )}
 
                     {activeTab === "stats" && (
-                        <div className="animate-fade-in-up">
+                        <motion.div
+                            initial={reduced ? false : "hidden"}
+                            animate="visible"
+                            variants={scaleIn}
+                        >
                             <div className="bg-white p-8 rounded-xl border border-gray-100 shadow-sm flex flex-col md:flex-row items-center gap-12">
                                 <div className="w-full md:w-1/2 h-[300px]">
                                     <ResponsiveContainer width="100%" height="100%">
@@ -228,36 +256,64 @@ export const PlayerProfile = () => {
                                                     <span className="font-medium text-gray-600">{stat.subject}</span>
                                                     <span className="font-bold text-[#0F172A]">{stat.A}/10</span>
                                                 </div>
-                                                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                                                    <div 
-                                                        className="h-full bg-[#16A34A] rounded-full" 
-                                                        style={{ width: `${stat.A * 10}%` }}
-                                                    ></div>
+                                                <div
+                                                    role="progressbar"
+                                                    aria-label={`${stat.subject} rating`}
+                                                    aria-valuenow={stat.A}
+                                                    aria-valuemin={0}
+                                                    aria-valuemax={10}
+                                                    className="h-2 w-full bg-gray-100 rounded-full overflow-hidden"
+                                                >
+                                                    <motion.div
+                                                        className="h-full bg-[#16A34A] rounded-full"
+                                                        initial={reduced ? false : { width: 0 }}
+                                                        whileInView={{ width: `${stat.A * 10}%` }}
+                                                        viewport={{ once: true, amount: 0.4 }}
+                                                        transition={{
+                                                            duration: 0.9,
+                                                            delay: 0.05 * i,
+                                                            ease: [0.22, 1, 0.36, 1],
+                                                        }}
+                                                        style={reduced ? { width: `${stat.A * 10}%` } : undefined}
+                                                    />
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     )}
 
                     {activeTab === "gallery" && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in-up">
+                        <motion.div
+                            initial={reduced ? false : "hidden"}
+                            animate="visible"
+                            variants={stagger}
+                            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        >
                             {player.images.map((img, i) => (
-                                <div key={i} className={`rounded-xl overflow-hidden h-64 ${i === 0 ? "md:col-span-2 md:h-96" : ""}`}>
+                                <motion.div
+                                    key={i}
+                                    variants={fadeUpSm}
+                                    className={`rounded-xl overflow-hidden h-64 ${i === 0 ? "md:col-span-2 md:h-96" : ""}`}
+                                >
                                     <img
                                         src={img}
                                         alt={`${player.name} — gallery photo ${i + 1}`}
                                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                                     />
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     )}
 
                     {activeTab === "video" && (
-                        <div className="animate-fade-in-up">
+                        <motion.div
+                            initial={reduced ? false : "hidden"}
+                            animate="visible"
+                            variants={scaleIn}
+                        >
                              <div className="aspect-video bg-black rounded-xl flex items-center justify-center group cursor-pointer relative overflow-hidden">
                                 <img
                                     src={player.images[0]}
@@ -269,18 +325,25 @@ export const PlayerProfile = () => {
                                 </div>
                              </div>
                              <p className="text-center text-gray-500 mt-4">Highlight Reel: 2023/24 Season</p>
-                        </div>
+                        </motion.div>
                     )}
                 </div>
             </div>
         </div>
 
         {/* Related Players / More Scholars */}
-        <div className="mt-24 border-t border-gray-200 pt-12">
-            <h3 className="text-2xl font-bold text-[#0F172A] mb-8">More Scholars</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <MotionSection ariaLabelledby="more-scholars-heading" className="mt-24 border-t border-gray-200 pt-12">
+            <h3 id="more-scholars-heading" className="text-2xl font-bold text-[#0F172A] mb-8">More Scholars</h3>
+            <motion.div
+                variants={stagger}
+                initial={reduced ? false : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+            >
                 {relatedPlayers.map((p) => (
-                    <Link to={`/players/${p.id}`} key={p.id} className="block group">
+                    <motion.div key={p.id} variants={fadeUpSm}>
+                      <Link to={`/players/${p.id}`} className="block group">
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all">
                             <div className="h-48 overflow-hidden bg-gray-200 relative">
                                 <img
@@ -295,10 +358,11 @@ export const PlayerProfile = () => {
                                 <div className="text-[#16A34A] text-xs font-medium">{p.position}</div>
                             </div>
                         </div>
-                    </Link>
+                      </Link>
+                    </motion.div>
                 ))}
-            </div>
-        </div>
+            </motion.div>
+        </MotionSection>
       </div>
     </div>
   );
