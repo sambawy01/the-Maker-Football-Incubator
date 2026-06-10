@@ -33,7 +33,7 @@ export const ScoutsFAQ: React.FC = () => {
     >
       <div className="max-w-3xl mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
-          <span className="text-[#D97706] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+          <span className="inline-flex items-center text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
             Frequently Asked
           </span>
           <h2

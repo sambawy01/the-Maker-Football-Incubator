@@ -77,7 +77,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({ player }) => {
                 aria-valuenow={s.A}
                 aria-valuemin={0}
                 aria-valuemax={10}
-                aria-label={`${s.subject}: ${s.A} out of 10`}
+                aria-label={`${s.subject}: ${s.A.toFixed(1)} out of 10`}
               >
                 <div
                   className="h-full bg-[#16A34A] rounded-full"
@@ -90,7 +90,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({ player }) => {
 
         <Link
           to={`/players/${player.id}`}
-          className="mt-auto inline-flex items-center justify-center gap-1.5 text-sm font-bold text-[#16A34A] hover:text-[#14532d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 rounded-full px-4 py-2.5 border border-[#16A34A]/30 hover:bg-[#16A34A]/5 transition-colors"
+          className="mt-auto inline-flex items-center justify-center gap-1.5 text-sm font-bold text-[#15803D] hover:text-[#14532d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15803D] focus-visible:ring-offset-2 rounded-full px-4 py-2.5 border border-[#15803D]/30 hover:bg-[#16A34A]/5 transition-colors"
           aria-label={`View full profile of ${player.name}`}
         >
           View full profile

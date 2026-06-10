@@ -47,7 +47,7 @@ export const HowItWorks: React.FC = () => {
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="max-w-2xl mb-12 md:mb-16">
-          <span className="text-[#D97706] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+          <span className="inline-flex items-center text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
             How Scouting Access Works
           </span>
           <h2

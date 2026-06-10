@@ -22,12 +22,13 @@ export const FeaturedPipeline: React.FC = () => {
     <section
       id="pipeline"
       aria-labelledby="featured-pipeline-heading"
-      className="scroll-mt-24 bg-white py-20 md:py-24"
+      tabIndex={-1}
+      className="scroll-mt-24 bg-white py-20 md:py-24 focus:outline-none"
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="max-w-2xl">
-            <span className="text-[#D97706] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+            <span className="inline-flex items-center text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
               Active Pipeline Preview
             </span>
             <h2
@@ -43,9 +44,9 @@ export const FeaturedPipeline: React.FC = () => {
           </div>
           <Link
             to="/players"
-            className="hidden md:inline-block text-sm font-bold text-[#16A34A] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 rounded"
+            className="hidden md:inline-block text-sm font-bold text-[#15803D] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15803D] focus-visible:ring-offset-2 rounded"
           >
-            View all 12 scholars →
+            View all {players.length} scholars →
           </Link>
         </div>
 

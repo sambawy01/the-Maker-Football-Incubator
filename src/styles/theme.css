@@ -200,14 +200,17 @@
 }
 
 /* Respect user motion preferences (WCAG 2.3.3) — disable animations and
-   transitions for anyone who has asked the OS to reduce motion. */
+   transitions for anyone who has asked the OS to reduce motion. The
+   universal selector also catches Tailwind hover:-translate-y / hover:scale
+   patterns that bypass the .animate-* / *[class*="animate-"] match. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in-up,
-  *[class*="animate-"] {
-    animation: none !important;
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

@@ -36,7 +36,7 @@ export const WhyChooseUs: React.FC = () => {
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="max-w-2xl mx-auto text-center mb-14">
-          <span className="text-[#D97706] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+          <span className="inline-flex items-center text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
             Why Scouts Choose The Maker
           </span>
           <h2

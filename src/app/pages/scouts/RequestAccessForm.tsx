@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { Link } from "../../components/ui/Link";
 import { submitScoutApp } from "../../../lib/contact-api";
@@ -53,6 +53,18 @@ export const RequestAccessForm: React.FC = () => {
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  // Refs for SR-friendly focus management on submit + success.
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement | null>(null);
+
+  useEffect(() => {
+    if (status === "success") {
+      // Move focus to the success heading so screen readers + keyboard
+      // users land on the confirmation rather than dropping to <body>.
+      successHeadingRef.current?.focus();
+    }
+  }, [status]);
+
   const errors = useMemo(() => {
     const e: Partial<Record<keyof ScoutForm, string>> = {};
     if (!form.name.trim()) e.name = "Please enter your name.";
@@ -95,6 +107,7 @@ export const RequestAccessForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Surface every field error first so the user can see what's wrong.
     setTouched({
       name: true,
       email: true,
@@ -104,7 +117,19 @@ export const RequestAccessForm: React.FC = () => {
       message: true,
       consent: true,
     });
-    if (!isValid) return;
+    if (!isValid) {
+      // Move focus to the first invalid field — keyboard + SR users need
+      // to know where the error is, not just that there is one.
+      // We defer to the next tick so the aria-invalid attributes have
+      // re-rendered before we query the DOM.
+      requestAnimationFrame(() => {
+        const firstInvalid = formRef.current?.querySelector<HTMLElement>(
+          '[aria-invalid="true"]'
+        );
+        firstInvalid?.focus();
+      });
+      return;
+    }
 
     setStatus("submitting");
     setErrorMessage("");
@@ -154,11 +179,12 @@ export const RequestAccessForm: React.FC = () => {
     <section
       id="request-access"
       aria-labelledby="request-access-heading"
-      className="scroll-mt-24 bg-[#0F172A] py-20 md:py-24"
+      tabIndex={-1}
+      className="scroll-mt-24 bg-[#0F172A] py-20 md:py-24 focus:outline-none"
     >
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div className="max-w-2xl mb-12 md:mb-14">
-          <span className="text-[#16A34A] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+          <span className="text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
             Request Scout Access
           </span>
           <h2
@@ -174,15 +200,20 @@ export const RequestAccessForm: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Form column */}
-          <div className="lg:col-span-8 bg-white/5 rounded-2xl border border-white/10 p-6 md:p-8">
+          {/* Form column — lifted to bg-[#1E293B] for input/panel contrast
+              separation (parity with the reassurance aside). */}
+          <div className="lg:col-span-8 bg-[#1E293B] rounded-2xl border border-white/10 p-6 md:p-8">
             {status === "success" ? (
               <div
                 role="status"
                 aria-live="polite"
-                className="rounded-xl border border-[#16A34A]/40 bg-[#16A34A]/10 p-6"
+                className="rounded-xl border border-[#15803D]/40 bg-[#15803D]/10 p-6"
               >
-                <h3 className="font-bold text-white text-lg mb-2">
+                <h3
+                  ref={successHeadingRef}
+                  tabIndex={-1}
+                  className="font-bold text-white text-lg mb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E293B] rounded"
+                >
                   Thanks — we'll be in touch within 48 hours.
                 </h3>
                 <p className="text-sm text-gray-300">
@@ -192,20 +223,25 @@ export const RequestAccessForm: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setStatus("idle")}
-                  className="mt-4 text-sm font-bold text-[#16A34A] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F172A] rounded"
+                  className="mt-4 text-sm font-bold text-[#16A34A] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E293B] rounded"
                 >
                   Submit another request
                 </button>
               </div>
             ) : (
-              <form noValidate onSubmit={handleSubmit} className="space-y-5">
+              <form
+                ref={formRef}
+                noValidate
+                onSubmit={handleSubmit}
+                className="space-y-5"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label
                       htmlFor="scout-name"
                       className="block text-sm font-bold mb-1.5 text-white"
                     >
-                      Name <span className="text-[#D97706]">*</span>
+                      Name <span className="text-gray-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="scout-name"
@@ -246,7 +282,7 @@ export const RequestAccessForm: React.FC = () => {
                       htmlFor="scout-organization"
                       className="block text-sm font-bold mb-1.5 text-white"
                     >
-                      Organization <span className="text-[#D97706]">*</span>
+                      Organization <span className="text-gray-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="scout-organization"
@@ -291,7 +327,7 @@ export const RequestAccessForm: React.FC = () => {
                       htmlFor="scout-email"
                       className="block text-sm font-bold mb-1.5 text-white"
                     >
-                      Email <span className="text-[#D97706]">*</span>
+                      Email <span className="text-gray-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="scout-email"
@@ -334,7 +370,7 @@ export const RequestAccessForm: React.FC = () => {
                       htmlFor="scout-country"
                       className="block text-sm font-bold mb-1.5 text-white"
                     >
-                      Country <span className="text-[#D97706]">*</span>
+                      Country <span className="text-gray-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="scout-country"
@@ -409,7 +445,7 @@ export const RequestAccessForm: React.FC = () => {
                     className="block text-sm font-bold mb-1.5 text-white"
                   >
                     Message / Players of Interest{" "}
-                    <span className="text-[#D97706]">*</span>
+                    <span className="text-gray-400" aria-hidden="true">*</span>
                   </label>
                   <textarea
                     id="scout-message"
@@ -496,7 +532,12 @@ export const RequestAccessForm: React.FC = () => {
                 <div className="pt-2">
                   <Button
                     type="submit"
-                    disabled={!isValid || status === "submitting"}
+                    // We intentionally do NOT set disabled={!isValid} —
+                    // keyboard and screen-reader users must be able to
+                    // click submit so handleSubmit can reveal per-field
+                    // errors and move focus to the first invalid field.
+                    disabled={status === "submitting"}
+                    aria-disabled={!isValid || status === "submitting"}
                     className="w-full md:w-auto"
                     size="lg"
                   >
