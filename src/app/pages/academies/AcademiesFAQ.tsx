@@ -54,11 +54,10 @@ export const AcademiesFAQ: React.FC = () => {
         </div>
 
         <div className="space-y-3">
-          {FAQS.map((faq, i) => (
+          {FAQS.map((faq) => (
             <details
               key={faq.q}
               className="group bg-white rounded-xl border border-gray-100 overflow-hidden open:border-[#16A34A]/40 open:shadow-sm"
-              {...(i === 0 ? { open: true } : {})}
             >
               <summary className="cursor-pointer list-none flex items-center justify-between gap-4 px-5 py-4 font-bold text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 rounded-xl">
                 <span>{faq.q}</span>

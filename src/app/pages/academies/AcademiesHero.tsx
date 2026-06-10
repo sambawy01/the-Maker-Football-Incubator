@@ -39,7 +39,7 @@ export const AcademiesHero: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 md:px-8 py-24 md:py-32">
         <div className="max-w-3xl animate-fade-in-up">
-          <span className="inline-flex items-center gap-2 text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-5 px-3 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
+          <span className="inline-flex items-center gap-2 text-[#16A34A] font-bold text-xs md:text-sm tracking-widest uppercase mb-5 px-3 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
             <GraduationCap size={14} aria-hidden="true" />
             For Egypt's Committed Young Talent
           </span>

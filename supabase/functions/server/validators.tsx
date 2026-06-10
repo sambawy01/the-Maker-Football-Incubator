@@ -559,8 +559,8 @@ export function validateAcademyApplication(
   }
 
   const whyMaker = trimStr(b.whyMaker);
-  if (!lenBetween(whyMaker, 50, 2000)) {
-    errors.whyMaker = "Please share 50-2000 characters about your motivation.";
+  if (!lenBetween(whyMaker, 50, 1000)) {
+    errors.whyMaker = "Please share 50-1000 characters about your motivation.";
   }
 
   let message: string | undefined;

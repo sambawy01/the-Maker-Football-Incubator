@@ -228,7 +228,7 @@ export const ApplyForm: React.FC = () => {
     >
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div className="max-w-2xl mb-12 md:mb-14">
-          <span className="text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
+          <span className="text-[#16A34A] font-bold text-xs md:text-sm tracking-widest uppercase block mb-3">
             Apply to the Academy
           </span>
           <h2
@@ -276,7 +276,7 @@ export const ApplyForm: React.FC = () => {
                 ref={formRef}
                 noValidate
                 onSubmit={handleSubmit}
-                className="space-y-5"
+                className="relative space-y-5"
               >
                 {/* Honeypot — input itself is aria-hidden + tabIndex=-1 so
                     AT skips it entirely. Off-screen positioning (NOT

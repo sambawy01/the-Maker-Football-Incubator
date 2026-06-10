@@ -55,6 +55,7 @@ export const Scholarships: React.FC = () => {
 
           {/* Bullets column */}
           <ul
+            role="list"
             aria-label="Scholarship model"
             className="lg:col-span-7 bg-[#F8FAFC] rounded-2xl border border-gray-100 p-6 md:p-10 space-y-6"
           >

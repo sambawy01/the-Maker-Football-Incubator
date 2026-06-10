@@ -40,11 +40,14 @@ export const AcademyStatsStrip: React.FC = () => {
         <h2 id="academy-stats-heading" className="sr-only">
           The Maker Academy at a glance
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <ul
+          role="list"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6"
+        >
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div
+              <li
                 key={stat.label}
                 className="bg-[#F8FAFC] rounded-xl border border-gray-100 p-5 md:p-6 text-center transition-colors hover:border-[#16A34A]/40"
               >
@@ -57,10 +60,10 @@ export const AcademyStatsStrip: React.FC = () => {
                 <div className="mt-1 text-xs md:text-sm font-medium text-gray-600 uppercase tracking-wide">
                   {stat.label}
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

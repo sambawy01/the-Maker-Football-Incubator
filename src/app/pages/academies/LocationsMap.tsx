@@ -29,8 +29,8 @@ export const LocationsMap: React.FC = () => {
             One home in Cairo. Scouts across all of Egypt.
           </h2>
           <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-            Training and education run at the Maker HQ in New Cairo. Trials
-            and scouting reach every corner of the country.
+            Training and education run at the Maker HQ in El Basatin, Cairo.
+            Trials and scouting reach every corner of the country.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export const LocationsMap: React.FC = () => {
               id="hq-heading"
               className="text-[#0F172A] text-xl md:text-2xl font-bold mb-2"
             >
-              Maker HQ — New Cairo
+              Maker HQ — El Basatin, Cairo
             </h3>
             <address className="not-italic text-gray-600 text-sm md:text-base leading-relaxed mb-6">
               Ezbet Fahmy, El Basatin
@@ -57,7 +57,7 @@ export const LocationsMap: React.FC = () => {
               Egypt
             </address>
 
-            <ul className="space-y-2 text-sm text-gray-600 mb-6">
+            <ul role="list" className="space-y-2 text-sm text-gray-600 mb-6">
               <li className="flex items-start gap-2">
                 <span
                   aria-hidden="true"
@@ -111,17 +111,12 @@ export const LocationsMap: React.FC = () => {
               across these governorates. Trials happen regionally and at HQ.
             </p>
 
-            <ul className="flex flex-wrap gap-2 mb-6">
+            <ul role="list" className="flex flex-wrap gap-2 mb-6">
               {CORE_SCOUTING_GOVERNORATES.map((gov) => (
                 <li
                   key={gov}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F8FAFC] border border-gray-200 text-[#0F172A] text-xs md:text-sm font-medium hover:border-[#16A34A]/40 transition-colors"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#F8FAFC] border border-gray-200 text-[#0F172A] text-xs md:text-sm font-medium hover:border-[#16A34A]/40 transition-colors"
                 >
-                  <MapPin
-                    size={12}
-                    aria-hidden={true}
-                    className="text-[#16A34A]"
-                  />
                   {gov}
                 </li>
               ))}

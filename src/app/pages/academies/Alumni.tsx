@@ -7,41 +7,44 @@ interface Outcome {
     className?: string;
     "aria-hidden"?: boolean;
   }>;
+  eyebrow: string;
   number: string;
-  label: string;
   context: string;
 }
 
 // Honest, anonymised stats. We DO NOT name specific players here — many
 // families have asked their child's name not be used in marketing, and
 // fabricated names would torch our credibility with scouts and parents.
+// Eyebrow labels (CURRENTLY / PIPELINE / CALLUPS / REACH) give the dashboard
+// rhythm so the mixed value types (3 / Liga 2 / Multiple / 100K+) read
+// symmetrically instead of arbitrary.
 const OUTCOMES: Outcome[] = [
   {
     icon: Plane,
+    eyebrow: "Currently",
     number: "3",
-    label: "Scholars in Cyprus",
     context:
-      "Currently training with Enosis Paralimni FC (Cyprus 1st Division).",
+      "Scholars training with Enosis Paralimni FC (Cyprus 1st Division)",
   },
   {
     icon: Trophy,
+    eyebrow: "Pipeline",
     number: "Liga 2",
-    label: "Portugal pathway",
     context:
-      "Scholars placed in the SC Farense academy pathway (Liga Portugal 2).",
+      "Active scholarship pathway through SC Farense, Portugal",
   },
   {
     icon: ShieldCheck,
+    eyebrow: "Callups",
     number: "Multiple",
-    label: "National team callups",
     context:
-      "Egyptian national youth team selections (anonymised at family request).",
+      "Egyptian national youth team callups (anonymised at family request)",
   },
   {
     icon: Search,
+    eyebrow: "Reach",
     number: "100K+",
-    label: "Trials reviewed",
-    context: "Across all 16 governorates since 2022.",
+    context: "Trials reviewed across 16 governorates since 2022",
   },
 ];
 
@@ -53,7 +56,7 @@ export const Alumni: React.FC = () => {
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="max-w-2xl mb-12 md:mb-16">
-          <span className="inline-flex items-center text-[#15803D] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
+          <span className="inline-flex items-center text-[#16A34A] font-bold text-xs md:text-sm tracking-widest uppercase mb-3 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#15803D]/30">
             Outcomes So Far
           </span>
           <h2
@@ -69,22 +72,25 @@ export const Alumni: React.FC = () => {
           </p>
         </div>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <ul
+          role="list"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+        >
           {OUTCOMES.map((o) => {
             const Icon = o.icon;
             return (
               <li
-                key={o.label}
+                key={o.eyebrow}
                 className="bg-[#1E293B] rounded-xl border border-white/10 p-6 transition-colors hover:border-[#15803D]/40"
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#16A34A]/15 text-[#16A34A] mb-4">
                   <Icon size={24} aria-hidden={true} />
                 </div>
-                <div className="text-[#16A34A] font-bold text-3xl md:text-4xl leading-tight mb-1">
-                  {o.number}
+                <div className="text-xs font-bold tracking-widest text-[#16A34A] uppercase mb-2">
+                  {o.eyebrow}
                 </div>
-                <div className="text-white font-bold text-sm md:text-base mb-2">
-                  {o.label}
+                <div className="text-[#16A34A] font-bold text-3xl md:text-4xl leading-tight mb-2">
+                  {o.number}
                 </div>
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                   {o.context}
