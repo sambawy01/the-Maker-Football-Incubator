@@ -1,14 +1,23 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { Link } from "../components/ui/Link";
 import { Search, MapPin, Filter } from "lucide-react";
 import { players } from "../../lib/players";
 import { SEO } from "../components/SEO";
 import { breadcrumbJsonLd } from "../../lib/jsonld";
+import {
+  MotionSection,
+  GradientMesh,
+  GrainOverlay,
+  MagneticButton,
+} from "@/app/components/ui/motion";
+import { fadeUp, fadeUpSm, stagger, useReducedMotion } from "@/lib/motion";
 
 export const Players = () => {
   const [filterAge, setFilterAge] = useState("All");
   const [filterPos, setFilterPos] = useState("All");
   const [search, setSearch] = useState("");
+  const reduced = useReducedMotion();
 
   const filteredPlayers = players.filter(p => {
     return (
@@ -30,22 +39,32 @@ export const Players = () => {
         ])}
       />
       {/* Hero */}
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]">
+      <section
+        aria-labelledby="players-hero-heading"
+        className="relative h-[400px] flex items-center justify-center overflow-hidden bg-[#0F172A]"
+      >
         <img
             src="https://i.ibb.co/bM7F1wGm/GIO-6493.jpg"
             alt=""
             aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
-        <div className="relative z-10 text-center px-4">
+        <GradientMesh variant="slate" opacity={0.45} />
+        <GrainOverlay opacity={0.05} />
+        <motion.div
+          initial={reduced ? false : "hidden"}
+          animate="visible"
+          variants={fadeUp}
+          className="relative z-10 text-center px-4"
+        >
             <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
                 The Future of Egyptian Football
             </span>
-            <h1 className="text-white text-5xl md:text-6xl font-bold mb-6">OUR SCHOLARS</h1>
+            <h1 id="players-hero-heading" className="text-white text-5xl md:text-6xl font-bold mb-6">OUR SCHOLARS</h1>
             <p className="text-white/80 max-w-xl mx-auto text-lg">
                 Meet the talented young athletes selected from over 14 governorates, training daily to achieve their European dream.
             </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Filter Bar */}
@@ -54,10 +73,11 @@ export const Players = () => {
             <div className="flex flex-wrap gap-4 w-full md:w-auto">
                 <div className="relative">
                     <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <select 
+                    <select
                         className="pl-10 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#16A34A]"
                         value={filterAge}
                         onChange={(e) => setFilterAge(e.target.value)}
+                        aria-label="Filter by age group"
                     >
                         <option value="All">All Age Groups</option>
                         <option value="U-14">U-14</option>
@@ -67,10 +87,11 @@ export const Players = () => {
                 </div>
 
                 <div className="relative">
-                    <select 
+                    <select
                         className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#16A34A]"
                         value={filterPos}
                         onChange={(e) => setFilterPos(e.target.value)}
+                        aria-label="Filter by position"
                     >
                         <option value="All">All Positions</option>
                         <option value="Goalkeeper">Goalkeeper</option>
@@ -83,12 +104,13 @@ export const Players = () => {
 
             <div className="relative w-full md:w-80">
                 <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input 
-                    type="text" 
-                    placeholder="Search by name..." 
+                <input
+                    type="text"
+                    placeholder="Search by name..."
                     className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A]"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    aria-label="Search scholars by name"
                 />
             </div>
         </div>
@@ -103,9 +125,16 @@ export const Players = () => {
         </div>
 
         {filteredPlayers.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.div
+                key={`${filterAge}-${filterPos}-${search}`}
+                variants={stagger}
+                initial={reduced ? false : "hidden"}
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
                 {filteredPlayers.map((p) => (
-                    <Link to={`/players/${p.id}`} key={p.id} className="block group">
+                    <motion.div key={p.id} variants={fadeUpSm}>
+                      <Link to={`/players/${p.id}`} className="block group">
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative top-0 hover:-top-1 h-full flex flex-col">
                             <div className="h-[320px] overflow-hidden bg-gray-200 relative">
                                 <img
@@ -115,7 +144,7 @@ export const Players = () => {
                                     loading="lazy"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                                
+
                                 <div className="absolute bottom-0 left-0 w-full p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                     <div className="flex justify-between items-end">
                                         <div>
@@ -139,9 +168,10 @@ export const Players = () => {
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                      </Link>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         ) : (
             <div className="text-center py-20 text-gray-600" aria-live="polite" aria-atomic="true" role="status">
                 No players found matching your criteria.
@@ -150,10 +180,13 @@ export const Players = () => {
       </div>
 
       {/* Alumni / Pathway Section */}
-      <section className="bg-[#F8FAFC] py-24 border-t border-gray-200">
+      <MotionSection
+        ariaLabelledby="alumni-heading"
+        className="bg-[#F8FAFC] py-24 border-t border-gray-200"
+      >
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
             <div className="text-center mb-16">
-                <h2 className="text-[#0F172A] text-4xl font-bold mb-4">Where Our Alumni Are Now</h2>
+                <h2 id="alumni-heading" className="text-[#0F172A] text-4xl font-bold mb-4">Where Our Alumni Are Now</h2>
             </div>
 
             <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-10 md:p-12 text-center">
@@ -163,12 +196,14 @@ export const Players = () => {
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
                     We're documenting the journeys of our scholars across European clubs. Check back soon.
                 </p>
-                <Link to="/contact" className="inline-flex items-center gap-2 bg-[#16A34A] hover:bg-[#15803D] text-white font-bold px-6 py-3 rounded-lg transition-colors">
-                    Get notified when we launch the alumni map
-                </Link>
+                <MagneticButton>
+                  <Link to="/contact" className="inline-flex items-center gap-2 bg-[#16A34A] hover:bg-[#15803D] text-white font-bold px-6 py-3 rounded-lg transition-colors">
+                      Get notified when we launch the alumni map
+                  </Link>
+                </MagneticButton>
             </div>
         </div>
-      </section>
+      </MotionSection>
     </div>
   );
 };

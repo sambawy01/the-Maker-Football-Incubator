@@ -1,6 +1,8 @@
 import React from 'react';
-import { ArrowRight, Calendar, User, Trophy } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, Calendar } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { fadeUp, stagger, defaultViewport } from '@/lib/motion';
 
 const newsItems = [
   {
@@ -30,30 +32,52 @@ const newsItems = [
 ];
 
 export function NewsGrid() {
+  const reduced = useReducedMotion();
+  const initial = reduced ? 'visible' : 'hidden';
+
   return (
-    <section className="py-24 bg-white">
+    <section
+      aria-labelledby="newsgrid-heading"
+      className="py-24 bg-white"
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>
             <div className="text-[#D97706] font-bold tracking-widest uppercase mb-2 text-sm">Latest News</div>
-            <h2 className="text-[#0F172A] text-4xl font-bold">Stories from The Maker</h2>
+            <h2
+              id="newsgrid-heading"
+              className="text-[#0F172A] text-4xl font-bold"
+            >
+              Stories from The Maker
+            </h2>
           </div>
           <button className="hidden md:flex items-center gap-2 text-[#16A34A] font-bold hover:text-[#15803d] transition-colors group">
-            VIEW ALL NEWS 
+            VIEW ALL NEWS
             <ArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:h-[600px]">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:h-[600px]"
+          variants={stagger}
+          initial={initial}
+          whileInView="visible"
+          viewport={defaultViewport}
+        >
           {/* Featured Item */}
-          <div className="lg:col-span-2 group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-full">
+          <motion.div
+            className="lg:col-span-2 group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-full"
+            variants={fadeUp}
+            whileHover={reduced ? undefined : { scale: 1.02 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
             <ImageWithFallback
               src={newsItems[0].image}
               alt={newsItems[0].title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent opacity-90" />
-            
+
             <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
               <span className="inline-block bg-[#16A34A] text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">
                 {newsItems[0].category}
@@ -61,20 +85,26 @@ export function NewsGrid() {
               <h3 className="text-white text-3xl md:text-4xl font-bold mb-4 leading-tight group-hover:text-[#16A34A] transition-colors">
                 {newsItems[0].title}
               </h3>
-              <p className="text-gray-300 text-lg mb-6 line-clamp-2 max-w-[80%]">
+              <p className="text-gray-200 text-lg mb-6 line-clamp-2 max-w-[80%]">
                 {newsItems[0].excerpt}
               </p>
-              <div className="flex items-center gap-4 text-gray-400 text-sm font-medium">
+              <div className="flex items-center gap-4 text-gray-200 text-sm font-medium">
                 <span className="flex items-center gap-2"><Calendar size={16} /> {newsItems[0].date}</span>
                 <span className="flex items-center gap-2 group-hover:text-white transition-colors underline decoration-[#16A34A] decoration-2 underline-offset-4">Read Story <ArrowRight size={16} /></span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Side Items */}
           <div className="lg:col-span-1 flex flex-col gap-8 h-full">
             {newsItems.slice(1).map((item, index) => (
-              <div key={index} className="flex-1 bg-white rounded-2xl overflow-hidden shadow-md group border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col">
+              <motion.div
+                key={index}
+                className="flex-1 bg-white rounded-2xl overflow-hidden shadow-md group border border-gray-100 hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                variants={fadeUp}
+                whileHover={reduced ? undefined : { y: -4 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+              >
                 <div className="h-48 overflow-hidden relative">
                   <ImageWithFallback
                     src={item.image}
@@ -90,19 +120,19 @@ export function NewsGrid() {
                     <h3 className="text-[#0F172A] text-xl font-bold mb-3 leading-tight group-hover:text-[#16A34A] transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-gray-500 text-sm line-clamp-2 mb-4">
+                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">
                       {item.excerpt}
                     </p>
                   </div>
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                    <span className="text-gray-400 text-xs flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
+                    <span className="text-gray-600 text-xs flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
                     <span className="text-[#16A34A] text-xs font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Read More <ArrowRight size={12} /></span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
