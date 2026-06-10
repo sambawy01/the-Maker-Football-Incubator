@@ -49,7 +49,7 @@ export const Founder = () => {
         >
           <span
             id="founder-heading"
-            className="text-[#D97706] font-bold text-sm tracking-widest uppercase mb-6"
+            className="text-[#16A34A] font-bold text-sm tracking-widest uppercase mb-6"
           >
             From The Founder
           </span>

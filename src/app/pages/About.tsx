@@ -10,8 +10,15 @@ import {
   GradientMesh,
   GrainOverlay,
   MagneticButton,
-  ScrollProgress,
 } from "../components/ui/motion";
+
+// Lazy-mount ScrollProgress so framer-motion's useScroll/useSpring don't ship
+// in About's initial JS graph.
+const ScrollProgress = React.lazy(() =>
+  import("../components/ui/motion/ScrollProgress").then((m) => ({
+    default: m.ScrollProgress,
+  }))
+);
 import {
   fadeUp,
   stagger,
@@ -37,7 +44,7 @@ const WhoWeAre = () => {
         <MotionSection ariaLabelledby="who-we-are-heading" className="py-24 bg-white">
             <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-16 items-center">
                 <div className="w-full md:w-1/2">
-                     <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+                     <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
                         Who We Are
                     </span>
                     <h2 id="who-we-are-heading" className="text-[#0F172A] text-4xl font-bold mb-6">An Elite Egyptian Football Development Platform.</h2>
@@ -64,7 +71,7 @@ const WhoWeAre = () => {
                             <MotionStat
                               value={110}
                               label="Scholars"
-                              className="font-bold text-[#16A34A] text-xl"
+                              className="font-bold text-[#0F172A] text-xl"
                               labelClassName="text-xs text-slate-500 uppercase"
                             />
                          </motion.div>
@@ -73,7 +80,7 @@ const WhoWeAre = () => {
                             <MotionStat
                               value={16}
                               label="Cities"
-                              className="font-bold text-[#D97706] text-xl"
+                              className="font-bold text-[#0F172A] text-xl"
                               labelClassName="text-xs text-slate-500 uppercase"
                             />
                          </motion.div>
@@ -124,7 +131,7 @@ const CSRVision = () => {
              <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                 <div className="flex flex-col md:flex-row gap-12">
                     <div className="w-full md:w-1/3">
-                        <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+                        <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
                             Our Impact
                         </span>
                         <h2 id="csr-heading" className="text-[#0F172A] text-4xl font-bold mb-6">Building More Than Players. Building a Nation.</h2>
@@ -193,14 +200,14 @@ const Timeline = () => {
             >
               {/* Content Side */}
               <div className={`w-[45%] ${m.side === "right" ? "text-right" : "text-left"}`}>
-                <div className="text-[#D97706] text-4xl font-bold font-mono mb-2">{m.year}</div>
+                <div className="text-[#15803D] text-4xl font-bold font-mono mb-2">{m.year}</div>
                 <h3 className="text-[#0F172A] text-xl font-bold mb-2">{m.title}</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{m.desc}</p>
               </div>
 
               {/* Center Dot */}
               <div className="w-[10%] flex justify-center relative z-10">
-                <div className="w-4 h-4 bg-[#D97706] rounded-full ring-4 ring-white shadow-md"></div>
+                <div className="w-4 h-4 bg-[#16A34A] rounded-full ring-4 ring-white shadow-md"></div>
               </div>
 
               {/* Empty Side */}
@@ -271,7 +278,9 @@ const Team = () => {
 export const About = () => {
   return (
     <div className="animate-fade-in-up">
-      <ScrollProgress />
+      <React.Suspense fallback={null}>
+        <ScrollProgress />
+      </React.Suspense>
       <SEO
         path="/about"
         title="About — The Maker Football Incubator"
@@ -318,7 +327,7 @@ export const About = () => {
           animate="visible"
         >
           <motion.div variants={fadeUp} className="text-white/70 text-sm mb-4">Home &gt; About</motion.div>
-          <motion.span variants={fadeUp} className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+          <motion.span variants={fadeUp} className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-2">
             About The Maker
           </motion.span>
           <motion.h1 variants={fadeUp} id="about-hero-heading" className="text-white text-4xl md:text-5xl font-bold max-w-2xl leading-tight">
@@ -334,7 +343,7 @@ export const About = () => {
 
       {/* Mission Vision Values */}
       <section className="relative bg-[#0F172A] py-24 text-white overflow-hidden" aria-labelledby="mvv-heading">
-        <GradientMesh variant="green-slate" opacity={0.4} />
+        <GradientMesh variant="slate" opacity={0.4} />
         <GrainOverlay opacity={0.05} />
         <h2 id="mvv-heading" className="sr-only">Mission, Vision and Values</h2>
         <div className="relative z-10 max-w-[1440px] mx-auto px-4 md:px-8">
@@ -373,7 +382,7 @@ export const About = () => {
               viewport={{ once: true, amount: 0.3 }}
             >
                 {["100M+ Population", "110 Scholars", "16 Cities", "100,000+ Trials", "365K+ Followers", "2 European Partners"].map((stat, i) => (
-                    <motion.span key={i} variants={fadeUp} className="text-[#D97706] font-mono text-lg md:text-xl font-bold">
+                    <motion.span key={i} variants={fadeUp} className="text-[#16A34A] font-mono text-lg md:text-xl font-bold">
                         {stat}
                     </motion.span>
                 ))}

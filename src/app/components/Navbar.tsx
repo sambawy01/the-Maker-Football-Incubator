@@ -423,7 +423,7 @@ export const Navbar = () => {
                 </NavLink>
               ) : (
                 <>
-                  <div className="text-[#D97706] text-xs font-bold uppercase tracking-widest mt-2 border-b border-white/10 pb-2">
+                  <div className="text-[#16A34A] text-xs font-bold uppercase tracking-widest mt-2 border-b border-white/10 pb-2">
                     {item.label}
                   </div>
                   {item.items?.map(subItem => (

@@ -110,7 +110,7 @@ export const Hero = () => {
         {/* Glassmorphism Stats Bar */}
         <div className="absolute bottom-8 left-4 right-4 md:left-8 md:right-8">
           <motion.div
-            className="rounded-2xl p-6 backdrop-blur-xl bg-white/5 border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.35)] overflow-x-auto"
+            className="rounded-2xl p-6 backdrop-blur-md bg-white/5 border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.35)] overflow-x-auto"
             variants={fadeUp}
             initial={initial}
             animate={animate}
@@ -122,7 +122,7 @@ export const Hero = () => {
                   value={110}
                   suffix="+"
                   label="Scholars"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>
@@ -131,7 +131,7 @@ export const Hero = () => {
                 <MotionStat
                   value={16}
                   label="Cities"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>
@@ -141,7 +141,7 @@ export const Hero = () => {
                   value={100}
                   suffix="k+"
                   label="Trials"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>
@@ -150,7 +150,7 @@ export const Hero = () => {
                 <MotionStat
                   value={4}
                   label="Pillars"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>
@@ -159,7 +159,7 @@ export const Hero = () => {
                 <MotionStat
                   value={2}
                   label="European Partners"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>
@@ -168,7 +168,7 @@ export const Hero = () => {
                 <MotionStat
                   value={1}
                   label="Mission"
-                  className="text-[#D97706] font-mono text-3xl font-bold"
+                  className="text-[#16A34A] font-mono text-3xl font-bold"
                   labelClassName="text-white text-sm uppercase tracking-wider mt-1"
                 />
               </div>

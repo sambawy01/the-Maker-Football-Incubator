@@ -81,7 +81,7 @@ export const DreamLeague = () => {
           variants={fadeUp}
           className="relative z-10 text-center px-4"
         >
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+          <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-4">
             Competition · Discovery · Community
           </span>
           <h1
@@ -103,7 +103,7 @@ export const DreamLeague = () => {
       >
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           <div className="text-center mb-12">
-            <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+            <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
               In Partnership with Emerald Education & Ministry of Education
             </span>
             <h2
@@ -116,7 +116,6 @@ export const DreamLeague = () => {
 
           {/* Stats Banner — animated counters with brand-green progress feel */}
           <div className="relative overflow-hidden bg-[#16A34A] rounded-2xl p-8 mb-12 text-white">
-            <GradientMesh variant="green" opacity={0.35} />
             <GrainOverlay opacity={0.04} />
             <motion.div
               initial={initial}
@@ -205,7 +204,6 @@ export const DreamLeague = () => {
         aria-labelledby="standings-heading"
         className="relative py-24 overflow-hidden bg-[#0F172A] text-white"
       >
-        <GradientMesh variant="green-slate" opacity={0.4} />
         <GrainOverlay opacity={0.04} />
         <div className="relative z-10 max-w-[1100px] mx-auto px-4 md:px-8">
           <motion.div
@@ -252,7 +250,7 @@ export const DreamLeague = () => {
                   <span
                     className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold ${
                       row.rank === 1
-                        ? "bg-[#D97706] text-white"
+                        ? "bg-[#0F172A] text-white ring-2 ring-[#16A34A]"
                         : "bg-white/10 text-white"
                     }`}
                   >
@@ -337,7 +335,7 @@ export const DreamLeague = () => {
         aria-labelledby="ramadan-heading"
         className="relative py-24 overflow-hidden bg-[#0F172A] text-white"
       >
-        <GradientMesh variant="green-slate" opacity={0.5} />
+        <GradientMesh variant="slate" opacity={0.5} />
         <GrainOverlay opacity={0.05} />
         <motion.div
           initial={initial}
@@ -346,7 +344,7 @@ export const DreamLeague = () => {
           variants={fadeUp}
           className="relative z-10 max-w-[1440px] mx-auto px-4 md:px-8 text-center"
         >
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-3">
+          <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-3">
             Annual Tradition
           </span>
           <h2 id="ramadan-heading" className="text-4xl font-bold mb-6">

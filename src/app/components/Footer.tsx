@@ -39,7 +39,7 @@ export const Footer = () => {
                     </a>
                 ))}
             </div>
-            <div className="text-[#D97706] font-bold text-sm">365K+ followers</div>
+            <div className="text-[#16A34A] font-bold text-sm">365K+ followers</div>
           </div>
 
           {/* Col 2: Programme */}

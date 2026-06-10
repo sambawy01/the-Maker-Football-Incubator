@@ -57,7 +57,7 @@ export const Players = () => {
           variants={fadeUp}
           className="relative z-10 text-center px-4"
         >
-            <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+            <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-4">
                 The Future of Egyptian Football
             </span>
             <h1 id="players-hero-heading" className="text-white text-5xl md:text-6xl font-bold mb-6">OUR SCHOLARS</h1>
@@ -118,6 +118,7 @@ export const Players = () => {
 
       {/* Grid */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 min-h-[600px]">
+        <h2 className="sr-only">Current scholars</h2>
         <div className="flex justify-between items-center mb-8" aria-live="polite" aria-atomic="true">
             <div className="text-gray-600 text-sm">
                 Showing <span className="font-bold text-[#0F172A]">{filteredPlayers.length}</span> Scholars
@@ -190,7 +191,7 @@ export const Players = () => {
             </div>
 
             <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-10 md:p-12 text-center">
-                <span className="inline-block text-[#D97706] font-bold text-xs tracking-widest uppercase bg-[#D97706]/10 px-3 py-1 rounded-full mb-6">
+                <span className="inline-block text-[#15803D] font-bold text-xs tracking-widest uppercase bg-[#16A34A]/10 px-3 py-1 rounded-full mb-6">
                     Alumni Map — Coming Soon
                 </span>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">

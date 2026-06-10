@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "../components/ui/Link";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
@@ -59,6 +59,16 @@ export const Contact = () => {
     "idle"
   );
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement | null>(null);
+
+  // A11y: move focus to the success heading once the form transitions to
+  // "success" so screen-reader users hear the confirmation.
+  useEffect(() => {
+    if (status === "success") {
+      successHeadingRef.current?.focus();
+    }
+  }, [status]);
 
   const errors = useMemo(() => {
     const e: Partial<Record<keyof FormState, string>> = {};
@@ -102,7 +112,17 @@ export const Contact = () => {
       message: true,
       consent: true,
     });
-    if (!isValid) return;
+    if (!isValid) {
+      // Defer focus until aria-invalid attributes have re-rendered, then
+      // move focus to the first invalid field for keyboard + SR users.
+      requestAnimationFrame(() => {
+        const firstInvalid = formRef.current?.querySelector<HTMLElement>(
+          '[aria-invalid="true"]'
+        );
+        firstInvalid?.focus();
+      });
+      return;
+    }
 
     setStatus("submitting");
     setErrorMessage("");
@@ -218,7 +238,7 @@ export const Contact = () => {
 
           {/* Scouts */}
           <MotionCard
-            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#D97706]"
+            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#15803D]"
             as="article"
           >
             <h3 className="font-bold text-[#0F172A] text-xl mb-4">
@@ -228,10 +248,10 @@ export const Contact = () => {
               Access our player catalogue and discuss talent opportunities.
             </p>
             <div className="space-y-3">
-              <AnimatedUnderline color="#D97706">
+              <AnimatedUnderline color="#15803D">
                 <Link
                   to="/scouts"
-                  className="inline-flex items-center gap-2 text-[#D97706] font-bold text-sm"
+                  className="inline-flex items-center gap-2 text-[#15803D] font-bold text-sm"
                 >
                   Go to Scouts Portal →
                 </Link>
@@ -250,7 +270,7 @@ export const Contact = () => {
 
           {/* Sponsors */}
           <MotionCard
-            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-600"
+            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#15803D]"
             as="article"
           >
             <h3 className="font-bold text-[#0F172A] text-xl mb-4">For Sponsors</h3>
@@ -258,7 +278,7 @@ export const Contact = () => {
               Explore sponsorship tiers from Strategic Partner to Bronze.
             </p>
             <div className="space-y-3">
-              <AnimatedUnderline color="#2563EB">
+              <AnimatedUnderline color="#15803D">
                 <a
                   href="mailto:partners@themaker.eg"
                   className="inline-flex items-center gap-2 text-gray-600 text-sm"
@@ -268,7 +288,7 @@ export const Contact = () => {
               </AnimatedUnderline>
               <Button
                 variant="outline-white"
-                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-full text-xs h-8"
+                className="border-[#15803D] text-[#15803D] hover:bg-[#15803D] hover:text-white w-full text-xs h-8"
               >
                 Download Press Kit
               </Button>
@@ -277,17 +297,17 @@ export const Contact = () => {
 
           {/* Schools */}
           <MotionCard
-            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-600"
+            className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#15803D]"
             as="article"
           >
             <h3 className="font-bold text-[#0F172A] text-xl mb-4">For Schools</h3>
             <p className="text-gray-500 text-sm mb-6">
               Bring The Maker's training methodology to your school.
             </p>
-            <AnimatedUnderline color="#0D9488">
+            <AnimatedUnderline color="#15803D">
               <Link
                 to="/schools"
-                className="inline-flex items-center gap-2 text-teal-600 font-bold text-sm"
+                className="inline-flex items-center gap-2 text-[#15803D] font-bold text-sm"
               >
                 Schools Programme →
               </Link>
@@ -327,7 +347,11 @@ export const Contact = () => {
                   aria-live="polite"
                   className="rounded-xl border border-[#16A34A]/30 bg-[#16A34A]/5 p-6 text-[#0F172A]"
                 >
-                  <h3 className="font-bold text-lg mb-1">
+                  <h3
+                    ref={successHeadingRef}
+                    tabIndex={-1}
+                    className="font-bold text-lg mb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#15803D] focus-visible:ring-offset-2"
+                  >
                     Thanks — message received.
                   </h3>
                   <p className="text-sm text-gray-600">
@@ -344,6 +368,7 @@ export const Contact = () => {
                 </div>
               ) : (
                 <form
+                  ref={formRef}
                   noValidate
                   onSubmit={handleSubmit}
                   className="space-y-5 glass-light p-6 md:p-8 rounded-2xl"
@@ -354,7 +379,7 @@ export const Contact = () => {
                         htmlFor="contact-name"
                         className="block text-sm font-bold text-[#0F172A] mb-1"
                       >
-                        Name <span className="text-[#D97706]">*</span>
+                        Name <span className="text-slate-500">*</span>
                       </label>
                       <input
                         id="contact-name"
@@ -387,7 +412,7 @@ export const Contact = () => {
                         htmlFor="contact-email"
                         className="block text-sm font-bold text-[#0F172A] mb-1"
                       >
-                        Email <span className="text-[#D97706]">*</span>
+                        Email <span className="text-slate-500">*</span>
                       </label>
                       <input
                         id="contact-email"
@@ -473,7 +498,7 @@ export const Contact = () => {
                       htmlFor="contact-message"
                       className="block text-sm font-bold text-[#0F172A] mb-1"
                     >
-                      Message <span className="text-[#D97706]">*</span>
+                      Message <span className="text-slate-500">*</span>
                     </label>
                     <textarea
                       id="contact-message"
@@ -549,7 +574,7 @@ export const Contact = () => {
                   <MagneticButton>
                     <Button
                       type="submit"
-                      disabled={!isValid || status === "submitting"}
+                      disabled={status === "submitting"}
                       className="w-full md:w-auto"
                     >
                       {status === "submitting" ? "Sending…" : "Send Message"}

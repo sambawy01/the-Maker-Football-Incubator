@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Users,
   MapPin,
@@ -37,6 +37,7 @@ const STATS: StatCard[] = [
 ];
 
 export const AcademyStatsStrip: React.FC = () => {
+  const reduced = useReducedMotion();
   return (
     <section
       aria-labelledby="academy-stats-heading"
@@ -50,7 +51,7 @@ export const AcademyStatsStrip: React.FC = () => {
           role="list"
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6"
           variants={stagger}
-          initial="hidden"
+          initial={reduced ? "visible" : "hidden"}
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >

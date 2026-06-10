@@ -43,7 +43,7 @@ export function NewsGrid() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <div className="text-[#D97706] font-bold tracking-widest uppercase mb-2 text-sm">Latest News</div>
+            <div className="text-[#15803D] font-bold tracking-widest uppercase mb-2 text-sm">Latest News</div>
             <h2
               id="newsgrid-heading"
               className="text-[#0F172A] text-4xl font-bold"

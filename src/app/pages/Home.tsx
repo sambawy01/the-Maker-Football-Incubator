@@ -9,7 +9,15 @@ import { News } from "../components/News";
 import { CTABanner } from "../components/CTABanner";
 import { SEO } from "../components/SEO";
 import { NavLink } from "../components/ui/Link";
-import { MotionSection, ScrollProgress } from "../components/ui/motion";
+import { MotionSection } from "../components/ui/motion";
+
+// Lazy-mount ScrollProgress so framer-motion's useScroll/useSpring don't ship
+// in Home's initial JS graph. Page hasn't scrolled at first paint anyway.
+const ScrollProgress = React.lazy(() =>
+  import("../components/ui/motion/ScrollProgress").then((m) => ({
+    default: m.ScrollProgress,
+  }))
+);
 import { fadeUp, stagger, defaultViewport } from "@/lib/motion";
 import {
   organizationJsonLd,
@@ -33,7 +41,7 @@ const EuropeanPathway = () => {
 
             <div className="max-w-[1440px] mx-auto px-4 md:px-8 relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+                    <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-2">
                         International Ties
                     </span>
                     <h2 id="european-pathway-heading" className="text-white text-4xl font-bold">From Egypt to Europe. The Bridge is Built.</h2>
@@ -106,7 +114,7 @@ const EuropeanPathway = () => {
                     </div>
                     <div className="h-px w-12 bg-dashed border-t border-white/30"></div>
                      <div className="flex items-center gap-2 text-white font-bold">
-                        <span className="w-2 h-2 bg-[#D97706] rounded-full"></span> Professional Career
+                        <span className="w-2 h-2 bg-[#16A34A] rounded-full"></span> Professional Career
                     </div>
                 </div>
 
@@ -126,13 +134,13 @@ const OfferingsOverview = () => {
     const initial = reduced ? "visible" : "hidden";
 
     const offerings = [
-        { icon: Activity, title: "Football Incubator", desc: "Scholarship-based elite development.", color: "text-[#0F172A]" },
-        { icon: Heart, title: "Sports Science Center", desc: "Medical, nutrition, & psychology.", color: "text-purple-600" },
-        { icon: Users, title: "Football Academy", desc: "Pay-to-play ages 4–16 across 3 locations.", color: "text-[#16A34A]" },
-        { icon: Trophy, title: "Tournaments", desc: "Schools tournaments and Ramadan events.", color: "text-teal-600" },
-        { icon: MapPin, title: "Camps", desc: "Sahel summer & international camps.", color: "text-green-500" },
-        { icon: Globe, title: "First Team", desc: "Competing in Egypt’s 4th Division.", color: "text-[#0F172A]" },
-        { icon: Mic, title: "Podcast", desc: "Conversations with football legends.", color: "text-gray-600" },
+        { icon: Activity, title: "Football Incubator", desc: "Scholarship-based elite development." },
+        { icon: Heart, title: "Sports Science Center", desc: "Medical, nutrition, & psychology." },
+        { icon: Users, title: "Football Academy", desc: "Pay-to-play ages 4–16 across 3 locations." },
+        { icon: Trophy, title: "Tournaments", desc: "Schools tournaments and Ramadan events." },
+        { icon: MapPin, title: "Camps", desc: "Sahel summer & international camps." },
+        { icon: Globe, title: "First Team", desc: "Competing in Egypt’s 4th Division." },
+        { icon: Mic, title: "Podcast", desc: "Conversations with football legends." },
     ];
 
     return (
@@ -142,7 +150,7 @@ const OfferingsOverview = () => {
         >
             <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                  <div className="text-center mb-16">
-                    <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+                    <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
                         Our Ecosystem
                     </span>
                     <h2 id="offerings-heading" className="text-[#0F172A] text-4xl font-bold mb-4">More Than an Academy.</h2>
@@ -166,7 +174,7 @@ const OfferingsOverview = () => {
                             transition={{ duration: 0.25, ease: "easeOut" }}
                             className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow group"
                         >
-                            <div className={`w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-gray-100 transition-colors ${offering.color}`}>
+                            <div className="w-12 h-12 rounded-lg bg-[#16A34A]/10 text-[#15803D] flex items-center justify-center mb-4 group-hover:bg-[#16A34A]/15 transition-colors">
                                 <offering.icon size={24} />
                             </div>
                             <h3 className="text-[#0F172A] font-bold text-lg mb-2">{offering.title}</h3>
@@ -182,7 +190,9 @@ const OfferingsOverview = () => {
 export const Home = () => {
   return (
     <div className="animate-fade-in-up">
-      <ScrollProgress />
+      <React.Suspense fallback={null}>
+        <ScrollProgress />
+      </React.Suspense>
       <SEO
         path="/"
         title="The Maker Football Incubator | Egypt's Premium Youth Football Academy"

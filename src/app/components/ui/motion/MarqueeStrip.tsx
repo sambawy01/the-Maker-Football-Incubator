@@ -1,3 +1,4 @@
+import React, { Children, isValidElement } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
 export interface MarqueeStripProps {
@@ -16,6 +17,13 @@ export interface MarqueeStripProps {
   fadeEdges?: boolean;
   /** Accessible label for the strip — required (logos, testimonials, etc.). */
   ariaLabel: string;
+  /**
+   * Semantic element for the marquee track + groups. Default "div" for
+   * back-compat. Set to "ul" for genuine lists (sponsors, partner schools,
+   * etc.) — each direct child is wrapped in <li> automatically and the
+   * duplicated group is marked aria-hidden so SR users hear the list once.
+   */
+  as?: "ul" | "div";
 }
 
 /**
@@ -38,6 +46,7 @@ export function MarqueeStrip({
   className = "",
   fadeEdges = true,
   ariaLabel,
+  as = "div",
 }: MarqueeStripProps) {
   // We render the children twice. Track approximate duration via a CSS
   // variable so consumers can tune speed without touching keyframes.
@@ -62,6 +71,39 @@ export function MarqueeStrip({
       }
     : undefined;
 
+  // When rendering as a list, wrap each direct child in <li> so the marquee
+  // exposes proper list semantics to AT. The duplicated group is aria-hidden
+  // either way to avoid double-announcing items.
+  const renderGroup = (hidden: boolean) => {
+    if (as === "ul") {
+      const items = Children.map(children, (child, idx) => {
+        const key = isValidElement(child) && child.key != null ? child.key : idx;
+        return (
+          <li
+            key={`mq-li-${key}`}
+            style={{ listStyle: "none", display: "flex", alignItems: "center" }}
+          >
+            {child}
+          </li>
+        );
+      });
+      return (
+        <ul
+          className="marquee-group"
+          aria-hidden={hidden || undefined}
+          style={{ listStyle: "none", padding: 0, margin: 0 }}
+        >
+          {items}
+        </ul>
+      );
+    }
+    return (
+      <div className="marquee-group" aria-hidden={hidden || undefined}>
+        {children}
+      </div>
+    );
+  };
+
   return (
     <div
       role="region"
@@ -69,11 +111,9 @@ export function MarqueeStrip({
       className={`marquee-strip overflow-hidden ${pauseOnHover ? "marquee-pause-on-hover" : ""} ${className}`}
       style={{ ...style, ...mask }}
     >
-      <div className="marquee-track" aria-hidden="false">
-        <div className="marquee-group">{children}</div>
-        <div className="marquee-group" aria-hidden="true">
-          {children}
-        </div>
+      <div className="marquee-track">
+        {renderGroup(false)}
+        {renderGroup(true)}
       </div>
     </div>
   );

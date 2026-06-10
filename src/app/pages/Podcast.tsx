@@ -56,7 +56,7 @@ export const Podcast = () => {
                       variants={fadeUp}
                       className="w-full md:w-1/2"
                     >
-                        <span className="text-[#D97706] font-bold tracking-widest uppercase mb-2 block">The Maker Podcast</span>
+                        <span className="text-[#16A34A] font-bold tracking-widest uppercase mb-2 block">The Maker Podcast</span>
                         <h1 id="podcast-hero-heading" className="text-5xl font-bold mb-6">Authentic stories from the heart of Egyptian football.</h1>
                         <p className="text-gray-400 text-lg mb-8">Hosted by Mido &amp; Yousra El Leithy.</p>
                         <div className="flex gap-4">
@@ -126,7 +126,7 @@ export const Podcast = () => {
                              </div>
                         </div>
                         <div className="p-4">
-                            <div className="text-[#D97706] text-xs font-bold mb-1">Episode {ep.id}</div>
+                            <div className="text-[#16A34A] text-xs font-bold mb-1">Episode {ep.id}</div>
                             <h3 className="font-bold text-lg mb-2">{ep.guest}</h3>
                             <div className="text-gray-400 text-sm">{ep.teaser}</div>
                         </div>

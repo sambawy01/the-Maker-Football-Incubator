@@ -63,6 +63,19 @@
   will-change: transform;
 }
 
+/* Mobile perf: drop the infinite mesh+gradient animations on small viewports.
+   On phones these stack with `gradient-shift` and a blurred glass bar,
+   pressuring the GPU and tanking LCP. The visual hit is negligible since the
+   mesh is decorative and the animation amplitude is tiny. */
+@media (max-width: 767px) {
+  .mesh-drift {
+    animation: none;
+  }
+  .text-gradient-brand {
+    animation: none;
+  }
+}
+
 /* ---- Animated brand-gradient text -------------------------------------- */
 
 @keyframes gradient-shift {

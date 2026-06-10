@@ -51,7 +51,7 @@ export const FirstTeam = () => {
               variants={fadeUp}
               className="relative z-20 text-center px-4"
             >
-                <span className="text-[#D97706] font-bold tracking-widest uppercase mb-4 block">A New Era Begins</span>
+                <span className="text-[#16A34A] font-bold tracking-widest uppercase mb-4 block">A New Era Begins</span>
                 <h1 id="first-team-hero-heading" className="text-white text-6xl font-bold mb-4">The Maker First Team</h1>
                 <p className="text-white/80 text-xl max-w-2xl mx-auto">Our debut in Egypt’s 4th Division — more than just competition, it’s the next step in our journey.</p>
             </motion.div>

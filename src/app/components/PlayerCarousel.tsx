@@ -19,7 +19,7 @@ export const PlayerCarousel = () => {
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+            <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
               Rising Stars
             </span>
             <h2
@@ -90,7 +90,7 @@ export const PlayerCarousel = () => {
                       <span>•</span>
                       <span>{player.age} Years</span>
                     </div>
-                    <p className="text-gray-600 italic text-sm border-l-2 border-[#D97706] pl-3">
+                    <p className="text-gray-600 italic text-sm border-l-2 border-[#16A34A] pl-3">
                       {player.ageGroup} • #{player.number}
                     </p>
                   </div>
@@ -106,7 +106,7 @@ export const PlayerCarousel = () => {
           </Link>
           <Link
             to="/scouts"
-            className="text-[#D97706] font-bold hover:underline"
+            className="text-[#15803D] font-bold hover:underline"
           >
             For Scouts: Download Player Catalogue (PDF) →
           </Link>

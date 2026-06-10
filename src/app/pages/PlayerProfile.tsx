@@ -17,7 +17,6 @@ import { SEO } from "../components/SEO";
 import { athleteJsonLd, breadcrumbJsonLd } from "../../lib/jsonld";
 import {
   MotionSection,
-  ScrollProgress,
   GradientMesh,
   GrainOverlay,
 } from "@/app/components/ui/motion";
@@ -40,7 +39,7 @@ export const PlayerProfile = () => {
           noIndex
         />
         <div className="text-center max-w-md">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-4">
+          <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-4">
             404 — Scholar Not Found
           </span>
           <h1 className="text-[#0F172A] text-3xl md:text-4xl font-bold mb-4">
@@ -64,7 +63,6 @@ export const PlayerProfile = () => {
 
   return (
     <div className="animate-fade-in-up pb-20 bg-gray-50">
-      <ScrollProgress />
       <SEO
         path={`/players/${player.id}`}
         title={`${player.name} — ${player.position} | The Maker Scholar`}
@@ -132,7 +130,7 @@ export const PlayerProfile = () => {
                             className="w-full h-full object-cover"
                         />
                         <div className="absolute bottom-4 left-4">
-                            <span className="bg-[#D97706] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                            <span className="bg-[#15803D] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                                 SCHOLAR SINCE {player.joined}
                             </span>
                         </div>

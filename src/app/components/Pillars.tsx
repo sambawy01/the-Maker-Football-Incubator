@@ -40,7 +40,7 @@ export const Pillars = () => {
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="text-center mb-16">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+          <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
             Our Methodology
           </span>
           <h2

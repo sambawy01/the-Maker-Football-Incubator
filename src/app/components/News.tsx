@@ -10,7 +10,7 @@ const newsItems = [
     title: "Mido Appointed Sporting Director at Enosis Paralimni FC",
     date: "12 Oct 2025",
     category: "Partnership",
-    color: "bg-[#D97706]",
+    color: "bg-[#16A34A]",
     image: "https://i.ibb.co/v6rbyq0F/Screenshot-2026-02-17-at-9-51-04-PM.png",
     excerpt: "A strategic move that opens a direct pathway for The Maker’s scholars to European football.",
     link: "https://www.kingfut.com/2025/06/07/mido-joins-enosis-neon-paralimniou-in-scouting-and-recruitment-role/"
@@ -20,7 +20,7 @@ const newsItems = [
     title: "The Maker U-16 Squad Wins National Schools Tournament",
     date: "28 Sep 2025",
     category: "Tournament",
-    color: "bg-teal-600",
+    color: "bg-[#15803D]",
     image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHNvY2NlciUyMHRlYW0lMjBsaWZ0aW5nJTIwdHJvcGh5fGVufDF8fHx8MTc3MTM0MjYyNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     excerpt: "Dominant performance sees our young talents take home the trophy against 160 competing teams."
   },
@@ -29,7 +29,7 @@ const newsItems = [
     title: "New Podcast Episode: Shikabala on Loyalty and Passion",
     date: "15 Sep 2025",
     category: "Podcast",
-    color: "bg-purple-600",
+    color: "bg-[#0F172A]",
     image: "https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwbWljcm9waG9uZXxlbnwxfHx8fDE3NzEzNDI2MjR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     excerpt: "The legendary Apache joins Mido and Yousra for a record-breaking episode reaching 20M views."
   }
@@ -47,7 +47,7 @@ export const News = () => {
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+            <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
               Latest News
             </span>
             <h2

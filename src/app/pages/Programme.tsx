@@ -9,8 +9,15 @@ import {
   GradientMesh,
   GrainOverlay,
   MagneticButton,
-  ScrollProgress,
 } from "../components/ui/motion";
+
+// Lazy-mount ScrollProgress so framer-motion's useScroll/useSpring don't ship
+// in Programme's initial JS graph.
+const ScrollProgress = React.lazy(() =>
+  import("../components/ui/motion/ScrollProgress").then((m) => ({
+    default: m.ScrollProgress,
+  }))
+);
 import {
   fadeUp,
   stagger,
@@ -58,10 +65,10 @@ const pillars = [
 // NEW: Sports Science Center
 const SportsScience = () => {
     return (
-        <MotionSection ariaLabelledby="science-heading" className="py-24 bg-purple-50/30 border-t border-purple-100">
+        <MotionSection ariaLabelledby="science-heading" className="py-24 bg-slate-50 border-t border-slate-200">
              <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                  <div className="text-center mb-16">
-                    <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+                    <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
                         Football Backed By Science
                     </span>
                     <h2 id="science-heading" className="text-[#0F172A] text-4xl font-bold mb-4">The Maker Sports Science Center</h2>
@@ -86,9 +93,9 @@ const SportsScience = () => {
                         <MotionCard
                           key={i}
                           variants={fadeUp}
-                          className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-purple-600"
+                          className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-[#15803D]"
                         >
-                            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+                            <div className="w-12 h-12 bg-[#16A34A]/10 rounded-full flex items-center justify-center text-[#15803D] mb-4">
                                 <item.icon size={24} />
                             </div>
                             <h3 className="font-bold text-[#0F172A] text-lg mb-2">{item.title}</h3>
@@ -107,7 +114,7 @@ const PlayerPathway = () => {
         <MotionSection ariaLabelledby="pathway-heading" className="py-24 bg-[#F8FAFC]">
              <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                 <div className="text-center mb-16">
-                    <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+                    <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
                         From Scout to Professional
                     </span>
                     <h2 id="pathway-heading" className="text-[#0F172A] text-4xl font-bold">The Maker Player Journey</h2>
@@ -155,12 +162,11 @@ const PlayerPathway = () => {
 const HolisticExperience = () => {
     return (
          <section className="relative bg-[#0F172A] py-24 overflow-hidden" aria-labelledby="holistic-heading">
-             <GradientMesh variant="green-slate" opacity={0.35} />
              <GrainOverlay opacity={0.05} />
              <MotionSection ariaLabelledby="holistic-heading" className="relative z-10">
                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                   <div className="text-center mb-16">
-                      <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+                      <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-2">
                           A Holistic Experience
                       </span>
                       <h2 id="holistic-heading" className="text-white text-4xl font-bold">More Than Training. A Home.</h2>
@@ -219,9 +225,9 @@ const Schedule = () => {
 
   const typeColors = {
     football: "bg-[#16A34A]",
-    education: "bg-blue-500",
-    mental: "bg-purple-500",
-    physical: "bg-orange-500"
+    education: "bg-slate-600",
+    mental: "bg-slate-400",
+    physical: "bg-slate-200",
   };
 
   return (
@@ -250,9 +256,9 @@ const Schedule = () => {
         </motion.div>
         <div className="flex justify-center gap-6 mt-12 text-xs text-slate-600">
             <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#16A34A]"></div>Football</div>
-            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-blue-500"></div>Education</div>
-            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-purple-500"></div>Mental</div>
-            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-orange-500"></div>Physical</div>
+            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-slate-600"></div>Education</div>
+            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-slate-400"></div>Mental</div>
+            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-slate-200 border border-slate-300"></div>Physical</div>
         </div>
       </div>
     </MotionSection>
@@ -263,11 +269,11 @@ const Schedule = () => {
 const ApplyCTA = () => {
   return (
     <section className="relative bg-[#0F172A] py-24 overflow-hidden" aria-labelledby="apply-cta-heading">
-      <GradientMesh variant="green-slate" opacity={0.45} />
+      <GradientMesh variant="slate" opacity={0.45} />
       <GrainOverlay opacity={0.05} />
       <MotionSection ariaLabelledby="apply-cta-heading" className="relative z-10">
         <div className="max-w-[900px] mx-auto px-4 md:px-8 text-center">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-3">
+          <span className="text-[#16A34A] font-bold text-sm tracking-widest uppercase block mb-3">
             Join The Cohort
           </span>
           <h2 id="apply-cta-heading" className="text-white text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -290,7 +296,9 @@ const ApplyCTA = () => {
 export const Programme = () => {
   return (
     <div className="animate-fade-in-up">
-      <ScrollProgress />
+      <React.Suspense fallback={null}>
+        <ScrollProgress />
+      </React.Suspense>
       <SEO
         path="/programme"
         title="The Programme — The Maker Football Incubator"

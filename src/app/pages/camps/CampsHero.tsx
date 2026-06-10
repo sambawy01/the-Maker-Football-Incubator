@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "../../components/ui/Button";
 import { Flame } from "lucide-react";
 import {
@@ -25,11 +25,12 @@ import { fadeUp, staggerSlow } from "../../../lib/motion";
  * MagneticButton. All primitives respect prefers-reduced-motion.
  */
 export const CampsHero: React.FC = () => {
+  const reduced = useReducedMotion();
   return (
     <motion.section
       aria-labelledby="camps-hero-heading"
       className="relative w-full min-h-[640px] md:min-h-[720px] flex items-center overflow-hidden bg-[#0F172A]"
-      initial="hidden"
+      initial={reduced ? "visible" : "hidden"}
       animate="visible"
       variants={staggerSlow}
     >

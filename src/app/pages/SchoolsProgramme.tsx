@@ -209,7 +209,7 @@ export const SchoolsProgramme = () => {
         className="max-w-7xl mx-auto px-4 py-24"
       >
         <div className="text-center mb-14">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-3">
+          <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-3">
             What schools get
           </span>
           <h2
@@ -234,8 +234,7 @@ export const SchoolsProgramme = () => {
           {benefits.map((b) => (
             <MotionCard
               key={b.title}
-              glass="light"
-              className="rounded-2xl p-6"
+              className="rounded-2xl p-6 bg-white border border-slate-100 shadow-sm"
               as="article"
             >
               <h3 className="font-bold text-[#0F172A] text-lg mb-2">{b.title}</h3>
@@ -250,7 +249,6 @@ export const SchoolsProgramme = () => {
         aria-labelledby="howitworks-heading"
         className="relative overflow-hidden bg-[#0F172A] text-white py-24"
       >
-        <GradientMesh variant="green-slate" opacity={0.4} />
         <GrainOverlay opacity={0.04} />
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <motion.div
@@ -307,8 +305,7 @@ export const SchoolsProgramme = () => {
           Partner testimonial
         </h2>
         <MotionCard
-          glass="light"
-          className="rounded-2xl p-8 md:p-12 border border-[#16A34A]/15"
+          className="rounded-2xl p-8 md:p-12 bg-white border border-slate-100 shadow-sm"
         >
           <p className="text-xl md:text-2xl text-[#0F172A] leading-relaxed font-light mb-6">
             "Working with The Maker turned our PE sessions into a real player-development
@@ -352,7 +349,7 @@ export const SchoolsProgramme = () => {
         aria-labelledby="cta-heading"
         className="relative overflow-hidden bg-[#0F172A] text-white py-24"
       >
-        <GradientMesh variant="green" opacity={0.55} />
+        <GradientMesh variant="slate" opacity={0.55} />
         <GrainOverlay opacity={0.05} />
         <motion.div
           initial={initial}

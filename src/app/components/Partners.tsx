@@ -12,10 +12,10 @@ interface PartnerEntry {
 // Duplicated in source so the marquee loop reads as a long ribbon even before
 // MarqueeStrip's internal duplication kicks in.
 const partners: PartnerEntry[] = [
-  { name: "OPPO", tier: "Strategic Partner", tierColor: "text-[#16A34A]", textColor: "text-green-600" },
-  { name: "UC Developments", tier: "Diamond Sponsor", tierColor: "text-blue-900", textColor: "text-blue-900" },
-  { name: "Regina Pasta", tier: "Gold Sponsor", tierColor: "text-[#D97706]", textColor: "text-[#D97706]" },
-  { name: "Nagwa Classes", tier: "Education Sponsor", tierColor: "text-blue-600", textColor: "text-blue-600" },
+  { name: "OPPO", tier: "Strategic Partner", tierColor: "text-[#15803D]", textColor: "text-[#15803D]" },
+  { name: "UC Developments", tier: "Diamond Sponsor", tierColor: "text-[#0F172A]", textColor: "text-[#0F172A]" },
+  { name: "Regina Pasta", tier: "Gold Sponsor", tierColor: "text-[#15803D]", textColor: "text-[#15803D]" },
+  { name: "Nagwa Classes", tier: "Education Sponsor", tierColor: "text-[#15803D]", textColor: "text-[#15803D]" },
 ];
 
 export const Partners = () => {
@@ -26,7 +26,7 @@ export const Partners = () => {
     >
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="text-center mb-16">
-          <span className="text-[#D97706] font-bold text-sm tracking-widest uppercase block mb-2">
+          <span className="text-[#15803D] font-bold text-sm tracking-widest uppercase block mb-2">
             Our Partners
           </span>
           <h2
@@ -44,6 +44,7 @@ export const Partners = () => {
           pauseOnHover
           className="py-8"
           gap="4rem"
+          as="ul"
         >
           {partners.map((p) => (
             <div
@@ -99,6 +100,7 @@ export const Partners = () => {
             pauseOnHover
             className="py-2"
             gap="3rem"
+            as="ul"
           >
             {[
               "ON TIME SPORTS",
