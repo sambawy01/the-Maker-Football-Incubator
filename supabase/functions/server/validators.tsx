@@ -69,6 +69,76 @@ export interface ScoutApplicationInput {
   website?: string;
 }
 
+// Camp application — public form for parents enrolling a player.
+export const ALLOWED_CAMP_AGE_GROUPS = [
+  "U-10",
+  "U-12",
+  "U-14",
+  "U-16",
+  "U-18",
+] as const;
+export type CampAgeGroup = typeof ALLOWED_CAMP_AGE_GROUPS[number];
+
+function isAllowedCampAgeGroup(s: string): s is CampAgeGroup {
+  return (ALLOWED_CAMP_AGE_GROUPS as readonly string[]).includes(s);
+}
+
+// Preferred camp ids are the slugs from src/lib/camps.ts plus "not-sure".
+// Kept here as a literal allow-list so the server is self-contained and
+// doesn't import the frontend.
+export const ALLOWED_PREFERRED_CAMPS = [
+  "winter-2026",
+  "summer-elite-2027",
+  "international-2027",
+  "year-round-2027",
+  "not-sure",
+] as const;
+export type PreferredCamp = typeof ALLOWED_PREFERRED_CAMPS[number];
+
+function isAllowedPreferredCamp(s: string): s is PreferredCamp {
+  return (ALLOWED_PREFERRED_CAMPS as readonly string[]).includes(s);
+}
+
+// Optional position field — same shape as the contact form's, but with a
+// "not-sure" escape hatch since this form is parent-facing.
+export const ALLOWED_CAMP_POSITIONS = [
+  "gk",
+  "defender",
+  "midfielder",
+  "forward",
+  "not-sure",
+] as const;
+export type CampPosition = typeof ALLOWED_CAMP_POSITIONS[number];
+
+function isAllowedCampPosition(s: string): s is CampPosition {
+  return (ALLOWED_CAMP_POSITIONS as readonly string[]).includes(s);
+}
+
+// Loose ISO date check — YYYY-MM-DD. Date parse must succeed and the value
+// must not be in the future (DOBs are always past).
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+function isPastIsoDate(s: string): boolean {
+  if (!ISO_DATE_RE.test(s)) return false;
+  const t = Date.parse(s);
+  if (Number.isNaN(t)) return false;
+  return t <= Date.now();
+}
+
+export interface CampApplicationInput {
+  parentName: string;
+  parentEmail: string;
+  parentPhone: string;
+  playerName: string;
+  playerDob: string;
+  playerAgeGroup: CampAgeGroup;
+  preferredCamp: PreferredCamp;
+  position?: CampPosition;
+  medicalNotes?: string;
+  message?: string;
+  consent: true;
+  website?: string;
+}
+
 // ---------- validateContact ----------
 
 export function validateContact(
@@ -183,6 +253,106 @@ export function validateScoutApplication(
       organization,
       country,
       position,
+      message,
+      consent: true,
+      website: isString(b.website) ? b.website : undefined,
+    },
+  };
+}
+
+// ---------- validateCampApplication ----------
+
+export function validateCampApplication(
+  body: unknown,
+): ValidationResult<CampApplicationInput> {
+  const errors: Record<string, string> = {};
+  const b = (body ?? {}) as Record<string, unknown>;
+
+  const parentName = trimStr(b.parentName);
+  if (!lenBetween(parentName, 2, 100)) {
+    errors.parentName = "Parent name must be 2-100 characters.";
+  }
+
+  const parentEmail = trimStr(b.parentEmail).toLowerCase();
+  if (!isEmail(parentEmail)) {
+    errors.parentEmail = "Valid email required.";
+  }
+
+  const parentPhone = trimStr(b.parentPhone);
+  if (!PHONE_RE.test(parentPhone)) {
+    errors.parentPhone = "Phone format invalid.";
+  }
+
+  const playerName = trimStr(b.playerName);
+  if (!lenBetween(playerName, 2, 100)) {
+    errors.playerName = "Player name must be 2-100 characters.";
+  }
+
+  const playerDob = trimStr(b.playerDob);
+  if (!isPastIsoDate(playerDob)) {
+    errors.playerDob = "Valid date of birth required (YYYY-MM-DD).";
+  }
+
+  const playerAgeGroup = trimStr(b.playerAgeGroup);
+  if (!isAllowedCampAgeGroup(playerAgeGroup)) {
+    errors.playerAgeGroup = "Age group not allowed.";
+  }
+
+  const preferredCamp = trimStr(b.preferredCamp);
+  if (!isAllowedPreferredCamp(preferredCamp)) {
+    errors.preferredCamp = "Preferred camp not allowed.";
+  }
+
+  let position: CampPosition | undefined;
+  if (b.position !== undefined && b.position !== null && trimStr(b.position) !== "") {
+    const p = trimStr(b.position).toLowerCase();
+    if (!isAllowedCampPosition(p)) {
+      errors.position = "Position not allowed.";
+    } else {
+      position = p;
+    }
+  }
+
+  let medicalNotes: string | undefined;
+  if (b.medicalNotes !== undefined && b.medicalNotes !== null) {
+    const m = trimStr(b.medicalNotes);
+    if (m.length > 2000) {
+      errors.medicalNotes = "Medical notes must be 2000 characters or fewer.";
+    } else if (m.length > 0) {
+      medicalNotes = m;
+    }
+  }
+
+  let message: string | undefined;
+  if (b.message !== undefined && b.message !== null) {
+    const m = trimStr(b.message);
+    if (m.length > 2000) {
+      errors.message = "Message must be 2000 characters or fewer.";
+    } else if (m.length > 0) {
+      message = m;
+    }
+  }
+
+  if (b.consent !== true) {
+    errors.consent = "Consent required.";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { ok: false, errors };
+  }
+
+  return {
+    ok: true,
+    value: {
+      parentName,
+      parentEmail,
+      parentPhone,
+      playerName,
+      playerDob,
+      playerAgeGroup: playerAgeGroup as CampAgeGroup,
+      preferredCamp: preferredCamp as PreferredCamp,
+      position,
+      medicalNotes,
       message,
       consent: true,
       website: isString(b.website) ? b.website : undefined,
