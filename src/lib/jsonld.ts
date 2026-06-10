@@ -174,6 +174,60 @@ export function faqPageJsonLd(faqs: FaqEntry[]): JsonLd {
   };
 }
 
+/**
+ * EducationalOrganization schema for the year-round academy programme.
+ * Layered on top of the SportsOrganization (organizationJsonLd) — Google
+ * supports multi-typing but the easier path is to emit a focused
+ * EducationalOrganization entity here so the /academies page can advertise
+ * the educational dimension of the holistic 4-pillar programme.
+ */
+export const academyJsonLd: JsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": `${siteUrl}/academies#academy`,
+  name: "The Maker Football Academy",
+  alternateName: "The Maker Academy",
+  url: `${siteUrl}/academies`,
+  logo: defaultOgImage,
+  image: defaultOgImage,
+  description:
+    "Year-round, scholarship-first football academy by Ahmed 'Mido' Hossam. Holistic training, education, nutrition, and culture for U-10 to U-18 players across Egypt.",
+  parentOrganization: { "@id": ORG_ID },
+  founder: {
+    "@type": "Person",
+    name: "Ahmed 'Mido' Hossam",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Ezbet Fahmy, El Basatin",
+    addressLocality: "Cairo",
+    addressRegion: "Cairo Governorate",
+    postalCode: "11431",
+    addressCountry: "EG",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Egypt",
+  },
+  educationalCredentialAwarded:
+    "Scholarship placement in the year-round Maker Football Incubator (training, education, nutrition, and culture pillars).",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Maker Academy Scholarship",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "Year-Round Scholarship",
+        description:
+          "Fully-funded scholarship covering training, kit, meals, transport stipend, and education support for selected scholars.",
+        price: "0",
+        priceCurrency: "EGP",
+        eligibleRegion: { "@type": "Country", name: "Egypt" },
+      },
+    ],
+  },
+};
+
 /** LocalBusiness for the Contact page (so Google Maps / knowledge panels can pick it up). */
 export const localBusinessJsonLd: JsonLd = {
   "@context": "https://schema.org",
